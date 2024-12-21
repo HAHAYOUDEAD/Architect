@@ -1,4 +1,5 @@
 # Architect
+![Poster](images/promo1.png)
 ## Features:
 - Modular base building system
 - 2 building types: planks and logs (currently only differ in appearance)
