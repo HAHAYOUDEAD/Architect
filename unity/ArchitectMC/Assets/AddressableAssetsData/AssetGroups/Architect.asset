@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Architect
+  m_EditorClassIdentifier: 
+  m_GroupName: Architect
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 180854eb52ac21f4993509f3960e54cd
+  m_SerializeEntries:
+  - m_GUID: b56cfb72249ae234ea267c5a2b18fca0
+    m_Address: GEAR_ARC_nails
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a65b0a88e512a854fb10488f458f51d4
+    m_Address: GEAR_ARC_nailbox
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 438d124c027ad4e46b39aa17af555bf3
+    m_Address: GEAR_ARC_plankbundle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5c35b958a5776554f843bf6c513b5f54
+    m_Address: ico_GearItem__ARC_nails
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 95828fbf8590ab7429a2511af029c2cf
+    m_Address: ico_GearItem__ARC_nailbox
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e21d34943537cf24bb144e80aa5fd1a8
+    m_Address: ico_GearItem__ARC_plankbundle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c7a9bc905048a8545bd6aa0e6aeab51e
+    m_Address: ico_GearItem__ARC_logbundle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f33107ad40a0cd2499ff0ab6fdfb4c50
+    m_Address: GEAR_ARC_logbundle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 82a8176cc5518424897893f56277f770
+    m_Address: GEAR_ARC_plank
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2e1d555028c93924393fdc77a9236a0b
+    m_Address: GEAR_ARC_log
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 21a37ae081a791149bc31363843483b4
+    m_Address: ico_GearItem__ARC_plank
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 61215ce22c4851347a5fdc1facc0ce98
+    m_Address: ico_GearItem__ARC_log
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fd7f424eaaf85e749be6cc210157891f
+    m_Address: ico_CraftItem__ARC_nails
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3bbbfb4f2b6b6574eaa02eafd11de7d1
+    m_Address: ico_CraftItem__ARC_nailbox
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2e1b755e5e3a2df4db1ce37e45d29434
+    m_Address: ico_CraftItem__ARC_log
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d41942fbd962e31488fefc0a36be6319
+    m_Address: ico_CraftItem__ARC_logbundle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 183f1a8e6f4732e449ab8418615678f4
+    m_Address: ico_CraftItem__ARC_plank
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0b1a8e3317cb621469158edaf3768888
+    m_Address: ico_CraftItem__ARC_plankbundle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: d988a583a649bf5499394a0993507643, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: ab27278e54e757542b07f47fa4c52f3f, type: 2}

@@ -1,0 +1,181 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &261629336502391106
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 642518115090664440}
+  - component: {fileID: 4559179145815557213}
+  - component: {fileID: 1774842728688152727}
+  - component: {fileID: 976985878527836979}
+  - component: {fileID: -381333034628457143}
+  - component: {fileID: -8380640959630445431}
+  - component: {fileID: -5869684347235147965}
+  m_Layer: 0
+  m_Name: GEAR_ARC_plankbundle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &642518115090664440
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261629336502391106}
+  m_LocalRotation: {x: 0.000000021855694, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &4559179145815557213
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261629336502391106}
+  m_Mesh: {fileID: 6362925609828369093, guid: 50e9e1dec64849b4992391b0810c405d, type: 3}
+--- !u!23 &1774842728688152727
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261629336502391106}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 0afece38f90893146b35c60d003036f3, type: 2}
+  - {fileID: 2100000, guid: 50b120e5b07b2a54db2ca9d2af439438, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &976985878527836979
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261629336502391106}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.41693804, y: 0.55513126, z: 3.5258281}
+  m_Center: {x: 0, y: 0.27756563, z: 0.0038909912}
+--- !u!114 &-381333034628457143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261629336502391106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b791cf8328f045d45bf04b4f116cb5bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DisplayNameLocalizationId: GAMEPLAY_ARC_PlankBundle
+  DescriptionLocalizatonId: GAMEPLAY_ARC_PlankBundle_description
+  InventoryActionLocalizationId: 
+  WeightKG: 10
+  DaysToDecay: 0
+  MaxHP: 100
+  InitialCondition: 1
+  InventoryCategory: 5
+  PickUpAudio: {fileID: 11400000, guid: 846efd8f8136cb94a9bff79601d1dc28, type: 2}
+  PutBackAudio: {fileID: 11400000, guid: 846efd8f8136cb94a9bff79601d1dc28, type: 2}
+  StowAudio: {fileID: 11400000, guid: 846efd8f8136cb94a9bff79601d1dc28, type: 2}
+  WornOutAudio: {fileID: 11400000, guid: 846efd8f8136cb94a9bff79601d1dc28, type: 2}
+  InspectOnPickup: 1
+  InspectDistance: 1
+  InspectAngles: {x: 19, y: 224, z: 3}
+  InspectOffset: {x: 0, y: 0, z: 0}
+  InspectScale: {x: 0.4, y: 0.4, z: 0.4}
+  NormalModel: {fileID: 0}
+  InspectModel: {fileID: 0}
+--- !u!114 &-8380640959630445431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261629336502391106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 083d6eb84684b5f4a81cbc026db4e0aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BurningMinutes: 540
+  BurningMinutesBeforeAllowedToAdd: 60
+  SuccessModifier: -5
+  TempIncrease: 6
+  DurationOffset: 10
+--- !u!114 &-5869684347235147965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261629336502391106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b360e647930687e44be00c8e1cbabafd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: ARC_openPlankBundle
+  RequiredGear:
+  - GearItem: {fileID: 11400000, guid: 540ef5669ce238845a5cf48f43bda486, type: 2}
+    Count: 1
+    Units: 0
+  RequiredPowder: []
+  RequiredLiquid: []
+  RequiredTool: {fileID: 0}
+  OptionalTools: []
+  RequiredCraftingLocation: 0
+  RequiresLitFire: 0
+  RequiresLight: 0
+  CraftedResult: {fileID: 11400000, guid: de4245341c4afed448e6547de2ed4748, type: 2}
+  CraftedResultCount: 8
+  DurationMinutes: 10
+  CraftingAudio: {fileID: 11400000, guid: 0d38e8cfd0c6c7446b1a5820a2fb52b8, type: 2}
+  AppliedSkill: 0
+  ImprovedSkill: 0

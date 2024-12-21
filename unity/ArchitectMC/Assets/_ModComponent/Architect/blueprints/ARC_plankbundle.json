@@ -1,0 +1,23 @@
+{
+  "Name": "ARC_openPlankBundle",
+  "RequiredGear": [
+    {
+      "Item": "GEAR_ARC_plankbundle",
+      "Count": 1,
+      "Units": "Count"
+    }
+  ],
+  "RequiredPowder": [],
+  "RequiredLiquid": [],
+  "RequiredTool": "",
+  "OptionalTools": [],
+  "RequiredCraftingLocation": "Anywhere",
+  "RequiresLitFire": false,
+  "RequiresLight": false,
+  "CraftedResult": "GEAR_ARC_plank",
+  "CraftedResultCount": 8,
+  "DurationMinutes": 10,
+  "CraftingAudio": "Play_SndInvWoodMedium",
+  "AppliedSkill": "None",
+  "ImprovedSkill": "None"
+}

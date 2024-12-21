@@ -1,0 +1,28 @@
+{
+  "Name": "ARC_bundleLogs",
+  "RequiredGear": [
+    {
+      "Item": "GEAR_ARC_log",
+      "Count": 3,
+      "Units": "Count"
+    },
+    {
+      "Item": "GEAR_Cloth",
+      "Count": 1,
+      "Units": "Count"
+    }
+  ],
+  "RequiredPowder": [],
+  "RequiredLiquid": [],
+  "RequiredTool": "",
+  "OptionalTools": [],
+  "RequiredCraftingLocation": "Anywhere",
+  "RequiresLitFire": false,
+  "RequiresLight": false,
+  "CraftedResult": "GEAR_ARC_logbundle",
+  "CraftedResultCount": 1,
+  "DurationMinutes": 20,
+  "CraftingAudio": "Play_SndInvWoodMedium",
+  "AppliedSkill": "None",
+  "ImprovedSkill": "None"
+}

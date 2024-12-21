@@ -1,0 +1,23 @@
+{
+  "Name": "ARC_packNails",
+  "RequiredGear": [
+    {
+      "Item": "GEAR_ARC_nails",
+      "Count": 20,
+      "Units": "Count"
+    }
+  ],
+  "RequiredPowder": [],
+  "RequiredLiquid": [],
+  "RequiredTool": "",
+  "OptionalTools": [],
+  "RequiredCraftingLocation": "Anywhere",
+  "RequiresLitFire": false,
+  "RequiresLight": false,
+  "CraftedResult": "GEAR_ARC_nailbox",
+  "CraftedResultCount": 1,
+  "DurationMinutes": 10,
+  "CraftingAudio": "Play_SearchGlovebox",
+  "AppliedSkill": "None",
+  "ImprovedSkill": "None"
+}

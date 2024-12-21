@@ -1,0 +1,183 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3027287458211902831
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2398383731531804629}
+  - component: {fileID: 1650321730356928624}
+  - component: {fileID: 3531923369099826362}
+  - component: {fileID: 3600422250175239430}
+  - component: {fileID: -352646280934326652}
+  - component: {fileID: 3057833779353454311}
+  - component: {fileID: 352210492390535851}
+  m_Layer: 0
+  m_Name: GEAR_ARC_nails
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2398383731531804629
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3027287458211902831}
+  m_LocalRotation: {x: 0.000000021855694, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &1650321730356928624
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3027287458211902831}
+  m_Mesh: {fileID: 919733570195668721, guid: 26a2b692cef90dd46b3aa162ca2d8cff, type: 3}
+--- !u!23 &3531923369099826362
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3027287458211902831}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 50b120e5b07b2a54db2ca9d2af439438, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &3600422250175239430
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3027287458211902831}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.096198976, y: 0.034666147, z: 0.1817039}
+  m_Center: {x: 0.008969424, y: 0.016987784, z: -0.013411794}
+--- !u!114 &-352646280934326652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3027287458211902831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b791cf8328f045d45bf04b4f116cb5bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DisplayNameLocalizationId: GAMEPLAY_ARC_Nails
+  DescriptionLocalizatonId: GAMEPLAY_ARC_Nails_description
+  InventoryActionLocalizationId: 
+  WeightKG: 0.1
+  DaysToDecay: 0
+  MaxHP: 100
+  InitialCondition: 0
+  InventoryCategory: 5
+  PickUpAudio: {fileID: 11400000, guid: 102e2d8348ea92344a60b320fae32f08, type: 2}
+  PutBackAudio: {fileID: 11400000, guid: 102e2d8348ea92344a60b320fae32f08, type: 2}
+  StowAudio: {fileID: 11400000, guid: 102e2d8348ea92344a60b320fae32f08, type: 2}
+  WornOutAudio: {fileID: 11400000, guid: 102e2d8348ea92344a60b320fae32f08, type: 2}
+  InspectOnPickup: 1
+  InspectDistance: 1
+  InspectAngles: {x: 31, y: 214, z: 27}
+  InspectOffset: {x: 0, y: 0, z: 0}
+  InspectScale: {x: 2, y: 2, z: 2}
+  NormalModel: {fileID: 0}
+  InspectModel: {fileID: 0}
+--- !u!114 &3057833779353454311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3027287458211902831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8181b3dd6e8f5b143a90a869d85f7cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SingleUnitTextId: GAMEPLAY_ARC_Nails
+  MultipleUnitTextId: GAMEPLAY_ARC_Nails
+  StackSprite: 
+  UnitsPerItem: 1
+  ChanceFull: 100
+  ShareStackWithGear: []
+  InstantiateStackItem: {fileID: 0}
+  StackConditionDifferenceConstraint: 100
+--- !u!114 &352210492390535851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3027287458211902831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b360e647930687e44be00c8e1cbabafd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: ARC_packNails
+  RequiredGear:
+  - GearItem: {fileID: 11400000, guid: 2fcefdac9ab5b1a4797c7b595f389287, type: 2}
+    Count: 20
+    Units: 0
+  RequiredPowder: []
+  RequiredLiquid: []
+  RequiredTool: {fileID: 0}
+  OptionalTools: []
+  RequiredCraftingLocation: 0
+  RequiresLitFire: 0
+  RequiresLight: 0
+  CraftedResult: {fileID: 11400000, guid: 73be9a42419e35e49aeb06a5380cb0df, type: 2}
+  CraftedResultCount: 1
+  DurationMinutes: 10
+  CraftingAudio: {fileID: 11400000, guid: 22fc17c5e2d5c5042b923efe7eb50a62, type: 2}
+  AppliedSkill: 0
+  ImprovedSkill: 0

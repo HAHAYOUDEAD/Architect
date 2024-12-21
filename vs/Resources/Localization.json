@@ -1,0 +1,348 @@
+﻿{
+  "placeholderLocalizationKey": {
+
+    "English": "P L A C E H O L D E R",
+    "Russian": "З А Г Л У Ш К А"
+  },
+
+
+  "ARC_Interface_BreakingDownWillCost": {
+
+    "English": "Building will cost",
+    "Russian": "Стоимость строительства"
+  },
+  "ARC_Interface_Yield": {
+
+    "English": "Requirement",
+    "Russian": "Требуется"
+  },
+  "ARC_Interface_BreakDown": {
+
+    "English": "Construct",
+    "Russian": "Строительсво"
+  },
+  "ARC_Interface_BreakDownButFunny": {
+
+    "English": "Erect",
+    "Russian": ""
+  },
+  "ARC_Interface_BreakingDownProgress": {
+
+    "English": "Building...",
+    "Russian": "Строится..."
+  },
+  "ARC_Interface_OutOf": {
+
+    "English": " out of ",
+    "Russian": " из "
+  },
+  "ARC_Interface_NotEnoughMaterials": {
+
+    "English": "Not enough materials to build",
+    "Russian": "Недостаточно ресурсов для строительства"
+  },
+  "ARC_Interface_RequiresToolToBreakDown": {
+
+    "English": "Requires {tool-name} to build",
+    "Russian": "Для строительства требуется: {tool-name}"
+  },
+
+
+  "ARC_ToggleBuildingModeON": {
+
+    "English": "Enable Building Mode",
+    "Russian": "Включить Режим Строительства"
+  },
+  "ARC_ToggleBuildingModeOFF": {
+
+    "English": "Disable Building Mode",
+    "Russian": "Выключить Режим Строительства"
+  },
+
+
+
+  "ARC_RadialMenuBack": {
+
+    "English": "BACK",
+    "Russian": "НАЗАД"
+  },
+
+
+
+  "ARC_InteractionBuild": {
+
+    "English": "Build",
+    "Russian": "Построить"
+  },
+  "ARC_InteractionMove": {
+
+    "English": "Place",
+    "Russian": "Разместить"
+  },
+  "ARC_InteractionMovePrecise": {
+
+    "English": "Nudge",
+    "Russian": "Подвинуть"
+  },
+  "ARC_InteractionBreakdown": {
+
+    "English": "Dismantle",
+    "Russian": "Разобрать"
+  },
+  "ARC_InteractionPaint": {
+
+    "English": "Paint",
+    "Russian": "Покрасить"
+  },
+  "ARC_InteractionClone": {
+
+    "English": "Clone",
+    "Russian": "Скопировать"
+  },
+  "ARC_InteractionDelete": {
+
+    "English": "Delete",
+    "Russian": "Удалить"
+  },
+  "ARC_WindowInteractOpen": {
+
+    "English": "Open Window",
+    "Russian": "Открыть Окно"
+  },
+  "ARC_WindowInteractClose": {
+
+    "English": "Close Window",
+    "Russian": "Закрыть Окно"
+  },
+
+
+
+  "ARC_PlankMaterialType": {
+
+    "English": "Plank structure",
+    "Russian": ""
+  },
+  "ARC_LogMaterialType": {
+
+    "English": "Log structure",
+    "Russian": ""
+  },
+  "ARC_StoneMaterialType": {
+
+    "English": "Stone structure",
+    "Russian": ""
+  },
+  "ARC_MetalMaterialType": {
+
+    "English": "Metal structure",
+    "Russian": ""
+  },
+
+
+
+  "ARC_Walls": {
+
+    "English": "Walls",
+    "Russian": ""
+  },
+  "ARC_Floors": {
+
+    "English": "Floors",
+    "Russian": ""
+  },
+  "ARC_Roofs": {
+
+    "English": "Roofs",
+    "Russian": ""
+  },
+  "ARC_Pillars": {
+
+    "English": "Pillars",
+    "Russian": ""
+  },
+  "ARC_Stairs": {
+
+    "English": "Stairs",
+    "Russian": ""
+  },
+  "ARC_Interactive": {
+
+    "English": "Interactive",
+    "Russian": ""
+  },
+  "ARC_Misc": {
+
+    "English": "Miscellaneous",
+    "Russian": ""
+  },
+  "ARC_Deco": {
+
+    "English": "Decoration",
+    "Russian": ""
+  },
+
+
+
+
+  "ARC_WallRegular": {
+
+    "English": "Regular wall",
+    "Russian": ""
+  },
+  "ARC_WallHalf": {
+
+    "English": "Half wall",
+    "Russian": ""
+  },
+  "ARC_WallNarrow": {
+
+    "English": "Narrow wall",
+    "Russian": ""
+  },
+  "ARC_WallQuarter": {
+
+    "English": "Quarter wall",
+    "Russian": ""
+  },
+  "ARC_WallCornerInner": {
+
+    "English": "Inner corner",
+    "Russian": ""
+  },
+  "ARC_WallCornerOuter": {
+
+    "English": "Outer corner",
+    "Russian": ""
+  },
+  "ARC_WallWindow": {
+
+    "English": "Window opening",
+    "Russian": ""
+  },
+  "ARC_WallDoor": {
+
+    "English": "Door opening",
+    "Russian": ""
+  },
+  "ARC_WallTriangleLeft": {
+
+    "English": "Left triangle",
+    "Russian": ""
+  },
+  "ARC_WallTriangleRight": {
+
+    "English": "Right triangle",
+    "Russian": ""
+  },
+  "ARC_WallLong": {
+
+    "English": "Long wall",
+    "Russian": ""
+  },
+
+
+  "ARC_FloorRegular": {
+
+    "English": "Regular floor",
+    "Russian": ""
+  },
+  "ARC_FloorStairs": {
+
+    "English": "Stairwell floor",
+    "Russian": ""
+  },
+  "ARC_FloorQuarter": {
+
+    "English": "Quarter floor",
+    "Russian": ""
+  },
+  "ARC_FloorElevated": {
+
+    "English": "Elevated floor",
+    "Russian": ""
+  },
+  "ARC_FoundationElevated": {
+
+    "English": "Elevated foundation",
+    "Russian": ""
+  },
+
+
+
+  "ARC_RoofRegular": {
+
+    "English": "Regular roof",
+    "Russian": ""
+  },
+
+  "ARC_Pillar": {
+
+    "English": "Pillar",
+    "Russian": ""
+  },
+  "ARC_Beam": {
+
+    "English": "Beam",
+    "Russian": ""
+  },
+
+
+  "ARC_DoorSimple": {
+
+    "English": "Simple door",
+    "Russian": ""
+  },
+  "ARC_DoorFancy": {
+
+    "English": "Fancy door",
+    "Russian": ""
+  },
+  "ARC_Scaffolding": {
+
+    "English": "Scaffolding",
+    "Russian": ""
+  },
+
+
+
+  "ARC_StairsHalf": {
+
+    "English": "Stairs",
+    "Russian": ""
+  },
+  "ARC_Ramp": {
+
+    "English": "Ramp",
+    "Russian": ""
+  },
+  "ARC_StairsFull": {
+
+    "English": "Long stairs",
+    "Russian": ""
+  },
+
+
+
+  "ARC_RailingEnd": {
+
+    "English": "Railing end",
+    "Russian": ""
+  },
+  "ARC_RailingShort": {
+
+    "English": "Short railing",
+    "Russian": ""
+  },
+  "ARC_RailingLong": {
+
+    "English": "Long railing",
+    "Russian": ""
+  },
+  "ARC_RailingSlanted": {
+
+    "English": "Slanted railing",
+    "Russian": ""
+  }
+
+
+}
