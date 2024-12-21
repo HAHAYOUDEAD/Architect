@@ -1,0 +1,49 @@
+{
+  "ModGenericComponent": {
+    "DisplayNameLocalizationId": "GAMEPLAY_ARC_Plank",
+    "DescriptionLocalizatonId": "GAMEPLAY_ARC_Plank_description",
+    "InventoryActionLocalizationId": "",
+    "WeightKG": 2.0,
+    "DaysToDecay": 0,
+    "MaxHP": 100.0,
+    "InitialCondition": "Perfect",
+    "InventoryCategory": "Material",
+    "PickUpAudio": "Play_SndInvWoodMedium",
+    "PutBackAudio": "Play_SndInvWoodMedium",
+    "StowAudio": "Play_SndInvWoodMedium",
+    "WornOutAudio": "Play_SndInvWoodMedium",
+    "InspectOnPickup": true,
+    "InspectDistance": 1.0,
+    "InspectAngles": [
+      19.0,
+      224.0,
+      3.0
+    ],
+    "InspectOffset": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "InspectScale": [
+      0.4,
+      0.4,
+      0.4
+    ],
+    "NormalModel": "",
+    "InspectModel": ""
+  },
+  "ModStackableBehaviour": {
+    "SingleUnitTextId": "GAMEPLAY_ARC_Plank",
+    "MultipleUnitTextId": "GAMEPLAY_ARC_Plank",
+    "StackSprite": "",
+    "UnitsPerItem": 1,
+    "ChanceFull": 100.0
+  },
+  "ModBurnableBehaviour": {
+    "BurningMinutes": 75,
+    "BurningMinutesBeforeAllowedToAdd": 0.0,
+    "SuccessModifier": -5.0,
+    "TempIncrease": 3.0,
+    "DurationOffset": 5.0
+  }
+}

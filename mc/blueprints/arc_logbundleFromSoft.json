@@ -1,0 +1,23 @@
+{
+  "Name": "ARC_logBundleFromSoftwood",
+  "RequiredGear": [
+    {
+      "Item": "GEAR_SoftWood",
+      "Count": 9,
+      "Units": "Count"
+    }
+  ],
+  "RequiredPowder": [],
+  "RequiredLiquid": [],
+  "RequiredTool": "GEAR_WoodworkingTools",
+  "OptionalTools": [],
+  "RequiredCraftingLocation": "FurnitureWorkbench",
+  "RequiresLitFire": false,
+  "RequiresLight": true,
+  "CraftedResult": "GEAR_ARC_logbundle",
+  "CraftedResultCount": 1,
+  "DurationMinutes": 180,
+  "CraftingAudio": "Play_CraftingWood",
+  "AppliedSkill": "None",
+  "ImprovedSkill": "None"
+}

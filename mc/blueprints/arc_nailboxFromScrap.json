@@ -1,0 +1,23 @@
+{
+  "Name": "ARC_nailboxFromScrap",
+  "RequiredGear": [
+    {
+      "Item": "GEAR_ScrapMetal",
+      "Count": 8,
+      "Units": "Count"
+    }
+  ],
+  "RequiredPowder": [],
+  "RequiredLiquid": [],
+  "RequiredTool": "GEAR_Hammer",
+  "OptionalTools": [],
+  "RequiredCraftingLocation": "Forge",
+  "RequiresLitFire": true,
+  "RequiresLight": false,
+  "CraftedResult": "GEAR_ARC_nailbox",
+  "CraftedResultCount": 1,
+  "DurationMinutes": 480,
+  "CraftingAudio": "Play_CraftingWood",
+  "AppliedSkill": "None",
+  "ImprovedSkill": "None"
+}

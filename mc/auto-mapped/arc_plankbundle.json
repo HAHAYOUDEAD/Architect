@@ -1,0 +1,42 @@
+{
+  "ModGenericComponent": {
+    "DisplayNameLocalizationId": "GAMEPLAY_ARC_PlankBundle",
+    "DescriptionLocalizatonId": "GAMEPLAY_ARC_PlankBundle_description",
+    "InventoryActionLocalizationId": "",
+    "WeightKG": 10.0,
+    "DaysToDecay": 0,
+    "MaxHP": 100.0,
+    "InitialCondition": "Perfect",
+    "InventoryCategory": "Material",
+    "PickUpAudio": "Play_WoodPallet",
+    "PutBackAudio": "Play_WoodPallet",
+    "StowAudio": "Play_WoodPallet",
+    "WornOutAudio": "Play_WoodPallet",
+    "InspectOnPickup": true,
+    "InspectDistance": 1.0,
+    "InspectAngles": [
+      19.0,
+      224.0,
+      3.0
+    ],
+    "InspectOffset": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "InspectScale": [
+      0.4,
+      0.4,
+      0.4
+    ],
+    "NormalModel": "",
+    "InspectModel": ""
+  },
+  "ModBurnableBehaviour": {
+    "BurningMinutes": 540,
+    "BurningMinutesBeforeAllowedToAdd": 60.0,
+    "SuccessModifier": -5.0,
+    "TempIncrease": 6.0,
+    "DurationOffset": 10.0
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "Name": "ARC_plankBundleFromHardwood",
+  "RequiredGear": [
+    {
+      "Item": "GEAR_HardWood",
+      "Count": 8,
+      "Units": "Count"
+    }
+  ],
+  "RequiredPowder": [],
+  "RequiredLiquid": [],
+  "RequiredTool": "GEAR_WoodworkingTools",
+  "OptionalTools": [],
+  "RequiredCraftingLocation": "FurnitureWorkbench",
+  "RequiresLitFire": false,
+  "RequiresLight": true,
+  "CraftedResult": "GEAR_ARC_plankbundle",
+  "CraftedResultCount": 1,
+  "DurationMinutes": 180,
+  "CraftingAudio": "Play_CraftingWood",
+  "AppliedSkill": "None",
+  "ImprovedSkill": "None"
+}

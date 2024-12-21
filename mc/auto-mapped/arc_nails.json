@@ -1,0 +1,42 @@
+{
+  "ModGenericComponent": {
+    "DisplayNameLocalizationId": "GAMEPLAY_ARC_Nails",
+    "DescriptionLocalizatonId": "GAMEPLAY_ARC_Nails_description",
+    "InventoryActionLocalizationId": "",
+    "WeightKG": 0.1,
+    "DaysToDecay": 0,
+    "MaxHP": 100.0,
+    "InitialCondition": "Random",
+    "InventoryCategory": "Material",
+    "PickUpAudio": "Play_SndInvMetalSmall",
+    "PutBackAudio": "Play_SndInvMetalSmall",
+    "StowAudio": "Play_SndInvMetalSmall",
+    "WornOutAudio": "Play_SndInvMetalSmall",
+    "InspectOnPickup": true,
+    "InspectDistance": 1.0,
+    "InspectAngles": [
+      31.0,
+      214.0,
+      27.0
+    ],
+    "InspectOffset": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "InspectScale": [
+      2.0,
+      2.0,
+      2.0
+    ],
+    "NormalModel": "",
+    "InspectModel": ""
+  },
+  "ModStackableBehaviour": {
+    "SingleUnitTextId": "GAMEPLAY_ARC_Nails",
+    "MultipleUnitTextId": "GAMEPLAY_ARC_Nails",
+    "StackSprite": "",
+    "UnitsPerItem": 1,
+    "ChanceFull": 100.0
+  }
+}

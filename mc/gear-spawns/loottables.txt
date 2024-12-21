@@ -1,0 +1,28 @@
+loottable=VehicleTrunk
+item=GEAR_ARC_nails w=2
+
+loottable=VehicleTrunkLocked
+item=GEAR_ARC_nailbox w=2
+
+loottable=CargoMaterialsRareB
+item=GEAR_ARC_nailbox w=1
+
+loottable=MetalBox
+item=GEAR_ARC_nails w=3
+
+loottable=PlasticBox
+item=GEAR_ARC_nails w=1
+
+loottable=Workbench
+item=GEAR_ARC_nailbox w=1
+item=GEAR_ARC_nails w=5
+
+loottable=ToolChest_sml
+item=GEAR_ARC_nails w=5
+
+loottable=ToolChest
+item=GEAR_ARC_nails w=5
+item=GEAR_ARC_nailbox w=1
+
+loottable=ToolChestDrawer
+item=GEAR_ARC_nails w=5

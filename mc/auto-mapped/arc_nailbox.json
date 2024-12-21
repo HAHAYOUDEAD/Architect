@@ -1,0 +1,35 @@
+{
+  "ModGenericComponent": {
+    "DisplayNameLocalizationId": "GAMEPLAY_ARC_NailBox",
+    "DescriptionLocalizatonId": "GAMEPLAY_ARC_NailBox_description",
+    "InventoryActionLocalizationId": "",
+    "WeightKG": 1.5,
+    "DaysToDecay": 0,
+    "MaxHP": 100.0,
+    "InitialCondition": "Perfect",
+    "InventoryCategory": "Material",
+    "PickUpAudio": "Play_SndInvToolboxPlastic",
+    "PutBackAudio": "Play_SndInvToolboxPlastic",
+    "StowAudio": "Play_SndInvToolboxPlastic",
+    "WornOutAudio": "Play_SndInvToolboxPlastic",
+    "InspectOnPickup": true,
+    "InspectDistance": 1.0,
+    "InspectAngles": [
+      24.0,
+      208.0,
+      12.0
+    ],
+    "InspectOffset": [
+      0.0,
+      -0.1,
+      0.0
+    ],
+    "InspectScale": [
+      1.5,
+      1.5,
+      1.5
+    ],
+    "NormalModel": "",
+    "InspectModel": ""
+  }
+}
