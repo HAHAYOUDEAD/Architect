@@ -1,4 +1,3 @@
-# Architect
 ![Poster](images/promo1.png)
 ## Features:
 - Modular base building system
@@ -17,7 +16,7 @@
 - Building and breaking down can be done with many different tools, some are better for building, some - for dismantling
 
 ## Installation:
-Unpack latest release .zip into `.../Mods/`
+Unpack latest [release](https://github.com/HAHAYOUDEAD/Architect/releases) .zip into `.../Mods/`
 
 Requires [ModSettings](https://github.com/DigitalzombieTLD/ModSettings), [ModData](https://github.com/dommrogers/ModData), [ModComponent](https://github.com/dommrogers/ModComponent) and PlacingAnywhere(easier to build with while snapping is not implemented, *not required*)
 
