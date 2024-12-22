@@ -6,7 +6,7 @@
 - Ghost structures to plan out buildings
 - Scaffolding for easy height access
 - Native UI integration
-- UI Localization support. Please don't create locaizations until full release, there will be a lot of additions and changes
+- UI Localization support. **Please don't create locaizations** until full release, there will be a lot of additions and changes
 
 ## Getting started:
 - Collect a few planks. They can be crafted in bundles on furniture workbench or found in the world
