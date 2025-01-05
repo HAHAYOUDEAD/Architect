@@ -117,6 +117,7 @@ namespace Architect
             sc.buildPart = sp.bPart;
             sc.resources = sp.res;
             sc.isPaintable = sp.paintable;
+            sc.doorType = sp.door;
             //sc.isDoor = sp.isDoor;
             //sc.SetupBreakDown();
 
@@ -204,7 +205,7 @@ namespace Architect
                     break;
 
                 case Data.BuildMaterial.WoodLog:
-                    rArray.SetSpecific(RadialBuilder.CreateEmptyRadialArm(), RadialArm.Direction.NorthWest);
+                    //rArray.SetSpecific(RadialBuilder.CreateEmptyRadialArm(), RadialArm.Direction.NorthWest);
                     rArray.SetSpecific(RadialBuilder.CreateEmptyRadialArm(), RadialArm.Direction.SouthEast);
                     break;
 
@@ -247,11 +248,12 @@ namespace Architect
                             rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_plank_triangleWallRight"), RadialArm.Direction.South);
                             break;
                         case Data.BuildPart.Pillar:
-                            //rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_plank_pillar"), RadialArm.Direction.North);
                             rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_plank_railingEnd"), RadialArm.Direction.North);
                             rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_plank_railingShort"), RadialArm.Direction.SouthEast);
                             rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_plank_railingLong"), RadialArm.Direction.East);
                             rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_plank_railingSlanted"), RadialArm.Direction.NorthEast);
+                            rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_plank_pillar"), RadialArm.Direction.South);
+                            rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_plank_pillarHalf"), RadialArm.Direction.SouthWest);
                             break;
                         case Data.BuildPart.Stairs:
                             rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_plank_regularStairs"), RadialArm.Direction.East);
@@ -260,12 +262,16 @@ namespace Architect
                         case Data.BuildPart.Door: // interactive
                             rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_plank_doorFancy"), RadialArm.Direction.North);
                             rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_plank_doorSimple"), RadialArm.Direction.NorthEast);
+                            rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_plank_windowShutter"), RadialArm.Direction.West);
                             break;
                         case Data.BuildPart.Deco:
                             break;
                         case Data.BuildPart.Misc: // patch-ups, scaffolding
                             rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_plank_scaffolding"), RadialArm.Direction.South);
-                            //rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_plank_beam"), RadialArm.Direction.East);
+                            rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_plank_beam"), RadialArm.Direction.East);
+                            rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_plank_beamHalf"), RadialArm.Direction.NorthEast);
+                            rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_plank_board"), RadialArm.Direction.West);
+                            rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_plank_single"), RadialArm.Direction.North);
                             break;
                     }
                     
@@ -293,7 +299,10 @@ namespace Architect
                             rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_log_triangleWallRight"), RadialArm.Direction.South);
                             break;
                         case Data.BuildPart.Pillar:
-                            rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_log_pillar"), RadialArm.Direction.North);
+                            rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_log_pillar"), RadialArm.Direction.South);
+                            rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_log_pillarFancy"), RadialArm.Direction.SouthWest);
+                            rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_log_fence"), RadialArm.Direction.NorthWest);
+                            rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_log_fencePost"), RadialArm.Direction.West);
                             break;
                         case Data.BuildPart.Stairs:
                             rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_log_regularStairs"), RadialArm.Direction.East);
@@ -301,6 +310,7 @@ namespace Architect
                             rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_log_ramp"), RadialArm.Direction.NorthWest);
                             break;
                         case Data.BuildPart.Door: // interactive
+                            rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_log_fenceGate"), RadialArm.Direction.NorthWest);
                             break;
                         case Data.BuildPart.Deco:
                             break;

@@ -251,7 +251,7 @@ namespace Architect
                                 {
                                     List<GameObject> yields = sr.yields.ToList();
                                     List<int> yieldsNum = sr.yieldsNum.ToList();
-                                    if (te.yieldAmount == 1f) // if 100% efficient tool
+                                    if (te.yieldAmount == 1f || sr.yieldsNum[0] <= 1) // if 100% efficient tool or singular structure
                                     {
                                         yields.RemoveAt(2);
                                         yieldsNum.RemoveAt(2);
@@ -259,8 +259,9 @@ namespace Architect
                                     else // if not 100% efficient tool - add broken materials to yield
                                     {
                                         yieldsNum[2] = sr.yieldsNum[0] - Mathf.FloorToInt(sr.yieldsNum[0] * te.yieldAmount);
+                                        yieldsNum[0] = Mathf.FloorToInt(sr.yieldsNum[0] * te.yieldAmount); // main resource
                                     }
-                                    yieldsNum[0] = Mathf.FloorToInt(sr.yieldsNum[0] * te.yieldAmount); // main resource
+                                    
                                     if (sr.yields[1].name.Contains(Data.nailsGearName)) // secondary resource
                                     {
                                         yieldsNum[1] = te.yieldExtra ? sr.yieldsNum[1] : 0;
@@ -292,9 +293,9 @@ namespace Architect
                                 __instance.RefreshYield();
                                 Interfaces.UpdateRequirementLabels(sc.breakdown);
                             }
-
-                            lastSelectedBreakDownTool = tool.name;
                         }
+
+                        lastSelectedBreakDownTool = tool.name;
                     }
                     if (__instance.m_DurationHours > 0f)
                     {
@@ -398,6 +399,7 @@ namespace Architect
                     {
                         if (Settings.options.dropYields) __instance.SpawnYieldObjectsAndStickToGround();
                         else __instance.SpawnYieldObjectsAndAddToInventory();
+                        lastSelectedBreakDownTool = "";
                         sc.ProcessDeleteInteraction();
                     }
                     else // build

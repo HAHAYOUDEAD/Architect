@@ -93,6 +93,7 @@ namespace Architect
         public enum DoorVariant
         {
             Regular,
+            Fence,
             Window,
             RoofWindow
         }
@@ -109,6 +110,12 @@ namespace Architect
             Scaffolding,
             Singular,
         }
+
+        public static int doorRotationDegree = 110;
+        public static int windowRotationDegree = 90;
+        public static int roofWindowRotationDegree = 60;
+        public static float doorOpenTime = 2.6f;
+        public static float doorCloseTime = 1.3f;
 
         public static readonly string placeholderGearName = "GEAR_GoldNugget";
         public static readonly string nailsGearName = "GEAR_ARC_nails";
@@ -282,15 +289,22 @@ namespace Architect
             { "ARC_plank_railingShort", new StructurePreset() { bMat = BuildMaterial.WoodPlank, bPart = BuildPart.Pillar, res = ResourcesPreset.Quarter, loKey = "ARC_RailingShort", numVar = 2 } },
             { "ARC_plank_railingLong", new StructurePreset() { bMat = BuildMaterial.WoodPlank, bPart = BuildPart.Pillar, res = ResourcesPreset.Half, loKey = "ARC_RailingLong" } },
             { "ARC_plank_railingSlanted", new StructurePreset() { bMat = BuildMaterial.WoodPlank, bPart = BuildPart.Pillar, res = ResourcesPreset.Half, loKey = "ARC_RailingSlanted" } },
+            { "ARC_plank_pillarHalf", new StructurePreset() { bMat = BuildMaterial.WoodPlank, bPart = BuildPart.Pillar, res = ResourcesPreset.Singular, loKey = "ARC_PillarHalf", numVar = 2 } },
+            { "ARC_plank_pillar", new StructurePreset() { bMat = BuildMaterial.WoodPlank, bPart = BuildPart.Pillar, res = ResourcesPreset.Singular, loKey = "ARC_Pillar", numVar = 2 } },
                 // stairs
             { "ARC_plank_regularStairs", new StructurePreset() { bMat = BuildMaterial.WoodPlank, bPart = BuildPart.Stairs, res = ResourcesPreset.Half, loKey = "ARC_StairsHalf" } },
             { "ARC_plank_longStairs", new StructurePreset() { bMat = BuildMaterial.WoodPlank, bPart = BuildPart.Stairs, res = ResourcesPreset.Fancy, loKey = "ARC_StairsFull" } },
                 // door
             { "ARC_plank_doorFancy", new StructurePreset() { bMat = BuildMaterial.WoodPlank, bPart = BuildPart.Door, res = ResourcesPreset.Fancy, loKey = "ARC_DoorFancy" } },
             { "ARC_plank_doorSimple", new StructurePreset() { bMat = BuildMaterial.WoodPlank, bPart = BuildPart.Door, res = ResourcesPreset.ExtraAux, loKey = "ARC_DoorSimple" } },
+            { "ARC_plank_windowShutter", new StructurePreset() { bMat = BuildMaterial.WoodPlank, bPart = BuildPart.Door, res = ResourcesPreset.Regular, loKey = "ARC_WindowShutter", door = DoorVariant.Window } },
                 // deco
                 // misc
             { "ARC_plank_scaffolding", new StructurePreset() { bMat = BuildMaterial.WoodPlank, bPart = BuildPart.Misc, res = ResourcesPreset.Scaffolding, loKey = "ARC_Scaffolding" } },
+            { "ARC_plank_single", new StructurePreset() { bMat = BuildMaterial.WoodPlank, bPart = BuildPart.Misc, res = ResourcesPreset.Singular, loKey = "ARC_Singular", numVar = 3 } },
+            { "ARC_plank_board", new StructurePreset() { bMat = BuildMaterial.WoodPlank, bPart = BuildPart.Misc, res = ResourcesPreset.Quarter, loKey = "ARC_PatchBoard", numVar = 2 } },
+            { "ARC_plank_beam", new StructurePreset() { bMat = BuildMaterial.WoodPlank, bPart = BuildPart.Misc, res = ResourcesPreset.Singular, loKey = "ARC_Beam", numVar = 2 } },
+            { "ARC_plank_beamHalf", new StructurePreset() { bMat = BuildMaterial.WoodPlank, bPart = BuildPart.Misc, res = ResourcesPreset.Singular, loKey = "ARC_BeamHalf", numVar = 2 } },
             
             
             // wood log
@@ -311,11 +325,16 @@ namespace Architect
             { "ARC_log_triangleWallRight", new StructurePreset() { bMat = BuildMaterial.WoodLog, bPart = BuildPart.Wall, res = ResourcesPreset.Half, loKey = "ARC_WallTriangleRight" } },
                 // pillar
             { "ARC_log_pillar", new StructurePreset() { bMat = BuildMaterial.WoodLog, bPart = BuildPart.Pillar, res = ResourcesPreset.Singular, loKey = "ARC_Pillar", numVar = 2 } },
+            { "ARC_log_pillarFancy", new StructurePreset() { bMat = BuildMaterial.WoodLog, bPart = BuildPart.Pillar, res = ResourcesPreset.Half, loKey = "ARC_PillarFancy" } },
+            { "ARC_log_fence", new StructurePreset() { bMat = BuildMaterial.WoodLog, bPart = BuildPart.Pillar, res = ResourcesPreset.Half, loKey = "ARC_Fence", numVar = 2 } },
+            { "ARC_log_fencePost", new StructurePreset() { bMat = BuildMaterial.WoodLog, bPart = BuildPart.Pillar, res = ResourcesPreset.Singular, loKey = "ARC_FencePost" } },
+            
                 // stairs
             { "ARC_log_ramp", new StructurePreset() { bMat = BuildMaterial.WoodLog, bPart = BuildPart.Stairs, res = ResourcesPreset.Regular, loKey = "ARC_Ramp", numVar = 2 } },
             { "ARC_log_regularStairs", new StructurePreset() { bMat = BuildMaterial.WoodLog, bPart = BuildPart.Stairs, res = ResourcesPreset.Half, loKey = "ARC_StairsHalf" } },
             { "ARC_log_longStairs", new StructurePreset() { bMat = BuildMaterial.WoodLog, bPart = BuildPart.Stairs, res = ResourcesPreset.Fancy, loKey = "ARC_StairsFull" } },
                 // door
+            { "ARC_log_fenceGate", new StructurePreset() { bMat = BuildMaterial.WoodLog, bPart = BuildPart.Door, res = ResourcesPreset.ExtraAux, loKey = "ARC_FenceGate", door = DoorVariant.Fence } },
                 // deco
                 // misc
             { "ARC_log_beam", new StructurePreset() { bMat = BuildMaterial.WoodLog, bPart = BuildPart.Pillar, res = ResourcesPreset.Singular, loKey = "ARC_Beam", numVar = 2 } },

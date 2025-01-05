@@ -16,6 +16,7 @@ namespace Architect
         public BuildMaterial buildMaterial;
         public BuildPart buildPart;
         public ResourcesPreset resources;
+        public DoorVariant doorType;
         //public bool isDoor = false;
         //public bool isWindow = false;
         public bool hasSnow = false;
@@ -307,8 +308,22 @@ namespace Architect
                 if (this.GetComponent<OpenClose>() == null)
                 {
                     // setting up iTween animator
-                    iTweenEvent itOpen = gameObject.AddComponent<iTweenEvent>().Initialize("open", doorRotationDegree / 360f, doorOpenTime);
-                    iTweenEvent itClose = gameObject.AddComponent<iTweenEvent>().Initialize("close", -doorRotationDegree / 360f, doorCloseTime);
+                    int angle;
+
+                    switch (this.doorType)
+                    {
+                        default:
+                            angle = doorRotationDegree;
+                            break;
+                        case DoorVariant.Window:
+                            angle = windowRotationDegree;
+                            break;
+                        case DoorVariant.RoofWindow:
+                            angle = roofWindowRotationDegree;
+                            break;
+                    }
+                    iTweenEvent itOpen = gameObject.AddComponent<iTweenEvent>().Initialize(this.doorType, "open", angle / 360f, doorOpenTime);
+                    iTweenEvent itClose = gameObject.AddComponent<iTweenEvent>().Initialize(this.doorType, "close", -angle / 360f, doorCloseTime);
 
                     // bumping iTween to process the values
                     itOpen.DeserializeValues();
@@ -316,7 +331,7 @@ namespace Architect
 
                     // setting up open/close animation components
                     ObjectAnim oa = gameObject.AddComponent<ObjectAnim>().Initialize(gameObject);
-                    OpenClose oc = gameObject.AddComponent<OpenClose>().Initialize(oa);
+                    OpenClose oc = gameObject.AddComponent<OpenClose>().Initialize(this.doorType, oa);
 
                     // closing/opening audio
                     WwiseEventReference eventOpen = ScriptableObject.CreateInstance<WwiseEventReference>();
@@ -660,6 +675,7 @@ namespace Architect
             buildMaterial = sp.bMat;
             buildPart = sp.bPart;
             resources = sp.res;
+            doorType = sp.door;
             //isDoor = sp.isDoor;
 
             //this.localizedName = Localization.Get(this.localizationKey);

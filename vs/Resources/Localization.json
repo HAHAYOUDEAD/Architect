@@ -275,14 +275,31 @@
     "Russian": ""
   },
 
+
+
   "ARC_Pillar": {
 
     "English": "Pillar",
     "Russian": ""
   },
+  "ARC_PillarFancy": {
+
+    "English": "Fancy pillar",
+    "Russian": ""
+  },
+  "ARC_PillarHalf": {
+
+    "English": "Short pillar",
+    "Russian": ""
+  },
   "ARC_Beam": {
 
     "English": "Beam",
+    "Russian": ""
+  },
+  "ARC_BeamHalf": {
+
+    "English": "Short beam",
     "Russian": ""
   },
 
@@ -297,9 +314,34 @@
     "English": "Fancy door",
     "Russian": ""
   },
+  "ARC_WindowShutter": {
+
+    "English": "Shutter",
+    "Russian": ""
+  },
+  "ARC_WindowShutterInteractOpen": {
+
+    "English": "Open Shutter",
+    "Russian": ""
+  },
+  "ARC_WindowShutterInteractClose": {
+
+    "English": "Close Shutter",
+    "Russian": ""
+  },
   "ARC_Scaffolding": {
 
     "English": "Scaffolding",
+    "Russian": ""
+  },
+  "ARC_Singular": {
+
+    "English": "Plank",
+    "Russian": ""
+  },
+  "ARC_PatchBoard": {
+
+    "English": "Patch board",
     "Russian": ""
   },
 
@@ -342,7 +384,31 @@
 
     "English": "Slanted railing",
     "Russian": ""
-  }
+  },
+  "ARC_Fence": {
 
+    "English": "Fence",
+    "Russian": ""
+  },
+  "ARC_FencePost": {
+
+    "English": "Fence post",
+    "Russian": ""
+  },
+  "ARC_FenceGate": {
+
+    "English": "Fence gate",
+    "Russian": ""
+  },
+  "ARC_FenceGateInteractOpen": {
+
+    "English": "Open Fence gate",
+    "Russian": ""
+  },
+  "ARC_FenceGateInteractClose": {
+
+    "English": "Close Fence gate",
+    "Russian": ""
+  }
 
 }

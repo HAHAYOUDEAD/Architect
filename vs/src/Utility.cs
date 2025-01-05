@@ -17,6 +17,8 @@ global using Il2CppInterop.Runtime.Attributes;
 global using Il2CppTLD.Placement;
 global using static Architect.Values;
 global using static Architect.Utility;
+using static Architect.StructureData;
+using static Il2Cpp.GridUI;
 
 namespace Architect
 {
@@ -126,23 +128,45 @@ namespace Architect
             return t;
         }
 
-        public static iTweenEvent Initialize(this iTweenEvent ite, string name, float rotation, float speed = 2.2f)
+        public static iTweenEvent Initialize(this iTweenEvent ite, DoorVariant type, string name, float rotation, float speed = 2.2f)
         {
             ite.animating = false;
             ite.playAutomatically = false;
             ite.tweenName = name;
             ite.type = iTweenEvent.TweenType.RotateBy;
+            switch (type)
+            {
+                default:
+                    ite.vector3s = new Vector3[] { new Vector3(0, rotation, 0) };
+                    break;
+                case DoorVariant.Window:
+                    ite.vector3s = new Vector3[] { new Vector3(-rotation, 0, 0) };
+                    break;
+                case DoorVariant.RoofWindow:
+                    ite.vector3s = new Vector3[] { new Vector3(-rotation, 0, 0) };
+                    break;
+            }
             ite.floats = new float[] { speed };
-            ite.vector3s = new Vector3[] { new Vector3(0, rotation, 0) };
             ite.keys = new string[] { "amount", "time" };
             ite.indexes = new int[] { 0, 0 };
 
             return ite;
         }
 
-        public static OpenClose Initialize(this OpenClose oc, ObjectAnim oa)
+        public static OpenClose Initialize(this OpenClose oc, DoorVariant type, ObjectAnim oa)
         {
-            oc.m_LocalizedDisplayName = new LocalizedString() { m_LocalizationID = "GAMEPLAY_Door" };
+            switch (type)
+            {
+                default:
+                    oc.m_LocalizedDisplayName = new LocalizedString() { m_LocalizationID = "GAMEPLAY_Door" };
+                    break;
+                case DoorVariant.Window:
+                    oc.m_LocalizedDisplayName = new LocalizedString() { m_LocalizationID = "ARC_WindowShutter" };
+                    break;
+                case DoorVariant.Fence:
+                    oc.m_LocalizedDisplayName = new LocalizedString() { m_LocalizationID = "ARC_FenceGate" };
+                    break;
+            }
             oc.m_CloseAudioEvent = new Il2CppAK.Wwise.Event() { m_playingId = Il2CppAK.EVENTS.PLAY_SNDMECHDOORWOODCLOSE1 };
             oc.m_OpenAudioEvent = new Il2CppAK.Wwise.Event() { m_playingId = Il2CppAK.EVENTS.PLAY_SNDMECHDOORWOODOPEN1 };
             oc.m_ObjectAnim = oa;
