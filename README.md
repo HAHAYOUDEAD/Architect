@@ -12,7 +12,7 @@
 - Collect a few planks. They can be crafted in bundles on furniture workbench or found in the world
 - Collect a bunch of nails. They can be found in the world, in containers, when breaking down certain objects with prybar, or forged
 - Hold B(can be changed) to bring up building menu, place things down
-- Holding sprint key while looking at building parts can sow additional controls
+- Holding sprint key while looking at building parts will enable additional controls
 - Building and breaking down can be done with many different tools, some are better for building, some - for dismantling
 
 ## Installation:
