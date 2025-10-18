@@ -28,7 +28,7 @@ namespace Architect
             {
                 if (structures[i])
                 {
-                    allData[i] = structures[i].Serialize();
+                    allData[i] = structures[i].ToProxy();
                 }
             }
 

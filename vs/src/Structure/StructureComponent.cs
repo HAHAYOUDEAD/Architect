@@ -638,7 +638,7 @@ namespace Architect
 
         */
 
-        public StructureSaveProxy Serialize()
+        public StructureSaveProxy ToProxy()
         {
             StructureSaveProxy data = new StructureSaveProxy()
             {
