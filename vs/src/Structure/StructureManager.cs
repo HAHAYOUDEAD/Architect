@@ -33,7 +33,7 @@ namespace Architect
             }
 
             //return JSON.Dump(allData);
-            return JsonSerializer.Serialize(allData);
+            return JsonSerializer.Serialize(allData, Jsoning.GetDefaultOptions());
         }
 
         public static IEnumerator PostInitialization()
