@@ -49,6 +49,9 @@
       <EmbeddedResource Include="Resources\Localization.json" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="STBlade.Modding.TLD.Il2CppAssemblies.Windows" Version="2.42.0" />
+    </ItemGroup>
     <!--This is the list of assemblies that the mod references. Most of these are unnecessary for normal mods, but are included here for completeness.-->
     <ItemGroup>
         <Reference Include="Assembly-CSharp">

@@ -11,7 +11,9 @@ global using LocalizationUtilities;
 global using Data = Architect.StructureData;
 global using Random = System.Random;
 global using ModData;
-global using MelonLoader.TinyJSON;
+//global using MelonLoader.TinyJSON;
+global using System.Text.Json;
+global using System.Text.Json.Serialization;
 global using UnityEngine.AI;
 global using Il2CppInterop.Runtime.Attributes;
 global using Il2CppTLD.Placement;
@@ -281,6 +283,14 @@ namespace Architect
         public static void SplitMidPoint<T>(T[] array, out T[] first, out T[] second)
         {
             Split(array, array.Length / 2, out first, out second);
+        }
+
+        public static Transform FindInactive(this Transform parent, string childName)
+        {
+            foreach (Transform child in parent.GetComponentsInChildren<Transform>(true))
+                if (child.name == childName)
+                    return child;
+            return null;
         }
 
         public static void Log(ConsoleColor color, string message)

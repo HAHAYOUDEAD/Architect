@@ -1,5 +1,6 @@
 ﻿using static Architect.StructureData;
 using UnityEngine.UIElements.UIR;
+using System.Text.Json;
 
 namespace Architect
 {
@@ -31,7 +32,8 @@ namespace Architect
                 }
             }
 
-            return JSON.Dump(allData);
+            //return JSON.Dump(allData);
+            return JsonSerializer.Serialize(allData);
         }
 
         public static IEnumerator PostInitialization()
@@ -61,7 +63,8 @@ namespace Architect
             {
                 StructureSaveProxy? structure = null;
 
-                if (!string.IsNullOrEmpty(s)) JSON.MakeInto(JSON.Load(s), out structure);
+                //if (!string.IsNullOrEmpty(s)) JSON.MakeInto(JSON.Load(s), out structure);
+                if (!string.IsNullOrEmpty(s)) structure = JsonSerializer.Deserialize<StructureSaveProxy>(s.Replace("\\", ""), Jsoning.GetDefaultOptions()) ?? throw new ArgumentException("Could not parse recipe data from the text.", nameof(s));
 
                 if (structure != null && structure.prefabName.Length > 0)
                 {

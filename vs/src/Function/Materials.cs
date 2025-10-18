@@ -96,8 +96,6 @@ namespace Architect
 
             for (int i = 0; i < matArray.Length; i++)
             {
-
-
                 if (matArray[i].name.ToLower().Contains("inner"))
                 {
                     if (bps == BuildPartSide.Inside || bps == BuildPartSide.Both)

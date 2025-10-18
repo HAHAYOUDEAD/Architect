@@ -1,6 +1,8 @@
 ﻿using Il2Cpp;
 using Il2CppVLB;
 using UnityEngine;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Architect
 {
@@ -48,7 +50,7 @@ namespace Architect
             private static void Postfix(ref BreakDown __instance)
             {
                 Structure sc = __instance.GetComponent<Structure>();
-                if (sc) sc.SetLayer();
+                if (sc) sc.SetLayerAndVisuals();
             }
         }
         
@@ -573,7 +575,8 @@ namespace Architect
                 //if (string.IsNullOrEmpty(serializedSaveData)) serializedSaveData = dataManager.Load(saveDataTag);
                 string[]? structureList = null;
 
-                if (!string.IsNullOrEmpty(serializedSaveData)) JSON.MakeInto(JSON.Load(serializedSaveData), out structureList);
+                //if (!string.IsNullOrEmpty(serializedSaveData)) JSON.MakeInto(JSON.Load(serializedSaveData), out structureList);
+                if (!string.IsNullOrEmpty(serializedSaveData)) structureList = JsonSerializer.Deserialize<string[]?>(serializedSaveData);
 
                 if (structureList != null && structureList.Length > 0)
                 {
@@ -615,23 +618,26 @@ namespace Architect
             // snapping part
 
 
-            /*
+            
             internal static bool Prefix(PlayerManager __instance)
             {
                 Structure sc = GameManager.GetPlayerManagerComponent().m_ObjectToPlace?.GetComponent<Structure>();
-                if (sc && !InputManager.GetSprintDown(InputManager.m_CurrentContext))
+                if (sc && Snap.PartToPattern(sc.buildPart) != Snap.SnapPattern.Free && !InputManager.GetSprintDown(InputManager.m_CurrentContext))
                 {
-                    sc.ToggleSnapTriggers(false);
-                    Snap.SnapToTriggerRelatedPoint(sc);
-                    return false;
+                    if (Snap.SnapToTriggerRelatedPoint(sc))
+                    {
+                        forceShowCrosshair = true;
+                        Snap.SetCustomRotation(Input.mouseScrollDelta.y); // rotate with mouse wheel
+                        sc.ToggleSnapTriggers(false);
+                        return false;
+                    }                   
                 }
 
+                Snap.ResetObject();
                 return true;
             }
-            */
+            
         }
-
-
 
         [HarmonyPatch(typeof(PlayerManager), nameof(PlayerManager.StartPlaceMesh), [typeof(GameObject), typeof(float), typeof(PlaceMeshFlags), typeof(PlaceMeshRules)])]
         private static class ManagePlacement
@@ -643,7 +649,7 @@ namespace Architect
                 sc = objectToPlace?.GetComponent<Structure>();
                 if (sc != null)
                 {
-                    
+                    Snap.ResetObject();
                     sc.lastPlacedRotation = sc.transform.rotation;
                 }
                     
@@ -714,7 +720,7 @@ namespace Architect
                         sc = arcObject.GetComponent<Structure>();
 
                         if (!sc.isBuilt) Materials.AssignMaterial(sc, Data.BuildPartSide.Both, true, false, true);
-                        sc.SetLayer();
+                        sc.SetLayerAndVisuals();
 
                         sc.ToggleSnapTriggers(true);
 
@@ -800,7 +806,14 @@ namespace Architect
             }
         }*/
 
-
+        [HarmonyPatch(typeof(PlayerManager), nameof(PlayerManager.ShouldSuppressCrosshairs))]
+        public class ShowCrosshairWhenSnapOn
+        {
+            private static void Postfix(ref bool __result)
+            {
+                if (forceShowCrosshair) __result = false;
+            }
+        }
     }
 }
 

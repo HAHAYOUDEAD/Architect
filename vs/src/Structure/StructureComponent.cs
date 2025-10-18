@@ -1,5 +1,5 @@
 ﻿using Il2CppInterop.Runtime.InteropTypes.Fields;
-
+using System.Text.Json;
 using static Architect.StructureData;
 
 namespace Architect
@@ -25,6 +25,8 @@ namespace Architect
         public int isPaintable;
         public bool isAltMaterial = false; // for reclaimed wood or fir logs
         public bool doorState; // true = opened, false = closed
+
+        //public Snap.SnapPoint currentSnapPoint;
 
         public Renderer renderer;
         public BreakDown breakdown;
@@ -87,8 +89,8 @@ namespace Architect
             Finalize(true);
 
             StructureManager.Add(this);
-            
 
+            //currentSnapPoint = Snap.GetDefaultSnapPoint(Snap.PartToPattern(this.buildPart));
         }
 
         public void SphereCastAdjacentStructures()
@@ -146,8 +148,11 @@ namespace Architect
             if (isStatic == isInBuildingMode)
             {
                 isStatic = !isInBuildingMode;
-                if (this.buildPart == BuildPart.Door) Undoor(!isStatic);
-                SetLayer();
+                if (this.buildPart == BuildPart.Door)
+                {
+                    Undoor(!isStatic);
+                }
+                SetLayerAndVisuals();
             }
 
 
@@ -281,6 +286,11 @@ namespace Architect
 
         }
 
+        private void ToggleHelperArrow(bool enable)
+        {
+            this.transform.FindInactive("HelperArrow")?.gameObject.SetActive(enable);
+        }
+
 
         public void Finalize(bool updateLayer = false)
         {
@@ -297,12 +307,9 @@ namespace Architect
                 if (nvmo) Destroy(nvmo);
             }
 
-
-
             // make door
             if (buildPart == BuildPart.Door && isBuilt)
             {
-
                 breakdown.enabled = false;
 
                 if (this.GetComponent<OpenClose>() == null)
@@ -340,15 +347,11 @@ namespace Architect
                     eventClose.id = AkSoundEngine.GetIDFromString("Play_SndMechDoorWoodClose1"); 
                     oc.m_OpenAudioEvent.ObjectReference = eventOpen;
                     oc.m_CloseAudioEvent.ObjectReference = eventClose;
-
-                    
-
                 }
 
                 if (doorState) this.GetComponent<OpenClose>().m_IsOpen = true;
 
                 if (!isStatic) Undoor(true);
-
             }
 
 
@@ -373,14 +376,11 @@ namespace Architect
                 }
             }
 
-            
-
             // manage materials
             if (!isBuilt)
             {
                 Materials.AssignMaterial(this, BuildPartSide.Both, true);
                 renderer.castShadows = false;
-                
             }
             else
             {
@@ -388,9 +388,9 @@ namespace Architect
                 if (insidePaintColor != Color.black) Paint(BuildPartSide.Inside, insidePaintColor);
                 if (outsidePaintColor != Color.black) Paint(BuildPartSide.Outside, outsidePaintColor);
 
-                foreach (Renderer r in this.GetComponentsInChildren<Renderer>()) // assign vanilla shader to any nested objects
+                foreach (Renderer r in this.GetComponentsInChildren<Renderer>()) // assign vanilla shader to any nested objects except helpers
                 {
-                    if (r != renderer) r.material.shader = Materials.vanillaDefaultShader;
+                    if (r != renderer && !r.name.ToLower().Contains("helper")) r.material.shader = Materials.vanillaDefaultShader;
                 }
 
                 renderer.castShadows = true;
@@ -400,7 +400,7 @@ namespace Architect
 
             this.HideNestedMeshes(!isBuilt);
 
-            if (updateLayer) SetLayer();
+            if (updateLayer) SetLayerAndVisuals();
             this.initialized = true;
 
             
@@ -563,7 +563,7 @@ namespace Architect
             this.GetComponent<OpenClose>().enabled = !doInFactUndoor;
         }
 
-        public void SetLayer()
+        public void SetLayerAndVisuals()
         {
 
             if (isBuilt)
@@ -594,6 +594,8 @@ namespace Architect
                 }
                 
             }
+
+            ToggleHelperArrow(buildPart == BuildPart.Door && !isBuilt);
 
         }
 
@@ -661,7 +663,8 @@ namespace Architect
 
             if (insidePaintColor != Color.black) data.insidePaintColor = insidePaintColor;
             if (outsidePaintColor != Color.black) data.outsidePaintColor = outsidePaintColor;
-            return JSON.Dump(data);//, EncodeOptions.PrettyPrint | EncodeOptions.NoTypeHints);
+            //return JSON.Dump(data);//, EncodeOptions.PrettyPrint | EncodeOptions.NoTypeHints);
+            return JsonSerializer.Serialize(data, Jsoning.GetDefaultOptions());//, EncodeOptions.PrettyPrint | EncodeOptions.NoTypeHints);
 
 
 
