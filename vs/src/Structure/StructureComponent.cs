@@ -1,6 +1,4 @@
-﻿using Il2CppInterop.Runtime.InteropTypes.Fields;
-using System.Text.Json;
-using static Architect.StructureData;
+﻿using static Architect.StructureData;
 
 namespace Architect
 {
@@ -640,7 +638,7 @@ namespace Architect
 
         */
 
-        public string Serialize()
+        public StructureSaveProxy Serialize()
         {
             StructureSaveProxy data = new StructureSaveProxy()
             {
@@ -663,8 +661,8 @@ namespace Architect
 
             if (insidePaintColor != Color.black) data.insidePaintColor = insidePaintColor;
             if (outsidePaintColor != Color.black) data.outsidePaintColor = outsidePaintColor;
-            //return JSON.Dump(data);//, EncodeOptions.PrettyPrint | EncodeOptions.NoTypeHints);
-            return JsonSerializer.Serialize(data, Jsoning.GetDefaultOptions());//, EncodeOptions.PrettyPrint | EncodeOptions.NoTypeHints);
+            return data;//JSON.Dump(data);//, EncodeOptions.PrettyPrint | EncodeOptions.NoTypeHints);
+            //return JsonSerializer.Serialize(data, Jsoning.GetDefaultOptions());
 
 
 

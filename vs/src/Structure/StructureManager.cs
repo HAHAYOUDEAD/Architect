@@ -22,7 +22,7 @@ namespace Architect
 
         public static string SerializeAll()
         {
-            string[] allData = new string[structures.Count];
+            StructureSaveProxy[] allData = new StructureSaveProxy[structures.Count];
 
             for (int i = 0; i < structures.Count; i++)
             {
@@ -64,15 +64,28 @@ namespace Architect
                 StructureSaveProxy? structure = null;
 
                 //if (!string.IsNullOrEmpty(s)) JSON.MakeInto(JSON.Load(s), out structure);
-                if (!string.IsNullOrEmpty(s)) structure = JsonSerializer.Deserialize<StructureSaveProxy>(s.Replace("\\", ""), Jsoning.GetDefaultOptions()) ?? throw new ArgumentException("Could not parse recipe data from the text.", nameof(s));
+                if (!string.IsNullOrEmpty(s)) structure = JsonSerializer.Deserialize<StructureSaveProxy>(s, Jsoning.GetDefaultOptions());
 
                 if (structure != null && structure.prefabName.Length > 0)
                 {
                     GameObject wallPart = UnityEngine.Object.Instantiate(meshBundle.LoadAsset<GameObject>(structure.prefabName));
                     wallPart.name = structure.prefabName;
-                    //Structure component = wallPart.AddComponent<Structure>();
                     Structure component = wallPart.GetComponent<Structure>();
                     component.Restore(structure);
+                }
+            }
+            MelonCoroutines.Start(PostInitialization());
+        }
+        public static void DeserializeAll(StructureSaveProxy[] list)
+        {
+            foreach (StructureSaveProxy s in list)
+            {
+                if (s != null && s.prefabName.Length > 0)
+                {
+                    GameObject wallPart = UnityEngine.Object.Instantiate(meshBundle.LoadAsset<GameObject>(s.prefabName));
+                    wallPart.name = s.prefabName;
+                    Structure component = wallPart.GetComponent<Structure>();
+                    component.Restore(s);
                 }
             }
             MelonCoroutines.Start(PostInitialization());

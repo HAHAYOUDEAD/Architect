@@ -3,6 +3,7 @@ using Il2CppVLB;
 using UnityEngine;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Linq.Expressions;
 
 namespace Architect
 {
@@ -573,14 +574,32 @@ namespace Architect
 
                 string? serializedSaveData = dataManager.Load(saveDataTag + commonSeparator + sceneSaveName);
                 //if (string.IsNullOrEmpty(serializedSaveData)) serializedSaveData = dataManager.Load(saveDataTag);
-                string[]? structureList = null;
+                
 
                 //if (!string.IsNullOrEmpty(serializedSaveData)) JSON.MakeInto(JSON.Load(serializedSaveData), out structureList);
-                if (!string.IsNullOrEmpty(serializedSaveData)) structureList = JsonSerializer.Deserialize<string[]?>(serializedSaveData);
-
-                if (structureList != null && structureList.Length > 0)
+                if (!string.IsNullOrEmpty(serializedSaveData))
                 {
-                    StructureManager.DeserializeAll(structureList);
+                    try
+                    {
+                        StructureSaveProxy[]? structureList = null;
+                        structureList = JsonSerializer.Deserialize<StructureSaveProxy[]?>(serializedSaveData, Jsoning.GetDefaultOptions());
+
+                        if (structureList != null && structureList.Length > 0)
+                        {
+                            StructureManager.DeserializeAll(structureList);
+                        }
+
+                    }
+                    catch (JsonException)
+                    {
+                        Log(ConsoleColor.Yellow, "Legacy savedata detected, using alternative parser");
+                        string[]? structureListLegacy = null;
+                        structureListLegacy = JsonSerializer.Deserialize<string[]?>(serializedSaveData, Jsoning.GetDefaultOptions());
+                        if (structureListLegacy != null && structureListLegacy.Length > 0)
+                        {
+                            StructureManager.DeserializeAll(structureListLegacy);
+                        }
+                    }
                 }
             }
         }
