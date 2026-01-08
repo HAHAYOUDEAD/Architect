@@ -43,11 +43,16 @@ namespace Architect
         public int adjacentFlatFloors;
         public List<Structure> adjacentRoofs = new List<Structure>();
         public List<Structure> adjacentWalls = new List<Structure>();
+        public List<Structure> elevatedFloors = new List<Structure>();
 
         public bool isEnclosedFloorTile;
         public bool isSeeingTheSky;
 
         public bool isStatic;
+
+        public int coroutineRunning = 0;
+
+        public IndoorSpaceTrigger interiorTrigger;
 
 
         //public Il2CppValueField<int> inj_nv;
@@ -75,6 +80,7 @@ namespace Architect
                 BoxCollider bc = pk.AddComponent<BoxCollider>();
                 bc.center = this.GetComponent<MeshFilter>().sharedMesh.bounds.center;
                 bc.size = this.GetComponent<MeshFilter>().sharedMesh.bounds.size * 1.2f; // increase size by 20% to prevent snow sneaking in from the sides
+                if (this.buildPart == Data.BuildPart.Wall) bc.size += Vector3.forward * 0.5f; // increase depth for walls
                 pk.AddComponent<ParticleKiller>();
                 pk.transform.SetParent(transform);
                 pk.transform.ZeroLocal();
@@ -103,22 +109,49 @@ namespace Architect
 
             int layerMask = 0;
             layerMask |= (1 << vp_Layer.InteractiveProp);
-            RaycastHit[] hits = Physics.SphereCastAll(renderer.bounds.center, Interior.floorDetectionRadius, Vector3.up, Interior.storeyHeight * 5f, layerMask, QueryTriggerInteraction.Ignore);
-
-            
+            layerMask |= (1 << vp_Layer.Buildings);
+            RaycastHit[] hits = Physics.SphereCastAll(renderer.bounds.center, Interior.floorDetectionRadius, Vector3.up, 1000f, layerMask, QueryTriggerInteraction.Ignore);
 
             foreach (RaycastHit hit in hits)
             {
                 Structure str = hit.transform.GetComponent<Structure>();
                 if (str && str != this && !adjacentFloors.Contains(str))
                 {
-                    bool isRoof = str.buildPart == BuildPart.Roof || (str.buildPart == BuildPart.Floor && (str.transform.position.y - this.transform.position.y) > Interior.storeyHeight);
-                    bool isFloor = str.buildPart == BuildPart.Floor || str.buildPart == BuildPart.Stairs;
+                    bool isRoof = (str.buildPart == BuildPart.Roof || (str.buildPart == BuildPart.Stairs && str.name.ToLower().Contains("ramp"))) && (str.transform.position.y - this.transform.position.y) > 0 || 
+                        (str.buildPart == BuildPart.Floor && (str.transform.position.y - this.transform.position.y) > Interior.storeyHeight);
+                    bool isFloor = str.buildPart == BuildPart.Floor;// || str.buildPart == BuildPart.Stairs;
                     bool isFlatFloor = str.buildPart == BuildPart.Floor && (str.transform.position.y - this.transform.position.y) < Interior.storeyHeight;
                     bool isWall = str.buildPart == BuildPart.Wall;
-                    
-                    if (isFloor) adjacentFloors.Add(str);
-                    if (isRoof) adjacentRoofs.Add(str);
+
+                    if (isRoof)
+                    {
+                        RaycastHit hit2 = Physics.RaycastAll(str.renderer.bounds.center + Vector3.up * 0.1f, Vector3.up, Interior.storeyHeight * 5f, layerMask, QueryTriggerInteraction.Ignore)
+                            .FirstOrDefault(
+                                h => h.transform.GetComponent<Structure>() &&
+                                h.transform.GetComponent<Structure>() != str &&
+                                (h.transform.GetComponent<Structure>().buildPart == BuildPart.Roof || h.transform.GetComponent<Structure>().buildPart == BuildPart.Floor) &&
+                                Mathf.Abs(h.transform.position.y - str.transform.position.y) > Interior.storeyHeight / 6f
+                                );
+                        if (hit2.transform) // if this structure is roof and found another roof above - move from roofs to elevated floors
+                        {
+                            elevatedFloors.Add(str);
+                            if (isFlatFloor) adjacentFlatFloors++;
+                        }
+                        else if (!str.name.ToLower().Contains("edgeroof"))
+                        {
+                            adjacentRoofs.Add(str);
+                        }
+                        continue;
+                    }
+
+                    if (isFloor)
+                    {
+                        adjacentFloors.Add(str);
+
+                        // porch test
+
+                    }
+
                     if (isWall) adjacentWalls.Add(str);
 
                     if (isFlatFloor) adjacentFlatFloors++;
@@ -127,6 +160,7 @@ namespace Architect
 
             if (adjacentFlatFloors > 6) isEnclosedFloorTile = true;
         }
+
 
         /*
         public void OnTriggerStay(Collider obj)
@@ -150,7 +184,7 @@ namespace Architect
                 {
                     Undoor(!isStatic);
                 }
-                SetLayerAndVisuals();
+                AutoSwitchMode();
             }
 
 
@@ -336,7 +370,7 @@ namespace Architect
 
                     // setting up open/close animation components
                     ObjectAnim oa = gameObject.AddComponent<ObjectAnim>().Initialize(gameObject);
-                    OpenClose oc = gameObject.AddComponent<OpenClose>().Initialize(this.doorType, oa);
+                    OpenClose oc = gameObject.AddComponent<OpenClose>().Initialize(this.doorType, oa, this);
 
                     // closing/opening audio
                     WwiseEventReference eventOpen = ScriptableObject.CreateInstance<WwiseEventReference>();
@@ -398,7 +432,7 @@ namespace Architect
 
             this.HideNestedMeshes(!isBuilt);
 
-            if (updateLayer) SetLayerAndVisuals();
+            if (updateLayer) AutoSwitchMode();
             this.initialized = true;
 
             
@@ -561,7 +595,7 @@ namespace Architect
             this.GetComponent<OpenClose>().enabled = !doInFactUndoor;
         }
 
-        public void SetLayerAndVisuals()
+        public void AutoSwitchMode()
         {
 
             if (isBuilt)
@@ -593,8 +627,16 @@ namespace Architect
                 
             }
 
-            ToggleHelperArrow(buildPart == BuildPart.Door && !isBuilt);
+            ToggleHelperArrow(buildPart == BuildPart.Door && (!isBuilt && !isStatic));
+            ToggleInteriorTile(isBuilt);
 
+        }
+
+        public void ToggleInteriorTile(bool enable) 
+        {
+            if (this.interiorTrigger == null) return;
+            this.interiorTrigger.m_DontCountAsInterior = !enable;
+            this.interiorTrigger.gameObject.SetActive(enable);
         }
 
         /*
@@ -637,7 +679,7 @@ namespace Architect
         }
 
         */
-
+        [HideFromIl2Cpp]
         public StructureSaveProxy ToProxy()
         {
             StructureSaveProxy data = new StructureSaveProxy()
@@ -667,10 +709,16 @@ namespace Architect
 
 
         }
-
-        public void Restore(StructureSaveProxy proxy)
+        [HideFromIl2Cpp]
+        public void FromProxy(StructureSaveProxy proxy)
         {
-            StructurePreset sp = allStructures[proxy.prefabName[0..^2]]; // range operator to trim last 2 characters
+            allStructures.TryGetValue(proxy.prefabName[0..^2], out StructurePreset? sp); // range operator to trim last 2 characters
+
+            if (sp == null)
+            {
+                Log(ConsoleColor.Red, $"Structure {proxy.prefabName[0..^2]} could not be loaded: missing in the dictionary");
+                return;
+            }
 
             localizationKey = sp.loKey;
             buildMaterial = sp.bMat;

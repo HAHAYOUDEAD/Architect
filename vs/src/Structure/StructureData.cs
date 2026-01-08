@@ -282,8 +282,11 @@ namespace Architect
             { "ARC_plank_stairsFloor", new StructurePreset() { bMat = BuildMaterial.WoodPlank, bPart = BuildPart.Floor, res = ResourcesPreset.Regular, loKey = "ARC_FloorStairs" } },
                 // roof
             { "ARC_plank_regularRoof", new StructurePreset() { bMat = BuildMaterial.WoodPlank, bPart = BuildPart.Roof, res = ResourcesPreset.Regular, loKey = "ARC_RoofRegular", numVar = 3 } },
+            { "ARC_plank_overhangEdgeRoofLeft", new StructurePreset() { bMat = BuildMaterial.WoodPlank, bPart = BuildPart.Roof, res = ResourcesPreset.Regular, loKey = "ARC_RoofOverhangLeft" } },
+            { "ARC_plank_overhangEdgeRoofRight", new StructurePreset() { bMat = BuildMaterial.WoodPlank, bPart = BuildPart.Roof, res = ResourcesPreset.Regular, loKey = "ARC_RoofOverhangRight" } },
             { "ARC_plank_triangleWallLeft", new StructurePreset() { bMat = BuildMaterial.WoodPlank, bPart = BuildPart.Wall, res = ResourcesPreset.Half, loKey = "ARC_WallTriangleLeft" } },
             { "ARC_plank_triangleWallRight", new StructurePreset() { bMat = BuildMaterial.WoodPlank, bPart = BuildPart.Wall, res = ResourcesPreset.Half, loKey = "ARC_WallTriangleRight" } },
+            { "ARC_plank_overhangEdgeRoof", new StructurePreset() { bMat = BuildMaterial.WoodPlank, bPart = BuildPart.Roof, res = ResourcesPreset.Half, loKey = "ARC_RoofOverhangTrim" } },
                 // pillar
             { "ARC_plank_railingEnd", new StructurePreset() { bMat = BuildMaterial.WoodPlank, bPart = BuildPart.Pillar, res = ResourcesPreset.Singular, loKey = "ARC_RailingEnd", numVar = 3 } },
             { "ARC_plank_railingShort", new StructurePreset() { bMat = BuildMaterial.WoodPlank, bPart = BuildPart.Pillar, res = ResourcesPreset.Quarter, loKey = "ARC_RailingShort", numVar = 2 } },

@@ -17,7 +17,7 @@
             bd.m_RequiresTool = true;//!Settings.options.noRequirements;
             bd.m_TimeCostHours = Settings.options.buildingTimeMult * sr.breakTime;
             bd.m_BreakDownAudio = sr.breakAudio;
-            bd.m_LocalizedDisplayName = new LocalizedString() { m_LocalizationID = sc.localizedName };
+            bd.m_LocalizedDisplayName = new LocalizedString() { m_LocalizationID = sc.localizationKey };
             return bd;
         }
 
@@ -32,7 +32,7 @@
             bd.m_RequiresTool = true;// !Settings.options.noRequirements;
             bd.m_TimeCostHours = Settings.options.buildingTimeMult * sr.buildTime;
             bd.m_BreakDownAudio = sr.buildAudio;
-            bd.m_LocalizedDisplayName = new LocalizedString() { m_LocalizationID = sc.localizedName };
+            bd.m_LocalizedDisplayName = new LocalizedString() { m_LocalizationID = sc.localizationKey };
             return bd;
         }
 

@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Linq.Expressions;
+using Il2CppSystem.Xml;
 
 namespace Architect
 {
@@ -51,7 +52,7 @@ namespace Architect
             private static void Postfix(ref BreakDown __instance)
             {
                 Structure sc = __instance.GetComponent<Structure>();
-                if (sc) sc.SetLayerAndVisuals();
+                if (sc) sc.AutoSwitchMode();
             }
         }
         
@@ -501,7 +502,7 @@ namespace Architect
                 if (string.IsNullOrEmpty(hoverText))
                 {
                     if (!isInBuildingMode && str.isBuilt && str.buildPart == Data.BuildPart.Door) return; // doors have their own hover text from OpenClose component
-                    hoverText = itemUnderCrosshairs?.GetComponent<Structure>().localizedName;
+                    hoverText = Localization.Get(itemUnderCrosshairs?.GetComponent<Structure>().localizationKey);
                 }
             }
         }
@@ -633,6 +634,7 @@ namespace Architect
                 }
 
             }
+            // add nudging when not snapping?
 
             // snapping part
 
@@ -641,13 +643,66 @@ namespace Architect
             internal static bool Prefix(PlayerManager __instance)
             {
                 Structure sc = GameManager.GetPlayerManagerComponent().m_ObjectToPlace?.GetComponent<Structure>();
-                if (sc && Snap.PartToPattern(sc.buildPart) != Snap.SnapPattern.Free && !InputManager.GetSprintDown(InputManager.m_CurrentContext))
+                if (sc && Snap.PartToPattern(sc) != Snap.SnapPattern.Free && !InputManager.GetSprintDown(InputManager.m_CurrentContext))
                 {
                     if (Snap.SnapToTriggerRelatedPoint(sc))
                     {
                         forceShowCrosshair = true;
                         Snap.SetCustomRotation(Input.mouseScrollDelta.y); // rotate with mouse wheel
-                        sc.ToggleSnapTriggers(false);
+
+                        Snap.nudgeTimer -= Time.deltaTime;
+                        Snap.nudgeHeldTimer += Time.deltaTime;
+
+                        bool anyKeyHeld =
+                            Utility.GetKeyHeld(Settings.options.nudgeXpKey) ||
+                            Utility.GetKeyHeld(Settings.options.nudgeXnKey) ||
+                            Utility.GetKeyHeld(Settings.options.nudgeZpKey) ||
+                            Utility.GetKeyHeld(Settings.options.nudgeZnKey) ||
+                            Utility.GetKeyHeld(Settings.options.nudgeYpKey) ||
+                            Utility.GetKeyHeld(Settings.options.nudgeYnKey);
+
+                        if (anyKeyHeld)
+                        {
+                            if (Snap.nudgeTimer <= 0f)
+                            {
+                                if (Snap.nudgeHeldTimer >= 0.5f)
+                                {
+                                    if (Snap.nudgeHeldTimer >= Snap.nudgeSpeedupDelay)
+                                    {
+                                        Snap.nudgeInterval = 0.02f;
+                                    }
+                                    else
+                                    {
+                                        Snap.nudgeInterval = 0.1f;
+                                    }
+                                }
+
+                                if (Utility.GetKeyHeld(Settings.options.nudgeXpKey)) Snap.Nudge(sc, Vector3.right);
+                                if (Utility.GetKeyHeld(Settings.options.nudgeXnKey)) Snap.Nudge(sc, Vector3.left);
+                                if (Utility.GetKeyHeld(Settings.options.nudgeZpKey)) Snap.Nudge(sc, Vector3.forward);
+                                if (Utility.GetKeyHeld(Settings.options.nudgeZnKey)) Snap.Nudge(sc, Vector3.back);
+                                if (Utility.GetKeyHeld(Settings.options.nudgeYpKey)) Snap.Nudge(sc, Vector3.up);
+                                if (Utility.GetKeyHeld(Settings.options.nudgeYnKey)) Snap.Nudge(sc, Vector3.down);
+
+                                Snap.nudgeTimer = Snap.nudgeInterval;
+                            }
+
+
+                        }
+                        else
+                        {
+                            Snap.nudgeTimer = 0f;
+                            Snap.nudgeHeldTimer = 0f;
+                            Snap.nudgeInterval = 0.5f;
+                        }
+
+                        //if (InputManager.GetKeyDown(InputManager.m_CurrentContext, Settings.options.nudgeXpKey)) Snap.Nudge(sc, Vector3.right);
+                        //if (InputManager.GetKeyDown(InputManager.m_CurrentContext, Settings.options.nudgeXnKey)) Snap.Nudge(sc, Vector3.left);
+                        //if (InputManager.GetKeyDown(InputManager.m_CurrentContext, Settings.options.nudgeZpKey)) Snap.Nudge(sc, Vector3.forward);
+                        //if (InputManager.GetKeyDown(InputManager.m_CurrentContext, Settings.options.nudgeZnKey)) Snap.Nudge(sc, Vector3.back);
+                        //if (InputManager.GetKeyDown(InputManager.m_CurrentContext, Settings.options.nudgeYpKey)) Snap.Nudge(sc, Vector3.up);
+                        //if (InputManager.GetKeyDown(InputManager.m_CurrentContext, Settings.options.nudgeYnKey)) Snap.Nudge(sc, Vector3.down);
+                        
                         return false;
                     }                   
                 }
@@ -669,6 +724,7 @@ namespace Architect
                 if (sc != null)
                 {
                     Snap.ResetObject();
+                    sc.ToggleSnapTriggers(false);
                     sc.lastPlacedRotation = sc.transform.rotation;
                 }
                     
@@ -687,8 +743,42 @@ namespace Architect
                 }
 
             }
-        }   
-        
+        }
+
+        [HarmonyPatch(typeof(PlayerManager), nameof(PlayerManager.AttemptToPlaceMesh))]
+        private static class PreventDoublePlacement
+        {
+            internal static bool Prefix(PlayerManager __instance)
+            {
+                Structure? sc = __instance.GetObjectToPlace()?.GetComponent<Structure>();
+                if (sc != null)
+                {
+                    int layerMask = 0;
+                    layerMask |= (1 << vp_Layer.InteractiveProp);
+                    layerMask |= (1 << vp_Layer.InteractivePropNoCollidePlayer);
+                    layerMask |= (1 << vp_Layer.Buildings);
+
+                    Vector3 pos = sc.transform.position;
+                    Quaternion rot = sc.transform.rotation;
+
+                    foreach (Collider hit in Physics.OverlapSphere(pos, 0.1f, layerMask))
+                    {
+                        if (hit.transform != sc.transform &&
+                            hit.GetComponent<Structure>()?.buildPart == sc.buildPart &&
+                            rot == hit.transform.rotation &&
+                            pos.Approximately(hit.transform.position, 0.01f))//same object type at same exact place
+                        {
+                            GameAudioManager.PlayGUIError();
+                            HUDMessage.AddMessage(Localization.Get("ARC_Interface_CannotPlaceDouble"), false, true);
+                            return false;
+                        }
+                    }
+                }
+
+                return true;
+            }
+        }
+
         [HarmonyPatch(typeof(PlayerManager), nameof(PlayerManager.TintPreviewRenderers))]
         private static class DisableTint
         {
@@ -702,7 +792,9 @@ namespace Architect
                 return true;
                     
             }
-        }
+        }        
+
+
 
         [HarmonyPatch(typeof(PlayerManager), nameof(PlayerManager.ExitMeshPlacement))]
         private static class ManagePostPlacement
@@ -739,7 +831,7 @@ namespace Architect
                         sc = arcObject.GetComponent<Structure>();
 
                         if (!sc.isBuilt) Materials.AssignMaterial(sc, Data.BuildPartSide.Both, true, false, true);
-                        sc.SetLayerAndVisuals();
+                        sc.AutoSwitchMode();
 
                         sc.ToggleSnapTriggers(true);
 

@@ -11,7 +11,7 @@
                 ReadCommentHandling = JsonCommentHandling.Skip,
                 WriteIndented = false,
                 DefaultIgnoreCondition = JsonIgnoreCondition.Never,
-                //UnknownTypeHandling = JsonUnknownTypeHandling.JsonElement // .NET 8+
+                //UnknownTypeHandling = JsonUnknownTypeHandling.JsonElement
             };
 
             options.Converters.Add(new Vector3Converter());

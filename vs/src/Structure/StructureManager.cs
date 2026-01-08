@@ -71,7 +71,7 @@ namespace Architect
                     GameObject wallPart = UnityEngine.Object.Instantiate(meshBundle.LoadAsset<GameObject>(structure.prefabName));
                     wallPart.name = structure.prefabName;
                     Structure component = wallPart.GetComponent<Structure>();
-                    component.Restore(structure);
+                    component.FromProxy(structure);
                 }
             }
             MelonCoroutines.Start(PostInitialization());
@@ -85,7 +85,7 @@ namespace Architect
                     GameObject wallPart = UnityEngine.Object.Instantiate(meshBundle.LoadAsset<GameObject>(s.prefabName));
                     wallPart.name = s.prefabName;
                     Structure component = wallPart.GetComponent<Structure>();
-                    component.Restore(s);
+                    component.FromProxy(s);
                 }
             }
             MelonCoroutines.Start(PostInitialization());

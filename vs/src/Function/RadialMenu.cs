@@ -174,10 +174,14 @@ namespace Architect
                 //rArray.SetSpecific(RadialBuilder.CreateRadialArm("ARC_StoneMaterialType", "ico_Material__Stone", () => ShowPartSelection(Data.BuildMaterial.Stone)), RadialArm.Direction.North);
 
                 rArray.SetSpecific(RadialBuilder.CreateRadialArm("ARC_ToggleBuildingModeOFF", "ICO_Architect_EnableBuild", () => RadialActions.ToggleBuildingMode(false)), RadialArm.Direction.Middle);
+
+                //rArray.SetSpecific(RadialBuilder.CreateRadialArm("ARC_Interface_RunInteriorCheck", "ICO_Architect_InteriorCheck", () => Interior.CallInteriorCheck(GameManager.GetPlayerTransform().position)), RadialArm.Direction.South);
             }
             else
             {
                 rArray.SetSpecific(RadialBuilder.CreateRadialArm("ARC_ToggleBuildingModeON", "ICO_Architect_DisableBuild", () => RadialActions.ToggleBuildingMode(true)), RadialArm.Direction.Middle);
+
+                rArray.SetSpecific(RadialBuilder.CreateRadialArm("ARC_Interface_RunInteriorCheck", "ICO_Architect_InteriorCheck", () => Interior.CallInteriorCheck(GameManager.GetPlayerTransform().position)), RadialArm.Direction.South);
             }
 
             FinalizeRadial(rArray, ShowMainRadial, true);
@@ -244,8 +248,11 @@ namespace Architect
                             break;
                         case Data.BuildPart.Roof:
                             rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_plank_regularRoof"), RadialArm.Direction.North);
-                            rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_plank_triangleWallLeft"), RadialArm.Direction.SouthEast);
-                            rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_plank_triangleWallRight"), RadialArm.Direction.South);
+                            rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_plank_overhangEdgeRoofLeft"), RadialArm.Direction.NorthWest);
+                            rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_plank_overhangEdgeRoofRight"), RadialArm.Direction.NorthEast);
+                            rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_plank_triangleWallLeft"), RadialArm.Direction.West);
+                            rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_plank_triangleWallRight"), RadialArm.Direction.East);
+                            rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_plank_overhangEdgeRoof"), RadialArm.Direction.South);
                             break;
                         case Data.BuildPart.Pillar:
                             rArray.SetSpecific(RadialBuilder.CreateRadialArmToPlaceWall("ARC_plank_railingEnd"), RadialArm.Direction.North);

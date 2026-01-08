@@ -1,26 +1,27 @@
-﻿global using MelonLoader;
-global using System.Reflection;
+﻿global using Architect;
+global using HarmonyLib;
+global using Il2Cpp;
+global using Il2CppInterop.Runtime.Attributes;
+global using Il2CppTLD.Placement;
+global using LocalizationUtilities;
+global using MelonLoader;
+global using ModData;
 global using System.Collections;
 global using System.Collections.Generic;
-global using UnityEngine;
-global using Il2Cpp;
-global using Utils = Il2Cpp.Utils;
-global using Architect;
-global using HarmonyLib;
-global using LocalizationUtilities;
-global using Data = Architect.StructureData;
-global using Random = System.Random;
-global using ModData;
+global using System.Reflection;
 //global using MelonLoader.TinyJSON;
 global using System.Text.Json;
 global using System.Text.Json.Serialization;
+global using UnityEngine;
 global using UnityEngine.AI;
-global using Il2CppInterop.Runtime.Attributes;
-global using Il2CppTLD.Placement;
-global using static Architect.Values;
 global using static Architect.Utility;
+global using static Architect.Values;
+global using Data = Architect.StructureData;
+global using Random = System.Random;
+global using Utils = Il2Cpp.Utils;
+using Il2CppTLD.Interactions;
+using UnityEngine.Events;
 using static Architect.StructureData;
-using static Il2Cpp.GridUI;
 
 namespace Architect
 {
@@ -86,12 +87,22 @@ namespace Architect
 
         public static AssetBundle LoadEmbeddedAssetBundle(string name)
         {
+            /*
             MemoryStream memoryStream;
             Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourcesFolder + name);
             memoryStream = new MemoryStream((int)stream.Length);
             stream.CopyTo(memoryStream);
 
             return AssetBundle.LoadFromMemory(memoryStream.ToArray());
+            */
+            using (Stream? stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourcesFolder + name))
+            {
+                MemoryStream? memory = new((int)stream.Length);
+                stream!.CopyTo(memory);
+
+                Il2CppSystem.IO.MemoryStream memoryStream = new(memory.ToArray());
+                return AssetBundle.LoadFromStream(memoryStream);
+            };
         }
 
 
@@ -155,7 +166,7 @@ namespace Architect
             return ite;
         }
 
-        public static OpenClose Initialize(this OpenClose oc, DoorVariant type, ObjectAnim oa)
+        public static OpenClose Initialize(this OpenClose oc, DoorVariant type, ObjectAnim oa, Structure str)
         {
             switch (type)
             {
@@ -178,10 +189,10 @@ namespace Architect
             oc.m_StartOpened = false;
             oc.m_OpenAudio = "";
             oc.m_CloseAudio = "";
+            //oc.AddEventCallback(InteractionEventType.CloseEnd, (UnityAction<BaseInteraction>)(check => Interior.CallInteriorCheck(str.renderer.bounds.center)));
 
             return oc;
         }
-
 
         public static ObjectAnim Initialize(this ObjectAnim oa, GameObject go)
         {
@@ -295,7 +306,7 @@ namespace Architect
 
         public static void Log(ConsoleColor color, string message)
         {
-            if (Settings.options.showDebugInfo)
+            if (Settings.options.showDebugInfo || color == ConsoleColor.Red)
             {
                 MelonLogger.Msg(color, message);
             }

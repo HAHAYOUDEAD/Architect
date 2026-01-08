@@ -9,7 +9,7 @@
 
         public static AssetBundle meshBundle;
 
-        public const string dllVersion = "0.8.0";
+        public const string dllVersion = "0.7.9";
         public const string resourcesFolder = "Architect.Resources.";
         public const string modName = "Architect";
 
@@ -20,6 +20,8 @@
         public static readonly string emptyIconName = "ico_Empty";
 
         public static bool forceShowCrosshair = false;
+
+        public static readonly string interiorTriggerName = "InteriorTrigger";
 
         public static PlaceMeshRules placeRules = PlaceMeshRules.None;// | PlaceMeshRules.AllowFloorPlacement | PlaceMeshRules.AllowWallPlacement | PlaceMeshRules.IgnoreCloseObjects;
 

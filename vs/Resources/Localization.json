@@ -46,6 +46,16 @@
     "English": "Requires {tool-name} to build",
     "Russian": "Для строительства требуется: {tool-name}"
   },
+  "ARC_Interface_RunInteriorCheck": {
+
+    "English": "Run interior check",
+    "Russian": "Проверка замкнутого пространства"
+  },
+  "ARC_Interface_CannotPlaceDouble": {
+
+    "English": "Prevented duplicate placement",
+    "Russian": "Предотвращено повторное размещение"
+  },
 
 
   "ARC_ToggleBuildingModeON": {
@@ -57,6 +67,18 @@
 
     "English": "Disable Building Mode",
     "Russian": "Выключить Режим Строительства"
+  },
+
+
+  "ARC_InteriorCheckFailed": {
+
+    "English": "Interior check failed",
+    "Russian": "Проверка на замкнутое пространство не пройдена"
+  },
+  "ARC_InteriorCheckPassed": {
+
+    "English": "Interior check successful",
+    "Russian": "Проверка на замкнутое пространство пройдена успешно"
   },
 
 
@@ -120,22 +142,22 @@
   "ARC_PlankMaterialType": {
 
     "English": "Plank structure",
-    "Russian": ""
+    "Russian": "Из досок"
   },
   "ARC_LogMaterialType": {
 
     "English": "Log structure",
-    "Russian": ""
+    "Russian": "Из брёвен"
   },
   "ARC_StoneMaterialType": {
 
     "English": "Stone structure",
-    "Russian": ""
+    "Russian": "Из камня"
   },
   "ARC_MetalMaterialType": {
 
     "English": "Metal structure",
-    "Russian": ""
+    "Russian": "Из металла"
   },
 
 
@@ -143,42 +165,42 @@
   "ARC_Walls": {
 
     "English": "Walls",
-    "Russian": ""
+    "Russian": "Стены"
   },
   "ARC_Floors": {
 
     "English": "Floors",
-    "Russian": ""
+    "Russian": "Полы"
   },
   "ARC_Roofs": {
 
     "English": "Roofs",
-    "Russian": ""
+    "Russian": "Крыши"
   },
   "ARC_Pillars": {
 
     "English": "Pillars",
-    "Russian": ""
+    "Russian": "Колонны"
   },
   "ARC_Stairs": {
 
     "English": "Stairs",
-    "Russian": ""
+    "Russian": "Лестницы"
   },
   "ARC_Interactive": {
 
     "English": "Interactive",
-    "Russian": ""
+    "Russian": "Двери и окна"
   },
   "ARC_Misc": {
 
     "English": "Miscellaneous",
-    "Russian": ""
+    "Russian": "Прочее"
   },
   "ARC_Deco": {
 
     "English": "Decoration",
-    "Russian": ""
+    "Russian": "Украшения"
   },
 
 
@@ -187,84 +209,84 @@
   "ARC_WallRegular": {
 
     "English": "Regular wall",
-    "Russian": ""
+    "Russian": "Обычная стена"
   },
   "ARC_WallHalf": {
 
     "English": "Half wall",
-    "Russian": ""
+    "Russian": "Половинная стена"
   },
   "ARC_WallNarrow": {
 
     "English": "Narrow wall",
-    "Russian": ""
+    "Russian": "Узкая стена"
   },
   "ARC_WallQuarter": {
 
     "English": "Quarter wall",
-    "Russian": ""
+    "Russian": "Четвертинная стены"
   },
   "ARC_WallCornerInner": {
 
     "English": "Inner corner",
-    "Russian": ""
+    "Russian": "Внутренний угол"
   },
   "ARC_WallCornerOuter": {
 
     "English": "Outer corner",
-    "Russian": ""
+    "Russian": "Наружний угол"
   },
   "ARC_WallWindow": {
 
     "English": "Window opening",
-    "Russian": ""
+    "Russian": "Стена с вырезом под окно"
   },
   "ARC_WallDoor": {
 
     "English": "Door opening",
-    "Russian": ""
+    "Russian": "Стена с вырезом под дверь"
   },
   "ARC_WallTriangleLeft": {
 
     "English": "Left triangle",
-    "Russian": ""
+    "Russian": "Левый треугольник"
   },
   "ARC_WallTriangleRight": {
 
     "English": "Right triangle",
-    "Russian": ""
+    "Russian": "Правый треугольник"
   },
   "ARC_WallLong": {
 
     "English": "Long wall",
-    "Russian": ""
+    "Russian": "Длинная стена"
   },
 
 
   "ARC_FloorRegular": {
 
     "English": "Regular floor",
-    "Russian": ""
+    "Russian": "Обычный пол"
   },
   "ARC_FloorStairs": {
 
     "English": "Stairwell floor",
-    "Russian": ""
+    "Russian": "Пол с вырезом под лестницу"
   },
   "ARC_FloorQuarter": {
 
     "English": "Quarter floor",
-    "Russian": ""
+    "Russian": "Четвертинный пол"
   },
   "ARC_FloorElevated": {
 
     "English": "Elevated floor",
-    "Russian": ""
+    "Russian": "Возвышенный пол"
   },
   "ARC_FoundationElevated": {
 
     "English": "Elevated foundation",
-    "Russian": ""
+    "Russian": "Возвышенное основание"
   },
 
 
@@ -272,7 +294,22 @@
   "ARC_RoofRegular": {
 
     "English": "Regular roof",
-    "Russian": ""
+    "Russian": "Обычная крыша"
+  },
+  "ARC_RoofOverhangLeft": {
+
+    "English": "Left trim",
+    "Russian": "Левый козырёк"
+  },
+  "ARC_RoofOverhangRight": {
+
+    "English": "Right trim",
+    "Russian": "Правый козырёк"
+  },
+  "ARC_RoofOverhangTrim": {
+
+    "English": "Trim",
+    "Russian": "Козырёк"
   },
 
 
@@ -280,69 +317,69 @@
   "ARC_Pillar": {
 
     "English": "Pillar",
-    "Russian": ""
+    "Russian": "Колонна"
   },
   "ARC_PillarFancy": {
 
     "English": "Fancy pillar",
-    "Russian": ""
+    "Russian": "Резная колонна"
   },
   "ARC_PillarHalf": {
 
     "English": "Short pillar",
-    "Russian": ""
+    "Russian": "Короткая колонна"
   },
   "ARC_Beam": {
 
     "English": "Beam",
-    "Russian": ""
+    "Russian": "Балка"
   },
   "ARC_BeamHalf": {
 
     "English": "Short beam",
-    "Russian": ""
+    "Russian": "Короткая балка"
   },
 
 
   "ARC_DoorSimple": {
 
     "English": "Simple door",
-    "Russian": ""
+    "Russian": "Простая дверь"
   },
   "ARC_DoorFancy": {
 
     "English": "Fancy door",
-    "Russian": ""
+    "Russian": "Резная дверь"
   },
   "ARC_WindowShutter": {
 
     "English": "Shutter",
-    "Russian": ""
+    "Russian": "Ставень"
   },
   "ARC_WindowShutterInteractOpen": {
 
     "English": "Open Shutter",
-    "Russian": ""
+    "Russian": "Открыть ставень"
   },
   "ARC_WindowShutterInteractClose": {
 
     "English": "Close Shutter",
-    "Russian": ""
+    "Russian": "Закрыть ставень"
   },
   "ARC_Scaffolding": {
 
     "English": "Scaffolding",
-    "Russian": ""
+    "Russian": "Строительные леса"
   },
   "ARC_Singular": {
 
     "English": "Plank",
-    "Russian": ""
+    "Russian": "Доска"
   },
   "ARC_PatchBoard": {
 
     "English": "Patch board",
-    "Russian": ""
+    "Russian": "Заплатка"
   },
 
 
@@ -350,17 +387,17 @@
   "ARC_StairsHalf": {
 
     "English": "Stairs",
-    "Russian": ""
+    "Russian": "Лестница"
   },
   "ARC_Ramp": {
 
     "English": "Ramp",
-    "Russian": ""
+    "Russian": "Рампа"
   },
   "ARC_StairsFull": {
 
     "English": "Long stairs",
-    "Russian": ""
+    "Russian": "Высокая лестница"
   },
 
 
@@ -368,47 +405,47 @@
   "ARC_RailingEnd": {
 
     "English": "Railing end",
-    "Russian": ""
+    "Russian": "Конец ограды"
   },
   "ARC_RailingShort": {
 
     "English": "Short railing",
-    "Russian": ""
+    "Russian": "Короткая ограда"
   },
   "ARC_RailingLong": {
 
     "English": "Long railing",
-    "Russian": ""
+    "Russian": "Длинная ограда"
   },
   "ARC_RailingSlanted": {
 
     "English": "Slanted railing",
-    "Russian": ""
+    "Russian": "Наклонная ограда"
   },
   "ARC_Fence": {
 
     "English": "Fence",
-    "Russian": ""
+    "Russian": "Забор"
   },
   "ARC_FencePost": {
 
     "English": "Fence post",
-    "Russian": ""
+    "Russian": "Столбик"
   },
   "ARC_FenceGate": {
 
     "English": "Fence gate",
-    "Russian": ""
+    "Russian": "Ворота"
   },
   "ARC_FenceGateInteractOpen": {
 
     "English": "Open Fence gate",
-    "Russian": ""
+    "Russian": "Открыть ворота"
   },
   "ARC_FenceGateInteractClose": {
 
     "English": "Close Fence gate",
-    "Russian": ""
+    "Russian": "Закрыть ворота"
   }
 
 }

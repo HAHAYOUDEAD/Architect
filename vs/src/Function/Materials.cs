@@ -96,26 +96,34 @@ namespace Architect
 
             for (int i = 0; i < matArray.Length; i++)
             {
+
+
                 if (matArray[i].name.ToLower().Contains("inner"))
                 {
                     if (bps == BuildPartSide.Inside || bps == BuildPartSide.Both)
                     {
-                        Log(ConsoleColor.Red, matArray[i].name + " - " + sc.name + " " + i);
+                        //Log(ConsoleColor.Red, matArray[i].name + " - " + sc.name + " " + i);
                         matArray[i] = painted ? matPaintedInner : matInner;
-                        Log(ConsoleColor.Blue, matArray[i].name + " - " + mat.name);
+                        //Log(ConsoleColor.Blue, matArray[i].name + " - " + mat.name);
                     }
                 }
                 else if (matArray[i].name.ToLower().Contains("outer"))
                 {
                     if (bps == BuildPartSide.Outside || bps == BuildPartSide.Both)
                     {
-                        Log(ConsoleColor.Green, matArray[i].name + " - " + sc.name + " " + i);
+                        //Log(ConsoleColor.Green, matArray[i].name + " - " + sc.name + " " + i);
                         matArray[i] = painted ? matPaintedOuter : matOuter;
+                    }
+
+                    if (!ghost)
+                    {
+                        matArray[i].SetFloat("_EnableTerrainMaterialBlending", 1f);
+                        matArray[i].SetFloat("_TerrainTextureBlendOffset", -0.85f);
                     }
                 }
                 else
                 {
-                    Log(ConsoleColor.Yellow, matArray[i].name + " - " + sc.name + " " + i);
+                    //Log(ConsoleColor.Yellow, matArray[i].name + " - " + sc.name + " " + i);
                     if (matArray[i].name.ToLower().Contains("logcore"))
                     {
                         matOverride.mainTexture = meshBundle.LoadAsset<Texture>("Assets/Textures/" + "TEX_logCore" + ".png");
@@ -140,6 +148,8 @@ namespace Architect
                     }
                     matArray[i] = matOverrideInstance;
                 }
+
+
             }
 
             go.GetComponent<MeshRenderer>().materials = matArray;
