@@ -99,6 +99,10 @@ namespace Architect
         [Description("For testing purposes, will be removed when out of beta")]
         public bool noRequirements = false;
 
+        [Name("Campfires anywhere")]
+        [Description("Allow campfires on wooden floors")]
+        public bool campfiresOnWood = false;
+
         protected override void OnConfirm()
         {
             base.OnConfirm();

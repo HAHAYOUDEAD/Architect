@@ -14,6 +14,7 @@ global using System.Text.Json;
 global using System.Text.Json.Serialization;
 global using UnityEngine;
 global using UnityEngine.AI;
+global using System.Globalization;
 global using static Architect.Utility;
 global using static Architect.Values;
 global using Data = Architect.StructureData;

@@ -1,16 +1,24 @@
-﻿using Harmony;
-using Il2Cpp;
-using Il2CppSystem.Xml.Serialization;
-using Il2CppTLD.Gameplay.Fishing;
-using Il2CppTLD.Interactions;
+﻿
+
 using Il2CppTMPro;
-using Il2CppVLB;
-using UnityEngine;
+
 
 namespace Architect
 {
+    public class InteriorClusterData
+    {
+        public float height = 0f;
+        public float temperature = 10f;
+    }
     internal class Interior
     {
+        public static readonly float baseTemperature = 10f; // stone
+        public static readonly float metalCoefficient = 0.3f; 
+        public static readonly float logCoefficient = 0.8f; 
+        public static readonly float plankCoefficient = 0.5f; 
+        public static readonly float insulatedCoefficient = 1.2f; 
+        public static readonly float insulatedCoefficientPlus = 1.5f; 
+
         public static readonly float storeyHeight = 3f;
         public static readonly float floorDetectionRadius = 2f;
 
@@ -27,6 +35,7 @@ namespace Architect
         public static HashSet<Structure> interiorFloorTiles = new();
 
         public static Dictionary<string, HashSet<Structure>> currentRegionClusterSets = new();
+        public static Dictionary<string, InteriorClusterData> currentRegionClusterData = new();
 
         static readonly string[] rngA =
         {
@@ -95,23 +104,22 @@ namespace Architect
                 }
             }
 
-            //Vector3[] sorted = ExtractFarthestLoop(ws).ToArray();
             Vector3[] sorted = SortByNearestNeighbor(ExtractFarthestLoop(ws)).ToArray();
 
-            /*
-            for (int i = 0; i < sorted.Count(); i++)
+            if (Settings.options.showDebugInfo)
             {
-                MelonCoroutines.Start(FlashDebugSphere(sorted[i], i.ToString()));
+                for (int i = 0; i < sorted.Count(); i++)
+                {
+                    MelonCoroutines.Start(FlashDebugSphere(new Color(1 / 10f, i / 10f, 1f), sorted[i] + Vector3.up * 1.2f, i.ToString(), .45f));
+                }
             }
-            */
 
             foreach (Structure floor in isolatedIsland)
             {
-                Vector3 center = floor.renderer.bounds.center;
+                Vector3 center = Snap.GetSnapPointPosition(floor, Snap.SnapPoint.Ymax);
                 bool isIn = IsInsidePerimeter(sorted, center);
                 if (isIn)
                 {
-                    // 
                     interiorFloorTiles.Add(floor);
                 }
                 if (Settings.options.showDebugInfo)
@@ -133,7 +141,7 @@ namespace Architect
                 Structure floor = hit.transform.GetComponent<Structure>();
                 if (floor && floor.buildPart == Data.BuildPart.Floor)
                 {
-                    groundLevel = floor.transform.position.y;
+                    groundLevel = Snap.GetSnapPointPosition(floor, Snap.SnapPoint.Ymax).y;
                     highestRoof = 0f;
                     MelonCoroutines.Start(DetectInterior(floor));
                     return true;
@@ -146,6 +154,18 @@ namespace Architect
             }
             HUDMessage.AddMessage(Localization.Get("ARC_InteriorCheckFailed"));
             return false;
+        }
+
+        public static void ResetLists()
+        {
+            isolatedIsland.Clear();
+            isolatedIslandPerimeter.Clear();
+            isolatedIslandPerimeterElevated.Clear();
+            isolatedIslandWalls.Clear();
+            isolatedIslandRoofs.Clear();
+            interiorFloorTiles.Clear();
+            tempDeltaWalls = 0f;
+            tempDeltaFloors = 0f;
         }
 
         public static IEnumerator DetectInterior(Structure str)
@@ -167,12 +187,7 @@ namespace Architect
                 }
             }
 
-            isolatedIsland.Clear();
-            isolatedIslandPerimeter.Clear();
-            isolatedIslandPerimeterElevated.Clear();
-            isolatedIslandWalls.Clear();
-            isolatedIslandRoofs.Clear();
-            interiorFloorTiles.Clear();
+            ResetLists();
 
             MelonCoroutines.Start(GrabAdjacent(str, true));
 
@@ -182,7 +197,21 @@ namespace Architect
                 yield return new WaitForEndOfFrame();
             }
 
-            CallPorchCheck(); // find floor tiles enclosed by walls, discard "porch"
+            if (isolatedIsland.Count > 3)
+            {
+                CallPorchCheck(); // find floor tiles enclosed by walls, discard "porch"
+
+                if (interiorFloorTiles.Count < isolatedIsland.Count * 0.1f || interiorFloorTiles.Count < 1)
+                {
+                    HUDMessage.AddMessage(Localization.Get("ARC_PorchCheckFailed"));
+                    lastInteriorCheckTimeStamp = Time.time;
+                    yield break;
+                }
+            }
+            else
+            {
+                interiorFloorTiles = isolatedIsland;
+            }
 
             float interiorCount = interiorFloorTiles.Count * 0.8f; // used with roof calculation
             float outerWallCount = (isolatedIslandPerimeter.Count + isolatedIslandPerimeterElevated.Count) * 0.8f; // used with wall calculation
@@ -210,31 +239,31 @@ namespace Architect
                 else if (r.name.ToLower().Contains("half") || r.name.ToLower().Contains("narrow")) roofCount -= 0.5f;
             }
 
-            if (isolatedIsland.Count() > 0 && wallCount >= 3 + outerWallCount && roofCount >= 1 + interiorCount)
+
+            if (isolatedIsland.Count() > 0 && wallCount >= 3 + outerWallCount && roofCount >= interiorCount)
             {
                 int i = CreateInteriorTriggers(interiorFloorTiles.ToArray());
                 int c = CleanupInteriorTriggers(isolatedIsland.ToArray());
 
-                // create or lookup cluster
-
                 if (Settings.options.showDebugInfo)
                 {
-                    MelonLogger.Msg(ConsoleColor.Green, $"Interior check passed: ");
+                    Log(ConsoleColor.Green, $"Interior check passed: ");
                     MelonLogger.Msg("  Found interior of size {0} with {1} walls and {2} roofs. Perimeter {3}",
                         interiorFloorTiles.Count, wallCount, roofCount, isolatedIslandPerimeter.Count + isolatedIslandPerimeterElevated.Count);
                     if (i <= 0) MelonLogger.Msg("  No new interior tiles were created");
                     else MelonLogger.Msg($"  Created {i} new interior tiles");
                     if (c > 0) MelonLogger.Msg($"  Cleaned up {c} old interior tiles");
                 }
+
                 HUDMessage.AddMessage(Localization.Get("ARC_InteriorCheckPassed"));
             }
             else
             {
                 if (Settings.options.showDebugInfo)
                 {
-                    MelonLogger.Msg(ConsoleColor.Red, $"Interior check failed: ");
+                    Log(ConsoleColor.Red, $"Interior check failed: ");
                     if (isolatedIsland.Count() <= 0) MelonLogger.Msg("  No floor tile detected");
-                    if (roofCount < 1 + interiorCount) MelonLogger.Msg($"  Expected roof count > {1 + interiorCount}, got {roofCount}");
+                    if (roofCount < interiorCount) MelonLogger.Msg($"  Expected roof count > {interiorCount}, got {roofCount}");
                     if (wallCount < 3 + outerWallCount) MelonLogger.Msg($"  Expected wall count > {3 + outerWallCount}, got {wallCount}");
                 }
 
@@ -276,20 +305,20 @@ namespace Architect
 
                 if (aStr.buildMaterial == Data.BuildMaterial.WoodPlank)
                 {
-                    tempDeltaFloors += 5f;
+                    tempDeltaFloors += baseTemperature * plankCoefficient;
                 }
                 if (aStr.buildMaterial == Data.BuildMaterial.WoodLog)
                 {
-                    if (aStr.name.ToLower().Contains("elevated")) tempDeltaWalls += 12f;
-                    else tempDeltaFloors += 8f;
+                    if (aStr.name.ToLower().Contains("elevated")) tempDeltaFloors += baseTemperature * insulatedCoefficient;
+                    else tempDeltaFloors += baseTemperature * logCoefficient;
                 }
                 if (aStr.buildMaterial == Data.BuildMaterial.Stone)
                 {
-                    tempDeltaFloors += 10f;
+                    tempDeltaFloors += baseTemperature;
                 }
                 if (aStr.buildMaterial == Data.BuildMaterial.MetalSheet)
                 {
-                    tempDeltaFloors += 3f;
+                    tempDeltaFloors += baseTemperature * metalCoefficient;
                 }
 
                 MelonCoroutines.Start(GrabAdjacent(aStr));
@@ -328,19 +357,19 @@ namespace Architect
 
                 if (aStr.buildMaterial == Data.BuildMaterial.WoodPlank)
                 {
-                    tempDeltaWalls += 5f;
+                    tempDeltaWalls += baseTemperature * plankCoefficient;
                 }                
                 if (aStr.buildMaterial == Data.BuildMaterial.WoodLog)
                 {
-                    tempDeltaWalls += 8f;
+                    tempDeltaWalls += baseTemperature * logCoefficient;
                 }                
                 if (aStr.buildMaterial == Data.BuildMaterial.Stone)
                 {
-                    tempDeltaWalls += 10f;
+                    tempDeltaWalls += baseTemperature;
                 }                
                 if (aStr.buildMaterial == Data.BuildMaterial.MetalSheet)
                 {
-                    tempDeltaWalls += 3f;
+                    tempDeltaWalls += baseTemperature * metalCoefficient;
                 }
 
                 if (Settings.options.showDebugInfo)
@@ -372,30 +401,81 @@ namespace Architect
             yield break;
         }
 
+        public static void CreateNewInteriorTrigger(Structure floor, string clusterName)
+        {
+            currentRegionClusterData.TryGetValue(clusterName, out var clusterData);
+            if (clusterData == null) // should never happen
+            {
+                Log(ConsoleColor.Red, $"This is not supposed to happen: clusterData for {clusterName} was null");
+                currentRegionClusterData[clusterName] = new(); 
+            }
+
+            Mesh m = floor.GetComponent<MeshFilter>().mesh;
+            GameObject interior = new(interiorTriggerName);
+            interior.transform.SetParent(floor.transform);
+            interior.transform.localPosition = Vector3.zero;
+            interior.transform.localRotation = Quaternion.identity;
+            interior.layer = vp_Layer.TriggerIgnoreRaycast;
+            BoxCollider box = interior.AddComponent<BoxCollider>();
+            box.isTrigger = true;
+            box.size = new Vector3(m.bounds.size.x, currentRegionClusterData[clusterName].height, m.bounds.size.z);
+            box.center = new Vector3(m.bounds.center.x, currentRegionClusterData[clusterName].height / 2f, m.bounds.center.z);
+            IndoorSpaceTrigger ist = interior.AddComponent<IndoorSpaceTrigger>();
+            ist.m_UseOutdoorTemperature = true;
+            ist.m_TemperatureDeltaCelsius = currentRegionClusterData[clusterName].temperature;
+            ist.m_AllowDropTravois = true;
+            ist.m_AllowCampfires = floor.buildMaterial == Data.BuildMaterial.Stone || floor.buildMaterial == Data.BuildMaterial.MetalSheet || Settings.options.campfiresOnWood;
+            floor.interiorTrigger = ist;
+            currentRegionClusterSets[clusterName].Add(floor);
+        }
+
         public static int CreateInteriorTriggers(Structure[] floors)
         {
             int i = 0;
+            string clusterName = "";
+            foreach (Structure f in isolatedIsland)
+            {
+                if (!String.IsNullOrEmpty(f.interiorClusterID))
+                {
+                    Log(ConsoleColor.Green, $"Found cluster name {f.interiorClusterID}");
+                    clusterName = f.interiorClusterID;
+                    break;
+                }
+            }
+
+            if (String.IsNullOrEmpty(clusterName))
+            {
+                clusterName = GenerateUniqueClusterName();
+                currentRegionClusterSets[clusterName] = new HashSet<Structure>();
+            }
+
+            if (!currentRegionClusterData.TryGetValue(clusterName, out _))
+            {
+                Log(ConsoleColor.Yellow, $"Cluster data for {clusterName} does not exist, creating new");
+                currentRegionClusterData[clusterName] = new();
+            }
+                
+            float temperature = (tempDeltaWalls / isolatedIslandWalls.Count + tempDeltaFloors / isolatedIsland.Count) / 2f;
+            Log(ConsoleColor.Blue, $"Calculating temperature for {clusterName}: delta {tempDeltaWalls} / {isolatedIslandWalls.Count} walls + delta {tempDeltaFloors} / {isolatedIsland.Count} floors = {tempDeltaWalls / isolatedIslandWalls.Count} + {tempDeltaFloors / isolatedIsland.Count}, average = {temperature} (raw)");
+            temperature = Mathf.Clamp(temperature, baseTemperature * metalCoefficient, baseTemperature * insulatedCoefficientPlus);
+
+            currentRegionClusterData[clusterName].height = highestRoof - groundLevel;
+            currentRegionClusterData[clusterName].temperature = Mathf.Ceil(temperature);
+
             foreach (Structure f in floors)
             {
-                if (f.transform.Find(interiorTriggerName) == null)
+                IndoorSpaceTrigger? ist = f.transform.GetComponentInChildren<IndoorSpaceTrigger>();
+                if (ist == null)
                 {
-                    Mesh m = f.GetComponent<MeshFilter>().mesh;
-                    GameObject interior = new(interiorTriggerName);
-                    interior.transform.SetParent(f.transform);
-                    interior.transform.localPosition = Vector3.zero;
-                    interior.transform.localRotation = Quaternion.identity;
-                    interior.layer = vp_Layer.TriggerIgnoreRaycast;
-                    BoxCollider box = interior.AddComponent<BoxCollider>();
-                    box.isTrigger = true;
-                    box.size = new Vector3(m.bounds.size.x, highestRoof - groundLevel, m.bounds.size.z);
-                    box.center = new Vector3(m.bounds.center.x, (highestRoof - groundLevel) / 2f, m.bounds.center.z);
-                    IndoorSpaceTrigger ist = interior.AddComponent<IndoorSpaceTrigger>();
-                    ist.m_UseOutdoorTemperature = true;
-                    ist.m_TemperatureDeltaCelsius = 10f;
-                    ist.m_AllowDropTravois = true;
-                    if (f.buildMaterial == Data.BuildMaterial.Stone) ist.m_AllowCampfires = true;
-                    f.interiorTrigger = ist;
+                    f.interiorClusterID = clusterName;
+
+                    CreateNewInteriorTrigger(f, clusterName);
+
                     i++;
+                }
+                else
+                {
+                    ist.m_TemperatureDeltaCelsius = currentRegionClusterData[clusterName].temperature;
                 }
             }
             return i;
@@ -409,51 +489,59 @@ namespace Architect
                 if (trigger && !interiorFloorTiles.Contains(f))
                 {
                     GameObject.Destroy(trigger);
+                    if (!String.IsNullOrEmpty(f.interiorClusterID))
+                    {
+                        if (currentRegionClusterSets.TryGetValue(f.interiorClusterID, out var bop))
+                        {
+                            bop.Remove(f);
+                            if (bop.Count == 0)
+                            {
+                                currentRegionClusterSets.Remove(f.interiorClusterID);
+                                currentRegionClusterData.Remove(f.interiorClusterID);
+                            }
+                            f.interiorClusterID = "";
+                        }
+                    }
                     i++;
                 }
             }
+            string[] keysToRemove = currentRegionClusterSets
+                .Where(kv => kv.Value == null || kv.Value.Count == 0)
+                .Select(kv => kv.Key)
+                .ToArray();
+
+            foreach (string key in keysToRemove)
+            {
+                currentRegionClusterSets.Remove(key);
+                currentRegionClusterData.Remove(key);
+            }
+
+
             return i;
         }
 
-        /*
-        private static List<Vector3> SortByNearestNeighbor(List<Vector3> points) // GPT
+        public static void KillAllInteriors()
         {
-            if (points == null || points.Count == 0)
-                return new List<Vector3>();
-
-            var sorted = new List<Vector3>();
-            var remaining = new List<Vector3>(points);
-
-            // Start from the first point (or find the leftmost if you want consistency)
-            var current = remaining[0];
-            sorted.Add(current);
-            remaining.RemoveAt(0);
-
-            while (remaining.Count > 0)
+            int i = 0;
+            foreach (var cluster in currentRegionClusterSets)
             {
-                // Find nearest remaining point
-                float bestDist = float.MaxValue;
-                int bestIndex = -1;
-
-                for (int i = 0; i < remaining.Count; i++)
+                foreach (Structure floor in cluster.Value)
                 {
-                    float dist = Vector3.SqrMagnitude(remaining[i] - current);
-                    if (dist < bestDist)
+                    GameObject? trigger = floor.transform.Find(interiorTriggerName)?.gameObject;
+                    if (trigger)
                     {
-                        bestDist = dist;
-                        bestIndex = i;
+                        GameObject.Destroy(trigger);
+                        floor.interiorClusterID = "";
+                        i++;
                     }
                 }
-
-                current = remaining[bestIndex];
-                sorted.Add(current);
-                remaining.RemoveAt(bestIndex);
             }
-
-            return sorted;
+            currentRegionClusterSets.Clear();
+            currentRegionClusterData.Clear();
+            ResetLists();
+            Log(ConsoleColor.Green, $"Killed {i} interior triggers and cleared all interior data");
         }
 
-        */
         private static List<Vector3> SortByNearestNeighbor(List<Vector3> points, float epsilon = 0.01f) // GPT
         {
             if (points == null || points.Count == 0)
@@ -554,7 +642,7 @@ namespace Architect
             HashSet<int> visited = new();
             visited.Add(points.IndexOf(start));
 
-            int grace = points.Count() / 6;
+            int grace = points.Count() / 3;
             int iteration = 0;
 
             Vector3 current = start;
@@ -602,7 +690,12 @@ namespace Architect
             return result;
         }
 
+        public static string Serialize() => JsonSerializer.Serialize(currentRegionClusterData, Jsoning.GetDefaultOptions());
 
+        public static void Deserialize(string data)
+        {
+            currentRegionClusterData = JsonSerializer.Deserialize<Dictionary<string, InteriorClusterData>>(data, Jsoning.GetDefaultOptions()) ?? new();
+        }
 
         public static IEnumerator FlashTile(Structure s, Color c)
         {
@@ -615,12 +708,13 @@ namespace Architect
 
             yield return new WaitForSeconds(debugFlashDuration);
 
-            s.insidePaintColor = i;
-            s.outsidePaintColor = o;
+            //s.insidePaintColor = i;
+            //s.outsidePaintColor = o;
+            s.insidePaintColor = Color.black;
+            s.outsidePaintColor = Color.black;
             s.Finalize();
 
         }
-
 
         public static IEnumerator FlashDebugSphere(Color c, Vector3 position, string text = "", float radius = 0.2f)
         {
@@ -663,13 +757,9 @@ namespace Architect
             while (t < debugFlashDuration)
             {
                 t += Time.deltaTime;
-                //textObj.transform.forward = (GameManager.GetPlayerTransform().position + Vector3.up * 1.8f) - textObj.transform.position;
                 textObj.transform.rotation = Quaternion.LookRotation(textObj.transform.position - (GameManager.GetPlayerTransform().position + Vector3.up * 1.8f));
                 yield return new WaitForEndOfFrame();
             }
-
-            
-            //yield return new WaitForSeconds(debugFlashDuration);
 
             GameObject.Destroy(sphere);
         }
@@ -696,27 +786,6 @@ namespace Architect
 
             debugLine1.SetPosition(0, v1);// + Vector3.up * 0.2f);
             debugLine1.SetPosition(1, v2);// + Vector3.up * 0.2f);
-            /*
-                int layerMask = 0;
-    
-                layerMask |= (1 << vp_Layer.InteractiveProp);
-                layerMask |= (1 << vp_Layer.InteractivePropNoCollidePlayer);
-    
-                //layerMask ^= (1 << layerToExclude);
-                //layerMask |= (1 << layerToInclude);
-    
-                if (Physics.SphereCast(v1 + Vector3.up, 0.3f, Vector3.down, out RaycastHit hit1, 2, layerMask))
-                {
-                    //MelonLogger.Msg("hit1: " + hit1.collider?.gameObject?.name);
-                    MelonCoroutines.Start(FlashTile(hit1.collider?.gameObject?.GetComponent<Structure>(), c));
-                }
-                if (Physics.SphereCast(v2 + Vector3.up, 0.3f, Vector3.down, out RaycastHit hit2, 2, layerMask))
-                {
-                    //MelonLogger.Msg("hit2: " + hit2.collider?.gameObject?.name);
-                    MelonCoroutines.Start(FlashTile(hit2.collider?.gameObject?.GetComponent<Structure>(), c));
-                }
-                */
-
 
             yield return new WaitForSeconds(debugFlashDuration);
 
@@ -725,195 +794,5 @@ namespace Architect
             yield break;
 
         }
-
-
     }
-
-
-
-    
-
-
-
-
-    /*
-    static float adjacentDistance = 2.6f;
-
-    static int compareX(Vector3 a, Vector3 b)
-    {
-        return a.x.CompareTo(b.x);
-    }
-
-    static int compareY(Vector3 a, Vector3 b)
-    {
-        return a.y.CompareTo(b.y);
-    }
-
-    static int compareZ(Vector3 a, Vector3 b)
-    {
-        return a.z.CompareTo(b.z);
-    }
-
-
-    public static int FindClosestIndex(Vector3[] v, Vector3 target, Vector3 direction) // find closest to given coordinate in array 
-    {
-        int closest = int.MaxValue;
-        float minDifference = float.MaxValue;
-
-        if (direction.x > 0) // X
-        {
-            for (int i = 0; i < v.Length; i++)
-            {
-                float difference = Math.Abs(v[i].x - target.x);
-                if (minDifference > difference)
-                {
-                    minDifference = difference;
-                    closest = i;
-                }
-            }
-            if (minDifference > adjacentDistance) closest = -1;
-        }
-        if (direction.z > 0) // Z
-        {
-            for (int i = 0; i < v.Length; i++)
-            {
-                float difference = Math.Abs(v[i].z - target.z);
-                if (minDifference > difference)
-                {
-                    minDifference = difference;
-                    closest = i;
-                }
-            }
-            if (minDifference > adjacentDistance) closest = -1;
-        }
-        return closest;
-    }
-
-    public static Vector3[] SiftAdjacent(Vector3[] v, Vector3 startPoint, bool drawDebug = false) // go through array and remove entries further away from each other than threshold
-    {
-        if (v.Length == 0) return new Vector3[0];
-        if (FindClosestIndex(v, startPoint, Vector3.right) == -1 || FindClosestIndex(v, startPoint, Vector3.forward) == -1) return new Vector3[0];
-
-        Array.Sort(v, compareX);
-
-        for (int i = FindClosestIndex(v, startPoint, Vector3.right); i < v.Length; i++) // sift right side of the array
-        {
-            if (i < v.Length - 1)
-            {
-                if (Mathf.Abs(v[i + 1].x - v[i].x) > adjacentDistance)
-                {
-                    v = v.Take(i + 1).ToArray();
-                    break;
-                }
-                else
-                {
-                    if (Settings.options.showDebugInfo && drawDebug) MelonCoroutines.Start(CreateRay(v[i + 1], v[i], Color.white));
-                }
-            }
-        }
-        for (int i = FindClosestIndex(v, startPoint, Vector3.right); i >= 0; i--) // sift left side of the array
-        {
-            if (i > 0)
-            {
-                if (Mathf.Abs(v[i - 1].x - v[i].x) > adjacentDistance)
-                {
-                    v = v.Skip(i).ToArray();
-                    break;
-                }
-                else
-                {
-                    if (Settings.options.showDebugInfo && drawDebug) MelonCoroutines.Start(CreateRay(v[i - 1], v[i], Color.gray));
-                }
-            }
-        }
-        Array.Sort(v, compareZ);
-
-        for (int i = FindClosestIndex(v, startPoint, Vector3.forward); i < v.Length; i++) // sift right side of the array
-        {
-            if (i < v.Length - 1)
-            {
-                if (Mathf.Abs(v[i + 1].z - v[i].z) > adjacentDistance)
-                {
-                    v = v.Take(i + 1).ToArray();
-                    break;
-                }
-                else
-                {
-                    if (Settings.options.showDebugInfo && drawDebug) MelonCoroutines.Start(CreateRay(v[i + 1], v[i], Color.cyan));
-                }
-            }
-        }
-        for (int i = FindClosestIndex(v, startPoint, Vector3.forward); i >= 0; i--) // sift left side of the array
-        {
-            if (i > 0)
-            {
-                if (Mathf.Abs(v[i - 1].z - v[i].z) > adjacentDistance)
-                {
-                    v = v.Skip(i).ToArray();
-                    break;
-                }
-                else
-                {
-                    if (Settings.options.showDebugInfo && drawDebug) MelonCoroutines.Start(CreateRay(v[i - 1], v[i], Color.blue));
-                }
-            }
-        }
-        if (Settings.options.showDebugInfo && drawDebug)
-        {
-            foreach (Vector3 vv in v)
-            {
-                MelonCoroutines.Start(CreateRay(vv, vv + Vector3.up, Color.green));
-            }
-        }
-        return v;
-    }
-
-    public static IEnumerator DrawDebugCircle(Vector3 start, float r, Color c)
-    {
-        LineRenderer debugLine1;
-        GameObject cube1 = GameObject.CreatePrimitive(PrimitiveType.Cube);
-
-        int segments = (int)r * 4;
-
-        cube1.transform.localScale = new Vector3(0f, 0f, 0f);
-        cube1.transform.position = start;
-
-        debugLine1 = cube1.AddComponent<LineRenderer>();
-        debugLine1.material = new Material(Shader.Find("Sprites/Default"));
-        debugLine1.widthMultiplier = 0.1f;
-        float alpha = 1.0f;
-        Gradient gradient = new Gradient();
-        gradient.SetKeys(
-            new GradientColorKey[] { new GradientColorKey(c, 0.0f), new GradientColorKey(c, 1.0f) },
-            new GradientAlphaKey[] { new GradientAlphaKey(alpha, 0.0f), new GradientAlphaKey(alpha, 1.0f) }
-        );
-        debugLine1.colorGradient = gradient;
-        debugLine1.SetVertexCount(segments + 1);
-
-
-        float x;
-        float y;
-        float z;
-
-        float angle = 0f;
-
-        for (int i = 0; i < (segments + 1); i++)
-        {
-            x = start.x + Mathf.Sin(Mathf.Deg2Rad * angle) * r;
-            z = start.z + Mathf.Cos(Mathf.Deg2Rad * angle) * r;
-
-            debugLine1.SetPosition(i, new Vector3(x, start.y, z));
-
-            angle += (360f / segments);
-            yield return new WaitForEndOfFrame();
-        }
-
-
-        yield return new WaitForSeconds(5f);
-
-        GameObject.Destroy(cube1);
-
-        yield break;
-    }
-    */
 }

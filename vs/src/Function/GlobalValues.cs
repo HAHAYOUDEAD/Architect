@@ -9,17 +9,19 @@
 
         public static AssetBundle meshBundle;
 
-        public const string dllVersion = "0.7.9";
+        public const string dllVersion = "0.7.8";
         public const string resourcesFolder = "Architect.Resources.";
         public const string modName = "Architect";
 
         public static ModDataManager dataManager = new ModDataManager(modName);
-        public static readonly string saveDataTag = "structures";
+        public static readonly string structureSaveDataTag = "structures";
+        public static readonly string interiorClusterSaveDataTag = "interiors";
 
         public static readonly string placeholderIconName = "ICO_Architect_Placeholder";
         public static readonly string emptyIconName = "ico_Empty";
 
         public static bool forceShowCrosshair = false;
+        public static bool nudgePlacementMode = false;
 
         public static readonly string interiorTriggerName = "InteriorTrigger";
 

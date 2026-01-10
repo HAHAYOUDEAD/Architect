@@ -18,5 +18,6 @@ namespace Architect
         public Color outsidePaintColor;
         public bool isAltMaterial = false; // for reclaimed wood or fir logs
         public bool doorState; // true = opened, false = closed
+        public string interiorCluster = ""; // empty = not interior tile
     }
 }

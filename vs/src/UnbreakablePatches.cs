@@ -99,9 +99,11 @@ namespace Architect
         }
         
         
-        [HarmonyPatch(typeof(BreakDown), nameof(BreakDown.Awake))]
-        internal class AddingNailsToYields
+        [HarmonyPatch(typeof(BreakDown), nameof(BreakDown.Start))]
+        internal static class AddingNailsToYields
         {
+            static GameObject prybarRef = null;
+
             private static void Postfix(ref BreakDown __instance)
             {
                 int i = 0;
@@ -116,16 +118,10 @@ namespace Architect
                 GameObject nails = GetPrefab(Data.nailsGearName);
                 if (nails)
                 {
-                    //List<GameObject> yields = __instance.m_YieldObject.ToList();
+                    if (!prybarRef) prybarRef = GetPrefab("GEAR_Prybar");
                     List<GameObject> tools = __instance.m_UsableTools.ToList();
-                    //List<int> yieldsNum = __instance.m_YieldObjectUnits.ToList();
-                    //yields.Add(nails.gameObject);
-                    tools.Add(GetPrefab("GEAR_Prybar"));
-                    //yieldsNum.Add(i);
-                    //__instance.m_YieldObject = yields.ToArray();
-                    //__instance.m_YieldObjectUnits = yieldsNum.ToArray();
+                    tools.Add(prybarRef);
                     __instance.m_UsableTools = tools.ToArray();
-
                 }
                 else
                 {
@@ -562,7 +558,8 @@ namespace Architect
         {
             internal static void Postfix(ref string sceneSaveName)
             {
-                dataManager.Save(StructureManager.SerializeAll(), saveDataTag + commonSeparator + sceneSaveName);
+                dataManager.Save(StructureManager.SerializeAll(), structureSaveDataTag + commonSeparator + sceneSaveName);
+                dataManager.Save(Interior.Serialize(), interiorClusterSaveDataTag + commonSeparator + sceneSaveName);
             }
         }
 
@@ -572,12 +569,14 @@ namespace Architect
         {
             internal static void Postfix(ref string sceneSaveName)
             {
+                string? serializedSaveData_interiors = dataManager.Load(interiorClusterSaveDataTag + commonSeparator + sceneSaveName);
+                string? serializedSaveData = dataManager.Load(structureSaveDataTag + commonSeparator + sceneSaveName);
 
-                string? serializedSaveData = dataManager.Load(saveDataTag + commonSeparator + sceneSaveName);
-                //if (string.IsNullOrEmpty(serializedSaveData)) serializedSaveData = dataManager.Load(saveDataTag);
-                
+                if (!string.IsNullOrEmpty(serializedSaveData_interiors)) // should be done before structures
+                {
+                    Interior.Deserialize(serializedSaveData_interiors);
+                }
 
-                //if (!string.IsNullOrEmpty(serializedSaveData)) JSON.MakeInto(JSON.Load(serializedSaveData), out structureList);
                 if (!string.IsNullOrEmpty(serializedSaveData))
                 {
                     try
@@ -602,6 +601,7 @@ namespace Architect
                         }
                     }
                 }
+
             }
         }
 
@@ -612,7 +612,10 @@ namespace Architect
             internal static void Postfix()
             {
                 StructureManager.Reset();
-
+                Interior.currentRegionClusterSets.Clear();
+                Interior.currentRegionClusterData.Clear();
+                Interior.ResetLists();
+                
             }
         }
 
@@ -634,24 +637,18 @@ namespace Architect
                 }
 
             }
-            // add nudging when not snapping?
 
             // snapping part
-
-
-            
             internal static bool Prefix(PlayerManager __instance)
             {
                 Structure sc = GameManager.GetPlayerManagerComponent().m_ObjectToPlace?.GetComponent<Structure>();
-                if (sc && Snap.PartToPattern(sc) != Snap.SnapPattern.Free && !InputManager.GetSprintDown(InputManager.m_CurrentContext))
+                if (sc)
                 {
-                    if (Snap.SnapToTriggerRelatedPoint(sc))
+                    if (nudgePlacementMode)
                     {
-                        forceShowCrosshair = true;
-                        Snap.SetCustomRotation(Input.mouseScrollDelta.y); // rotate with mouse wheel
-
-                        Snap.nudgeTimer -= Time.deltaTime;
-                        Snap.nudgeHeldTimer += Time.deltaTime;
+                        EquipItemPopup eip = InterfaceManager.GetPanel<Panel_HUD>().m_EquipItemPopup;
+                        eip.ShowGenericPopupWithDefaultActions(Localization.Get("ARC_InteractionMove"), Localization.Get("ARC_InteractionCancel"));
+                        eip.m_ButtonPromptScrollWheel.ShowPromptForKey(Localization.Get("ARC_InteractionRotate"), "Scroll");
 
                         bool anyKeyHeld =
                             Utility.GetKeyHeld(Settings.options.nudgeXpKey) ||
@@ -661,51 +658,43 @@ namespace Architect
                             Utility.GetKeyHeld(Settings.options.nudgeYpKey) ||
                             Utility.GetKeyHeld(Settings.options.nudgeYnKey);
 
-                        if (anyKeyHeld)
+                        Snap.HandleNudgingControls(sc, !anyKeyHeld);
+
+                        if (Input.mouseScrollDelta.y > 0f)
                         {
-                            if (Snap.nudgeTimer <= 0f)
-                            {
-                                if (Snap.nudgeHeldTimer >= 0.5f)
-                                {
-                                    if (Snap.nudgeHeldTimer >= Snap.nudgeSpeedupDelay)
-                                    {
-                                        Snap.nudgeInterval = 0.02f;
-                                    }
-                                    else
-                                    {
-                                        Snap.nudgeInterval = 0.1f;
-                                    }
-                                }
-
-                                if (Utility.GetKeyHeld(Settings.options.nudgeXpKey)) Snap.Nudge(sc, Vector3.right);
-                                if (Utility.GetKeyHeld(Settings.options.nudgeXnKey)) Snap.Nudge(sc, Vector3.left);
-                                if (Utility.GetKeyHeld(Settings.options.nudgeZpKey)) Snap.Nudge(sc, Vector3.forward);
-                                if (Utility.GetKeyHeld(Settings.options.nudgeZnKey)) Snap.Nudge(sc, Vector3.back);
-                                if (Utility.GetKeyHeld(Settings.options.nudgeYpKey)) Snap.Nudge(sc, Vector3.up);
-                                if (Utility.GetKeyHeld(Settings.options.nudgeYnKey)) Snap.Nudge(sc, Vector3.down);
-
-                                Snap.nudgeTimer = Snap.nudgeInterval;
-                            }
-
-
+                            sc.transform.Rotate(Vector3.up, -5f);
                         }
-                        else
+                        if (Input.mouseScrollDelta.y < 0f)
                         {
-                            Snap.nudgeTimer = 0f;
-                            Snap.nudgeHeldTimer = 0f;
-                            Snap.nudgeInterval = 0.5f;
+                            sc.transform.Rotate(Vector3.up, +5f);
                         }
 
-                        //if (InputManager.GetKeyDown(InputManager.m_CurrentContext, Settings.options.nudgeXpKey)) Snap.Nudge(sc, Vector3.right);
-                        //if (InputManager.GetKeyDown(InputManager.m_CurrentContext, Settings.options.nudgeXnKey)) Snap.Nudge(sc, Vector3.left);
-                        //if (InputManager.GetKeyDown(InputManager.m_CurrentContext, Settings.options.nudgeZpKey)) Snap.Nudge(sc, Vector3.forward);
-                        //if (InputManager.GetKeyDown(InputManager.m_CurrentContext, Settings.options.nudgeZnKey)) Snap.Nudge(sc, Vector3.back);
-                        //if (InputManager.GetKeyDown(InputManager.m_CurrentContext, Settings.options.nudgeYpKey)) Snap.Nudge(sc, Vector3.up);
-                        //if (InputManager.GetKeyDown(InputManager.m_CurrentContext, Settings.options.nudgeYnKey)) Snap.Nudge(sc, Vector3.down);
-                        
+
                         return false;
-                    }                   
+                    }
+                    if (Snap.PartToPattern(sc) != Snap.SnapPattern.Free && !InputManager.GetSprintDown(InputManager.m_CurrentContext))
+                    {
+                        if (Snap.SnapToTriggerRelatedPoint(sc))
+                        {
+                            forceShowCrosshair = true;
+                            Snap.SetCustomRotation(Input.mouseScrollDelta.y); // rotate with mouse wheel
+
+                            bool anyKeyHeld =
+                                Utility.GetKeyHeld(Settings.options.nudgeXpKey) ||
+                                Utility.GetKeyHeld(Settings.options.nudgeXnKey) ||
+                                Utility.GetKeyHeld(Settings.options.nudgeZpKey) ||
+                                Utility.GetKeyHeld(Settings.options.nudgeZnKey) ||
+                                Utility.GetKeyHeld(Settings.options.nudgeYpKey) ||
+                                Utility.GetKeyHeld(Settings.options.nudgeYnKey);
+
+                            Snap.HandleNudgingControls(sc, !anyKeyHeld);
+
+                            return false;
+                        }
+                    }
+
                 }
+
 
                 Snap.ResetObject();
                 return true;
@@ -821,6 +810,8 @@ namespace Architect
 
                     if (arcObject)
                     {
+                        nudgePlacementMode = false;
+
                         if (arcObject.transform.position == Vector3.zero)
                         {
                             GameObject.Destroy(arcObject);

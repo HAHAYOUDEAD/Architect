@@ -182,6 +182,7 @@ namespace Architect
                 rArray.SetSpecific(RadialBuilder.CreateRadialArm("ARC_ToggleBuildingModeON", "ICO_Architect_DisableBuild", () => RadialActions.ToggleBuildingMode(true)), RadialArm.Direction.Middle);
 
                 rArray.SetSpecific(RadialBuilder.CreateRadialArm("ARC_Interface_RunInteriorCheck", "ICO_Architect_InteriorCheck", () => Interior.CallInteriorCheck(GameManager.GetPlayerTransform().position)), RadialArm.Direction.South);
+                rArray.SetSpecific(RadialBuilder.CreateRadialArm("ARC_Interface_ResetAllInteriors", "ICO_Architect_InteriorReset", () => Interior.KillAllInteriors()), RadialArm.Direction.North);
             }
 
             FinalizeRadial(rArray, ShowMainRadial, true);

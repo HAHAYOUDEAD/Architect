@@ -51,6 +51,11 @@
     "English": "Run interior check",
     "Russian": "Проверка замкнутого пространства"
   },
+  "ARC_Interface_ResetAllInteriors": {
+
+    "English": "Reset interiors in this region",
+    "Russian": "Сбросить все триггеры помещений в этом регионе"
+  },
   "ARC_Interface_CannotPlaceDouble": {
 
     "English": "Prevented duplicate placement",
@@ -75,10 +80,20 @@
     "English": "Interior check failed",
     "Russian": "Проверка на замкнутое пространство не пройдена"
   },
+  "ARC_PorchCheckFailed": {
+
+    "English": "Porch check failed",
+    "Russian": "Проверка'крыльца не пройдена"
+  },
   "ARC_InteriorCheckPassed": {
 
     "English": "Interior check successful",
     "Russian": "Проверка на замкнутое пространство пройдена успешно"
+  },
+  "ARC_NudgeKeysReminder": {
+
+    "English": "Use dedicated Nudge keys set up in settings",
+    "Russian": "Используй кнопки установленные в настройках мода"
   },
 
 
@@ -100,6 +115,16 @@
 
     "English": "Place",
     "Russian": "Разместить"
+  },
+  "ARC_InteractionCancel": {
+
+    "English": "Cancel",
+    "Russian": "Отменить"
+  },
+  "ARC_InteractionRotate": {
+
+    "English": "Rotate",
+    "Russian": "Вращать"
   },
   "ARC_InteractionMovePrecise": {
 

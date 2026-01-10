@@ -212,10 +212,13 @@ namespace Architect
             { (held: SnapPattern.Roof, look: SnapPattern.Roof, sp: SnapPoint.YpXn), SnapPoint.YpXn },
 
             // Stairs>Floor
-            // overriden by SpecialPoint
+            { (held: SnapPattern.Stairs, look: SnapPattern.Floor, sp: SnapPoint.Zmax), SnapPoint.YpXp },
+            { (held: SnapPattern.Stairs, look: SnapPattern.Floor, sp: SnapPoint.Zmin), SnapPoint.YpXp },
+            { (held: SnapPattern.Stairs, look: SnapPattern.Floor, sp: SnapPoint.Xmax), SnapPoint.YpXp },
+            { (held: SnapPattern.Stairs, look: SnapPattern.Floor, sp: SnapPoint.Xmin), SnapPoint.YpXp },
 
             // Stairs>Any
-            { (held: SnapPattern.Stairs, look: SnapPattern.Undefined, sp: SnapPoint.Unspecified), SnapPoint.Pivot },
+            { (held: SnapPattern.Stairs, look: SnapPattern.Undefined, sp: SnapPoint.Unspecified), SnapPoint.Unspecified },
 
 
 
@@ -394,19 +397,7 @@ namespace Architect
                         case SnapPoint.Zmin:
                             return true;
                     }
-                }               
-                if (PartToPattern(targetStr) == SnapPattern.Wall && targetStr.name.ToLower().Contains("door")) // only for doorframes
-                {
-                    switch (lookAtSP)
-                    {
-                        default:
-                            return false;
-                        case SnapPoint.Ymin:
-                            result = 180f;
-                            return false;
-                    }
-                }
-
+                }   
             }
             return false;
         }
@@ -604,6 +595,45 @@ namespace Architect
             }
             */
             str.transform.position += direction * nudgeAmt;
+        }
+
+        public static void HandleNudgingControls(Structure sc, bool reset = false)
+        {
+            nudgeTimer -= Time.deltaTime;
+            nudgeHeldTimer += Time.deltaTime;
+
+            if (!reset)
+            {
+                if (nudgeTimer <= 0f)
+                {
+                    if (nudgeHeldTimer >= 0.5f)
+                    {
+                        if (nudgeHeldTimer >= nudgeSpeedupDelay)
+                        {
+                            nudgeInterval = 0.02f;
+                        }
+                        else
+                        {
+                            nudgeInterval = 0.1f;
+                        }
+                    }
+
+                    if (Utility.GetKeyHeld(Settings.options.nudgeXpKey)) Nudge(sc, Vector3.right);
+                    if (Utility.GetKeyHeld(Settings.options.nudgeXnKey)) Nudge(sc, Vector3.left);
+                    if (Utility.GetKeyHeld(Settings.options.nudgeZpKey)) Nudge(sc, Vector3.forward);
+                    if (Utility.GetKeyHeld(Settings.options.nudgeZnKey)) Nudge(sc, Vector3.back);
+                    if (Utility.GetKeyHeld(Settings.options.nudgeYpKey)) Nudge(sc, Vector3.up);
+                    if (Utility.GetKeyHeld(Settings.options.nudgeYnKey)) Nudge(sc, Vector3.down);
+
+                    nudgeTimer = nudgeInterval;
+                }
+            }
+            else
+            {
+                nudgeTimer = 0f;
+                nudgeHeldTimer = 0f;
+                nudgeInterval = 0.5f;
+            }
         }
 
         public static bool SnapToTriggerRelatedPoint(Structure heldStr) // true if should override vanilla placing handler

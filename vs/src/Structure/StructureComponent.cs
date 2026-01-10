@@ -1,4 +1,7 @@
-﻿using static Architect.StructureData;
+﻿
+using Il2CppNodeCanvas.Tasks.Conditions;
+using static Architect.StructureData;
+using static Il2CppDigitalOpus.MB.Core.MB3_AgglomerativeClustering;
 
 namespace Architect
 {
@@ -53,24 +56,7 @@ namespace Architect
         public int coroutineRunning = 0;
 
         public IndoorSpaceTrigger interiorTrigger;
-
-
-        //public Il2CppValueField<int> inj_nv;
-        //public Il2CppStringField inj_lk;
-        //public Il2CppValueField<bool> inj_id;
-
-        public void Awake()
-        {
-
-            //localizationKey = inj_lk.Get();
-            //buildMaterial = inj_bm.Get();
-            //buildPart = inj_bp.Get();
-            //isDoor = inj_id.Get();
-
-            //MelonLogger.Msg(ConsoleColor.Blue, "lokey: " + localizationKey + " bm " + buildMaterial + " bp " + buildPart + " isdoor " + isDoor + " testint " + inj_nv.Get());
-
-
-        }
+        public string interiorClusterID;
 
         public void Start()
         {
@@ -93,8 +79,6 @@ namespace Architect
             Finalize(true);
 
             StructureManager.Add(this);
-
-            //currentSnapPoint = Snap.GetDefaultSnapPoint(Snap.PartToPattern(this.buildPart));
         }
 
         public void SphereCastAdjacentStructures()
@@ -119,8 +103,8 @@ namespace Architect
                 {
                     bool isRoof = (str.buildPart == BuildPart.Roof || (str.buildPart == BuildPart.Stairs && str.name.ToLower().Contains("ramp"))) && (str.transform.position.y - this.transform.position.y) > 0 || 
                         (str.buildPart == BuildPart.Floor && (str.transform.position.y - this.transform.position.y) > Interior.storeyHeight);
-                    bool isFloor = str.buildPart == BuildPart.Floor;// || str.buildPart == BuildPart.Stairs;
-                    bool isFlatFloor = str.buildPart == BuildPart.Floor && (str.transform.position.y - this.transform.position.y) < Interior.storeyHeight;
+                    bool isFloor = str.buildPart == BuildPart.Floor && !str.name.ToLower().Contains("foundation");// || str.buildPart == BuildPart.Stairs;
+                    bool isFlatFloor = isFloor && (str.transform.position.y - this.transform.position.y) < Interior.storeyHeight;
                     bool isWall = str.buildPart == BuildPart.Wall;
 
                     if (isRoof)
@@ -147,9 +131,6 @@ namespace Architect
                     if (isFloor)
                     {
                         adjacentFloors.Add(str);
-
-                        // porch test
-
                     }
 
                     if (isWall) adjacentWalls.Add(str);
@@ -161,19 +142,6 @@ namespace Architect
             if (adjacentFlatFloors > 6) isEnclosedFloorTile = true;
         }
 
-
-        /*
-        public void OnTriggerStay(Collider obj)
-        {
-            if (!StructureManager.doAdjacentCheck) return;
-
-            Structure str = obj.GetComponent<Structure>();
-
-            if (str && !adjacentFloors.Contains(str)) adjacentFloors.Add(str);
-
-            //MelonLogger.Msg(obj.name);
-        }
-        */
         public void Update()
         {
 
@@ -207,90 +175,22 @@ namespace Architect
 
         public void ProcessInteraction()
         {
-            // unused, handles by vanilla BreakDown component interaction
-
-            /*
-            Panel_BreakDown buildingUI = InterfaceManager.GetPanel<Panel_BreakDown>();
-            buildingUI.m_BreakDown = this.GetComponent<BreakDown>();
-
-            buildingUI.Enable(true);
-            */
-            /*
-            // temp 
-            if (isBuilt && buildPart == BuildPart.Door)
-            {
-                HUDMessage.AddMessage("Checking adjacent floor tiles", true, true);
-                MelonLogger.Msg("start sifter");
-                List<Vector3> floors = new List<Vector3>();
-                foreach(Structure s in StructureManager.structures)
-                {
-                    if (s.buildPart == BuildPart.Floor && s.isBuilt)
-                    {
-                        if (Vector3.Distance(this.transform.position, s.renderer.bounds.center) < Settings.options.interiorSearchLimit)
-                        floors.Add(s.renderer.bounds.center);
-                    }
-                }
-
-                if (Settings.options.showDebugInfo) MelonCoroutines.Start(InteriorDetection.DrawDebugCircle(this.transform.position, Settings.options.interiorSearchLimit, Color.white));
-
-                Vector3[] floorsA = floors.ToArray();
-
-
-                switch (Settings.options.interiorFinderPrecision)
-                {
-                    case 1:
-                        floorsA = InteriorDetection.SiftAdjacent(floorsA, this.transform.position, true);
-                        break;
-
-                    case 2:
-                        floorsA = InteriorDetection.SiftAdjacent(floorsA, this.transform.position);
-                        floorsA = InteriorDetection.SiftAdjacent(floorsA, this.transform.position, true);
-                        break;  
-                    case 3:
-                        // add recursive distance check from door position
-                        break;
-                }
-                for (int i = 0; i < Settings.options.interiorFinderPrecision; i++)
-                {
-                    if (i == Settings.options.interiorFinderPrecision - 1)
-                    {
-                        floorsA = InteriorDetection.SiftAdjacent(floorsA, this.transform.position, true);
-                    }
-                    else
-                    {
-                        floorsA = InteriorDetection.SiftAdjacent(floorsA, this.transform.position);
-                    }
-                    
-                    MelonLogger.Msg("found in " + i + " loop: " + floorsA.Length + " adjacent tiles");
-                }
-
-                MelonLogger.Msg("end sifter");
-                return;
-            }
-                        // end of temp
-            */
-
-
-
-
+            // unused, handled by vanilla BreakDown component interaction
         }
 
         public void ProcessAltInteraction() // interrupted by BetterBases
         {
-
             if (!isBuilt)
             {
                 if (InputManager.GetSprintDown(InputManager.m_CurrentContext)) // precise place
                 {
-
-                    MelonCoroutines.Start(LerpCameraTowardsPivot(this.transform));
-
+                    //enter placing with detached camera
+                    HUDMessage.AddMessage(Localization.Get("ARC_NudgeKeysReminder"), 5f, false, false);
+                    
+                    nudgePlacementMode = true;
                 }
-                else // place
-                {
-                    GameManager.GetPlayerManagerComponent().StartPlaceMesh(gameObject, PlaceMeshFlags.None, placeRules);
-                }   
 
+                GameManager.GetPlayerManagerComponent().StartPlaceMesh(gameObject, PlaceMeshFlags.None, placeRules);
             }
             else
             {
@@ -300,22 +200,25 @@ namespace Architect
 
         public void ProcessCloneInteraction()
         {
-
             string nameTruncated = this.name[0..^2];
             StructurePreset sp = Data.allStructures[nameTruncated];
             sp.prefabName = nameTruncated;
 
             MelonCoroutines.Start(RadialActions.StartPlacing(sp));
-            
         }
 
 
         public void ProcessDeleteInteraction()
         {
-
             StructureManager.Remove(this);
+            if (!String.IsNullOrEmpty(this.interiorClusterID))
+            {
+                if (Interior.currentRegionClusterSets.TryGetValue(this.interiorClusterID, out var bop))
+                {
+                    bop.Remove(this);
+                }
+            }
             Destroy(this.gameObject);
-
         }
 
         private void ToggleHelperArrow(bool enable)
@@ -428,14 +331,22 @@ namespace Architect
                 renderer.castShadows = true;
             }
 
+            // create interior
+            if (this.buildPart == Data.BuildPart.Floor && !String.IsNullOrEmpty(this.interiorClusterID) && this.interiorTrigger == null)
+            {
+                if (!Interior.currentRegionClusterSets.TryGetValue(this.interiorClusterID, out _))
+                {
+                    Interior.currentRegionClusterSets[this.interiorClusterID] = new ();
+                }
+                Interior.CreateNewInteriorTrigger(this, this.interiorClusterID);
+            }
+
             this.ToggleSnapTriggers(true);
 
             this.HideNestedMeshes(!isBuilt);
 
             if (updateLayer) AutoSwitchMode();
             this.initialized = true;
-
-            
         }
 
         public void ToggleSnapTriggers(bool enable)
@@ -464,7 +375,6 @@ namespace Architect
             foreach (Renderer r in this.GetComponentsInChildren<Renderer>())
             {
                 if (r != renderer) r.enabled = !hide;
-
             }
         }
 
@@ -552,30 +462,8 @@ namespace Architect
             }
         }
 
-        /*
-        public void ChangeGhostTransparency(float value)
-        {
-
-            if (renderer.materials.Length > 0)
-            {
-                //renderer.materials[0].SetColor("_EmissionColor", ArcMain.ghostEmColor * ArcMain.ghostMaterialGlowIntensity);
-                //renderer.materials[0].SetColor("_Color", ArcMain.ghostColor);
-                renderer.materials[0].SetFloat("_Power", value);
-                //renderer.materials[0].SetFloat("_Scale", ArcMain.ghostScale);
-            }
-            if (renderer.materials.Length > 1)
-            {
-                //renderer.materials[1].SetColor("_EmissionColor", ArcMain.ghostEmColor * ArcMain.ghostMaterialGlowIntensity);
-                //renderer.materials[1].SetColor("_Color", ArcMain.ghostColor);
-                renderer.materials[1].SetFloat("_Power", value);
-                //renderer.materials[1].SetFloat("_Scale", ArcMain.ghostScale);
-            }
-        }
-        */
         public void Paint(BuildPartSide side, Color color)
         {
-            
-
             Materials.AssignMaterial(this, side, !this.isBuilt, true); // assign paint material
             if (side == BuildPartSide.Outside)
             {
@@ -585,7 +473,6 @@ namespace Architect
             {
                 if (renderer.materials.Length > 1) renderer.materials[1]?.SetColor("_Color", color);
             }
-
         }
 
         public void Undoor(bool doInFactUndoor)
@@ -597,7 +484,6 @@ namespace Architect
 
         public void AutoSwitchMode()
         {
-
             if (isBuilt)
             {
                 if (isStatic)
@@ -629,7 +515,6 @@ namespace Architect
 
             ToggleHelperArrow(buildPart == BuildPart.Door && (!isBuilt && !isStatic));
             ToggleInteriorTile(isBuilt);
-
         }
 
         public void ToggleInteriorTile(bool enable) 
@@ -639,76 +524,34 @@ namespace Architect
             this.interiorTrigger.gameObject.SetActive(enable);
         }
 
-        /*
-        public void MakeDoor(bool doMake = true)
-        {
-            if (doMake)
-            {
-                breakdown.enabled = false;
-
-                if (this.GetComponent<OpenClose>() == null)
-                {
-                    // setting up iTween animator
-                    iTweenEvent itOpen = this.gameObject.AddComponent<iTweenEvent>().Initialize("open", 0.25f);
-                    iTweenEvent itClose = this.gameObject.AddComponent<iTweenEvent>().Initialize("close", -0.25f);
-
-                    // bumping iTween to process the values
-                    itOpen.DeserializeValues();
-                    itClose.DeserializeValues();
-
-                    // setting up open/close animation components
-                    ObjectAnim oa = this.gameObject.AddComponent<ObjectAnim>().Initialize(this.gameObject);
-                    OpenClose oc = this.gameObject.AddComponent<OpenClose>().Initialize(oa);
-
-                }
-            }
-            else
-            {
-                breakdown.enabled = true;
-
-                if (this.GetComponent<OpenClose>() != null)
-                {
-                    foreach (iTweenEvent ite in this.GetComponentsInChildren<iTweenEvent>())
-                    {
-                        Destroy(ite);
-                    }
-                    Destroy(this.GetComponent<ObjectAnim>());
-                    Destroy(this.GetComponent<OpenClose>());
-                }
-            }
-        }
-
-        */
         [HideFromIl2Cpp]
         public StructureSaveProxy ToProxy()
         {
             StructureSaveProxy data = new StructureSaveProxy()
             {
-                prefabName = name,
+                prefabName = this.name,
                 //isDoor = this.isDoor,
                 //localizationKey = this.localizationKey,
-                position = transform.position,
-                rotation = transform.rotation,
+                position = this.transform.position,
+                rotation = this.transform.rotation,
                 //scale = this.transform.localScale,
-                isBuilt = isBuilt,
+                isBuilt = this.isBuilt,
                 //material = this.buildMaterial,
                 //part = this.buildPart,
-                hasSnow = hasSnow,
-                isAltMaterial = isAltMaterial,
-                insidePaintColor = insidePaintColor,
-                outsidePaintColor = outsidePaintColor,
-                doorState = this.GetComponent<OpenClose>() ? this.GetComponent<OpenClose>().IsOpen() : false
+                hasSnow = this.hasSnow,
+                isAltMaterial = this.isAltMaterial,
+                insidePaintColor = this.insidePaintColor,
+                outsidePaintColor = this.outsidePaintColor,
+                doorState = this.GetComponent<OpenClose>() ? this.GetComponent<OpenClose>().IsOpen() : false,
+                interiorCluster = this.interiorClusterID
 
             };
 
-            if (insidePaintColor != Color.black) data.insidePaintColor = insidePaintColor;
-            if (outsidePaintColor != Color.black) data.outsidePaintColor = outsidePaintColor;
-            return data;//JSON.Dump(data);//, EncodeOptions.PrettyPrint | EncodeOptions.NoTypeHints);
-            //return JsonSerializer.Serialize(data, Jsoning.GetDefaultOptions());
-
-
-
+            //if (this.insidePaintColor != Color.black) data.insidePaintColor = this.insidePaintColor;
+            //if (this.outsidePaintColor != Color.black) data.outsidePaintColor = this.outsidePaintColor;
+            return data;
         }
+
         [HideFromIl2Cpp]
         public void FromProxy(StructureSaveProxy proxy)
         {
@@ -720,24 +563,24 @@ namespace Architect
                 return;
             }
 
-            localizationKey = sp.loKey;
-            buildMaterial = sp.bMat;
-            buildPart = sp.bPart;
-            resources = sp.res;
-            doorType = sp.door;
+            this.localizationKey = sp.loKey;
+            this.buildMaterial = sp.bMat;
+            this.buildPart = sp.bPart;
+            this.resources = sp.res;
+            this.doorType = sp.door;
             //isDoor = sp.isDoor;
 
             //this.localizedName = Localization.Get(this.localizationKey);
-            transform.position = proxy.position;
-            transform.rotation = proxy.rotation;
+            this.transform.position = proxy.position;
+            this.transform.rotation = proxy.rotation;
             //this.transform.localScale = proxy.scale;
-            isBuilt = proxy.isBuilt;
-            hasSnow = proxy.hasSnow;
-            isAltMaterial = proxy.isAltMaterial;
-            insidePaintColor = proxy.insidePaintColor;
-            outsidePaintColor = proxy.outsidePaintColor;
-            doorState = proxy.doorState;
-
+            this.isBuilt = proxy.isBuilt;
+            this.hasSnow = proxy.hasSnow;
+            this.isAltMaterial = proxy.isAltMaterial;
+            this.insidePaintColor = proxy.insidePaintColor;
+            this.outsidePaintColor = proxy.outsidePaintColor;
+            this.doorState = proxy.doorState;
+            this.interiorClusterID = proxy.interiorCluster;
         }
     }
 }
