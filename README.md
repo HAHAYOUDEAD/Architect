@@ -1,7 +1,7 @@
 ![Poster](images/promo1.png)
 # Features:
 - Modular base building system
-- 2 building types: planks and logs (currently only differ in appearance)
+- 2 building types: planks and logs
 - New building resources and means of gathering them
 - Ghost structures to plan out buildings
 - Snapping is on by default, hold `sprint key` to disable snapping
