@@ -1,476 +1,438 @@
-﻿{
-  "placeholderLocalizationKey": {
-
-    "English": "P L A C E H O L D E R",
-    "Russian": "З А Г Л У Ш К А"
-  },
-
-
-  "ARC_Interface_BreakingDownWillCost": {
-
-    "English": "Building will cost",
-    "Russian": "Стоимость строительства"
-  },
-  "ARC_Interface_Yield": {
-
-    "English": "Requirement",
-    "Russian": "Требуется"
-  },
-  "ARC_Interface_BreakDown": {
-
-    "English": "Construct",
-    "Russian": "Строительсво"
-  },
-  "ARC_Interface_BreakDownButFunny": {
-
-    "English": "Erect",
-    "Russian": ""
-  },
-  "ARC_Interface_BreakingDownProgress": {
-
-    "English": "Building...",
-    "Russian": "Строится..."
-  },
-  "ARC_Interface_OutOf": {
-
-    "English": " out of ",
-    "Russian": " из "
-  },
-  "ARC_Interface_NotEnoughMaterials": {
-
-    "English": "Not enough materials to build",
-    "Russian": "Недостаточно ресурсов для строительства"
-  },
-  "ARC_Interface_RequiresToolToBreakDown": {
-
-    "English": "Requires {tool-name} to build",
-    "Russian": "Для строительства требуется: {tool-name}"
-  },
-  "ARC_Interface_RunInteriorCheck": {
-
-    "English": "Run interior check",
-    "Russian": "Проверка замкнутого пространства"
-  },
-  "ARC_Interface_ResetAllInteriors": {
-
-    "English": "Reset interiors in this region",
-    "Russian": "Сбросить все триггеры помещений в этом регионе"
-  },
-  "ARC_Interface_CannotPlaceDouble": {
-
-    "English": "Prevented duplicate placement",
-    "Russian": "Предотвращено повторное размещение"
-  },
-
-
-  "ARC_ToggleBuildingModeON": {
-
-    "English": "Enable Building Mode",
-    "Russian": "Включить Режим Строительства"
-  },
-  "ARC_ToggleBuildingModeOFF": {
-
-    "English": "Disable Building Mode",
-    "Russian": "Выключить Режим Строительства"
-  },
-
-
-  "ARC_InteriorCheckFailed": {
-
-    "English": "Interior check failed",
-    "Russian": "Проверка на замкнутое пространство не пройдена"
-  },
-  "ARC_PorchCheckFailed": {
-
-    "English": "Porch check failed",
-    "Russian": "Проверка'крыльца не пройдена"
-  },
-  "ARC_InteriorCheckPassed": {
-
-    "English": "Interior check successful",
-    "Russian": "Проверка на замкнутое пространство пройдена успешно"
-  },
-  "ARC_NudgeKeysReminder": {
-
-    "English": "Use dedicated Nudge keys set up in settings",
-    "Russian": "Используй кнопки установленные в настройках мода"
-  },
-
-
-
-  "ARC_RadialMenuBack": {
-
-    "English": "BACK",
-    "Russian": "НАЗАД"
-  },
-
-
-
-  "ARC_InteractionBuild": {
-
-    "English": "Build",
-    "Russian": "Построить"
-  },
-  "ARC_InteractionMove": {
-
-    "English": "Place",
-    "Russian": "Разместить"
-  },
-  "ARC_InteractionCancel": {
-
-    "English": "Cancel",
-    "Russian": "Отменить"
-  },
-  "ARC_InteractionRotate": {
-
-    "English": "Rotate",
-    "Russian": "Вращать"
-  },
-  "ARC_InteractionMovePrecise": {
-
-    "English": "Nudge",
-    "Russian": "Подвинуть"
-  },
-  "ARC_InteractionBreakdown": {
-
-    "English": "Dismantle",
-    "Russian": "Разобрать"
-  },
-  "ARC_InteractionPaint": {
-
-    "English": "Paint",
-    "Russian": "Покрасить"
-  },
-  "ARC_InteractionClone": {
-
-    "English": "Clone",
-    "Russian": "Скопировать"
-  },
-  "ARC_InteractionDelete": {
-
-    "English": "Delete",
-    "Russian": "Удалить"
-  },
-  "ARC_WindowInteractOpen": {
-
-    "English": "Open Window",
-    "Russian": "Открыть Окно"
-  },
-  "ARC_WindowInteractClose": {
-
-    "English": "Close Window",
-    "Russian": "Закрыть Окно"
-  },
-
-
-
-  "ARC_PlankMaterialType": {
-
-    "English": "Plank structure",
-    "Russian": "Из досок"
-  },
-  "ARC_LogMaterialType": {
-
-    "English": "Log structure",
-    "Russian": "Из брёвен"
-  },
-  "ARC_StoneMaterialType": {
-
-    "English": "Stone structure",
-    "Russian": "Из камня"
-  },
-  "ARC_MetalMaterialType": {
-
-    "English": "Metal structure",
-    "Russian": "Из металла"
-  },
-
-
-
-  "ARC_Walls": {
-
-    "English": "Walls",
-    "Russian": "Стены"
-  },
-  "ARC_Floors": {
-
-    "English": "Floors",
-    "Russian": "Полы"
-  },
-  "ARC_Roofs": {
-
-    "English": "Roofs",
-    "Russian": "Крыши"
-  },
-  "ARC_Pillars": {
-
-    "English": "Pillars",
-    "Russian": "Колонны"
-  },
-  "ARC_Stairs": {
-
-    "English": "Stairs",
-    "Russian": "Лестницы"
-  },
-  "ARC_Interactive": {
-
-    "English": "Interactive",
-    "Russian": "Двери и окна"
-  },
-  "ARC_Misc": {
-
-    "English": "Miscellaneous",
-    "Russian": "Прочее"
-  },
-  "ARC_Deco": {
-
-    "English": "Decoration",
-    "Russian": "Украшения"
-  },
-
-
-
-
-  "ARC_WallRegular": {
-
-    "English": "Regular wall",
-    "Russian": "Обычная стена"
-  },
-  "ARC_WallHalf": {
-
-    "English": "Half wall",
-    "Russian": "Половинная стена"
-  },
-  "ARC_WallNarrow": {
-
-    "English": "Narrow wall",
-    "Russian": "Узкая стена"
-  },
-  "ARC_WallQuarter": {
-
-    "English": "Quarter wall",
-    "Russian": "Четвертинная стены"
-  },
-  "ARC_WallCornerInner": {
-
-    "English": "Inner corner",
-    "Russian": "Внутренний угол"
-  },
-  "ARC_WallCornerOuter": {
-
-    "English": "Outer corner",
-    "Russian": "Наружний угол"
-  },
-  "ARC_WallWindow": {
-
-    "English": "Window opening",
-    "Russian": "Стена с вырезом под окно"
-  },
-  "ARC_WallDoor": {
-
-    "English": "Door opening",
-    "Russian": "Стена с вырезом под дверь"
-  },
-  "ARC_WallTriangleLeft": {
-
-    "English": "Left triangle",
-    "Russian": "Левый треугольник"
-  },
-  "ARC_WallTriangleRight": {
-
-    "English": "Right triangle",
-    "Russian": "Правый треугольник"
-  },
-  "ARC_WallLong": {
-
-    "English": "Long wall",
-    "Russian": "Длинная стена"
-  },
-
-
-  "ARC_FloorRegular": {
-
-    "English": "Regular floor",
-    "Russian": "Обычный пол"
-  },
-  "ARC_FloorStairs": {
-
-    "English": "Stairwell floor",
-    "Russian": "Пол с вырезом под лестницу"
-  },
-  "ARC_FloorQuarter": {
-
-    "English": "Quarter floor",
-    "Russian": "Четвертинный пол"
-  },
-  "ARC_FloorElevated": {
-
-    "English": "Elevated floor",
-    "Russian": "Возвышенный пол"
-  },
-  "ARC_FoundationElevated": {
-
-    "English": "Elevated foundation",
-    "Russian": "Возвышенное основание"
-  },
-
-
-
-  "ARC_RoofRegular": {
-
-    "English": "Regular roof",
-    "Russian": "Обычная крыша"
-  },
-  "ARC_RoofOverhangLeft": {
-
-    "English": "Left trim",
-    "Russian": "Левый козырёк"
-  },
-  "ARC_RoofOverhangRight": {
-
-    "English": "Right trim",
-    "Russian": "Правый козырёк"
-  },
-  "ARC_RoofOverhangTrim": {
-
-    "English": "Trim",
-    "Russian": "Козырёк"
-  },
-
-
-
-  "ARC_Pillar": {
-
-    "English": "Pillar",
-    "Russian": "Колонна"
-  },
-  "ARC_PillarFancy": {
-
-    "English": "Fancy pillar",
-    "Russian": "Резная колонна"
-  },
-  "ARC_PillarHalf": {
-
-    "English": "Short pillar",
-    "Russian": "Короткая колонна"
-  },
-  "ARC_Beam": {
-
-    "English": "Beam",
-    "Russian": "Балка"
-  },
-  "ARC_BeamHalf": {
-
-    "English": "Short beam",
-    "Russian": "Короткая балка"
-  },
-
-
-  "ARC_DoorSimple": {
-
-    "English": "Simple door",
-    "Russian": "Простая дверь"
-  },
-  "ARC_DoorFancy": {
-
-    "English": "Fancy door",
-    "Russian": "Резная дверь"
-  },
-  "ARC_WindowShutter": {
-
-    "English": "Shutter",
-    "Russian": "Ставень"
-  },
-  "ARC_WindowShutterInteractOpen": {
-
-    "English": "Open Shutter",
-    "Russian": "Открыть ставень"
-  },
-  "ARC_WindowShutterInteractClose": {
-
-    "English": "Close Shutter",
-    "Russian": "Закрыть ставень"
-  },
-  "ARC_Scaffolding": {
-
-    "English": "Scaffolding",
-    "Russian": "Строительные леса"
-  },
-  "ARC_Singular": {
-
-    "English": "Plank",
-    "Russian": "Доска"
-  },
-  "ARC_PatchBoard": {
-
-    "English": "Patch board",
-    "Russian": "Заплатка"
-  },
-
-
-
-  "ARC_StairsHalf": {
-
-    "English": "Stairs",
-    "Russian": "Лестница"
-  },
-  "ARC_Ramp": {
-
-    "English": "Ramp",
-    "Russian": "Рампа"
-  },
-  "ARC_StairsFull": {
-
-    "English": "Long stairs",
-    "Russian": "Высокая лестница"
-  },
-
-
-
-  "ARC_RailingEnd": {
-
-    "English": "Railing end",
-    "Russian": "Конец ограды"
-  },
-  "ARC_RailingShort": {
-
-    "English": "Short railing",
-    "Russian": "Короткая ограда"
-  },
-  "ARC_RailingLong": {
-
-    "English": "Long railing",
-    "Russian": "Длинная ограда"
-  },
-  "ARC_RailingSlanted": {
-
-    "English": "Slanted railing",
-    "Russian": "Наклонная ограда"
-  },
-  "ARC_Fence": {
-
-    "English": "Fence",
-    "Russian": "Забор"
-  },
-  "ARC_FencePost": {
-
-    "English": "Fence post",
-    "Russian": "Столбик"
-  },
-  "ARC_FenceGate": {
-
-    "English": "Fence gate",
-    "Russian": "Ворота"
-  },
-  "ARC_FenceGateInteractOpen": {
-
-    "English": "Open Fence gate",
-    "Russian": "Открыть ворота"
-  },
-  "ARC_FenceGateInteractClose": {
-
-    "English": "Close Fence gate",
-    "Russian": "Закрыть ворота"
-  }
-
+{
+    "placeholderLocalizationKey": {
+        "English": "P L A C E H O L D E R",
+        "Russian": "З А Г Л У Ш К А",
+        "Turkish": "Y E R T U T U C U"
+    },
+  
+    "ARC_Interface_BreakingDownWillCost": {
+        "English": "Building will cost",
+        "Russian": "Стоимость строительства",
+        "Turkish": "İnşaat maliyeti"
+    },
+    "ARC_Interface_Yield": {
+        "English": "Requirement",
+        "Russian": "Требуется",
+        "Turkish": "Gerekli"
+    },
+    "ARC_Interface_BreakDown": {
+        "English": "Construct",
+        "Russian": "Строительсво",
+        "Turkish": "İnşaat"
+    },
+    "ARC_Interface_BreakDownButFunny": {
+        "English": "Erect",
+        "Russian": "",
+        "Turkish": "Dik"
+    },
+    "ARC_Interface_BreakingDownProgress": {
+        "English": "Building...",
+        "Russian": "Строится...",
+        "Turkish": "İnşaat devam ediyor..."
+    },
+    "ARC_Interface_OutOf": {
+        "English": " out of ",
+        "Russian": " из ",
+        "Turkish": " iz "
+    },
+    "ARC_Interface_NotEnoughMaterials": {
+        "English": "Not enough materials to build",
+        "Russian": "Недостаточно ресурсов для строительства",
+        "Turkish": "İnşaat için yeterli kaynak yok"
+    },
+    "ARC_Interface_RequiresToolToBreakDown": {
+        "English": "Requires {tool-name} to build",
+        "Russian": "Для строительства требуется: {tool-name}",
+        "Turkish": "İnşaat için gerekli olanlar: {tool-name}"
+    },
+    "ARC_Interface_RunInteriorCheck": {
+        "English": "Run interior check",
+        "Russian": "Проверка замкнутого пространства",
+        "Turkish": "Kapalı alan kontrolü"
+    },
+    "ARC_Interface_ResetAllInteriors": {
+        "English": "Reset interiors in this region",
+        "Russian": "Сбросить все триггеры помещений в этом регионе",
+        "Turkish": "Bu bölgedeki iç mekanları sıfırla"
+    },
+    "ARC_Interface_CannotPlaceDouble": {
+        "English": "Prevented duplicate placement",
+        "Russian": "Предотвращено повторное размещение",
+        "Turkish": "Yinelenen yerleştirme önlendi"
+    },
+    "ARC_ToggleBuildingModeON": {
+        "English": "Enable Building Mode",
+        "Russian": "Включить Режим Строительства",
+        "Turkish": "İnşaat Modunu Etkinleştir"
+    },
+    "ARC_ToggleBuildingModeOFF": {
+        "English": "Disable Building Mode",
+        "Russian": "Выключить Режим Строительства",
+        "Turkish": "İnşaat Modunu Kapat"
+    },
+    "ARC_InteriorCheckFailed": {
+        "English": "Interior check failed",
+        "Russian": "Проверка на замкнутое пространство не пройдена",
+        "Turkish": "İç kontrol başarısız"
+    },
+    "ARC_PorchCheckFailed": {
+        "English": "Porch check failed",
+        "Russian": "Проверка'крыльца не пройдена",
+        "Turkish": "Veranda kontrolü geçilmedi"
+    },
+    "ARC_InteriorCheckPassed": {
+        "English": "Interior check successful",
+        "Russian": "Проверка на замкнутое пространство пройдена успешно",
+        "Turkish": "Kapalı alan kontrolü başarıyla tamamlandı"
+    },
+    "ARC_NudgeKeysReminder": {
+        "English": "Use dedicated Nudge keys set up in settings",
+        "Russian": "Используй кнопки установленные в настройках мода",
+        "Turkish": "Mod ayarlarında bulunan düğmeleri kullanın"
+    },
+    "ARC_RadialMenuBack": {
+        "English": "BACK",
+        "Russian": "НАЗАД",
+        "Turkish": "GERİ"
+    },
+    "ARC_InteractionBuild": {
+        "English": "Build",
+        "Russian": "Построить",
+        "Turkish": "İnşa et"
+    },
+    "ARC_InteractionMove": {
+        "English": "Place",
+        "Russian": "Разместить",
+        "Turkish": "Yerleştir"
+    },
+    "ARC_InteractionCancel": {
+        "English": "Cancel",
+        "Russian": "Отменить",
+        "Turkish": "İptal"
+    },
+    "ARC_InteractionRotate": {
+        "English": "Rotate",
+        "Russian": "Вращать",
+        "Turkish": "Döndür"
+    },
+    "ARC_InteractionMovePrecise": {
+        "English": "Nudge",
+        "Russian": "Подвинуть",
+        "Turkish": "Kıpırdat"
+    },
+    "ARC_InteractionBreakdown": {
+        "English": "Dismantle",
+        "Russian": "Разобрать",
+        "Turkish": "Sök"
+    },
+    "ARC_InteractionPaint": {
+        "English": "Paint",
+        "Russian": "Покрасить",
+        "Turkish": "Boyamak"
+    },
+    "ARC_InteractionClone": {
+        "English": "Clone",
+        "Russian": "Скопировать",
+        "Turkish": "Klonla"
+    },
+    "ARC_InteractionDelete": {
+        "English": "Delete",
+        "Russian": "Удалить",
+        "Turkish": "Sil"
+    },
+    "ARC_WindowInteractOpen": {
+        "English": "Open Window",
+        "Russian": "Открыть Окно",
+        "Turkish": "Pencereyi Aç"
+    },
+    "ARC_WindowInteractClose": {
+        "English": "Close Window",
+        "Russian": "Закрыть Окно",
+        "Turkish": "Pencereyi Kapat"
+    },
+    "ARC_PlankMaterialType": {
+        "English": "Plank structure",
+        "Russian": "Из досок",
+        "Turkish": "Kiriş yapısı"
+    },
+    "ARC_LogMaterialType": {
+        "English": "Log structure",
+        "Russian": "Из брёвен",
+        "Turkish": "Kütük yapısı"
+    },
+    "ARC_StoneMaterialType": {
+        "English": "Stone structure",
+        "Russian": "Из камня",
+        "Turkish": "Taş yapısı"
+    },
+    "ARC_MetalMaterialType": {
+        "English": "Metal structure",
+        "Russian": "Из металла",
+        "Turkish": "Metal yapısı"
+    },
+    "ARC_Walls": {
+        "English": "Walls",
+        "Russian": "Стены",
+        "Turkish": "Duvarlar"
+    },
+    "ARC_Floors": {
+        "English": "Floors",
+        "Russian": "Полы",
+        "Turkish": "Zeminler"
+    },
+    "ARC_Roofs": {
+        "English": "Roofs",
+        "Russian": "Крыши",
+        "Turkish": "Çatılar"
+    },
+    "ARC_Pillars": {
+        "English": "Pillars",
+        "Russian": "Колонны",
+        "Turkish": "Kolonlar"
+    },
+    "ARC_Stairs": {
+        "English": "Stairs",
+        "Russian": "Лестницы",
+        "Turkish": "Merdivenler"
+    },
+    "ARC_Interactive": {
+        "English": "Interactive",
+        "Russian": "Двери и окна",
+        "Turkish": "Kapılar ve pencereler"
+    },
+    "ARC_Misc": {
+        "English": "Miscellaneous",
+        "Russian": "Прочее",
+        "Turkish": "Diğer"
+    },
+    "ARC_Deco": {
+        "English": "Decoration",
+        "Russian": "Украшения",
+        "Turkish": "Dekorasyon"
+    },
+    "ARC_WallRegular": {
+        "English": "Regular wall",
+        "Russian": "Обычная стена",
+        "Turkish": "Düz duvar"
+    },
+    "ARC_WallHalf": {
+        "English": "Half wall",
+        "Russian": "Половинная стена",
+        "Turkish": "Yarım duvar"
+    },
+    "ARC_WallNarrow": {
+        "English": "Narrow wall",
+        "Russian": "Узкая стена",
+        "Turkish": "İnce duvar"
+    },
+    "ARC_WallQuarter": {
+        "English": "Quarter wall",
+        "Russian": "Четвертинная стены",
+        "Turkish": "Dörtte bir duvar"
+    },
+    "ARC_WallCornerInner": {
+        "English": "Inner corner",
+        "Russian": "Внутренний угол",
+        "Turkish": "İç köşe"
+    },
+    "ARC_WallCornerOuter": {
+        "English": "Outer corner",
+        "Russian": "Наружний угол",
+        "Turkish": "Dış köşe"
+    },
+    "ARC_WallWindow": {
+        "English": "Window opening",
+        "Russian": "Стена с вырезом под окно",
+        "Turkish": "Pencere açıklığı"
+    },
+    "ARC_WallDoor": {
+        "English": "Door opening",
+        "Russian": "Стена с вырезом под дверь",
+        "Turkish": "Kapı açıklığı"
+    },
+    "ARC_WallTriangleLeft": {
+        "English": "Left triangle",
+        "Russian": "Левый треугольник",
+        "Turkish": "Sol üçgen"
+    },
+    "ARC_WallTriangleRight": {
+        "English": "Right triangle",
+        "Russian": "Правый треугольник",
+        "Turkish": "Sağ üçgen"
+    },
+    "ARC_WallLong": {
+        "English": "Long wall",
+        "Russian": "Длинная стена",
+        "Turkish": "Uzun duvar"
+    },
+    "ARC_FloorRegular": {
+        "English": "Regular floor",
+        "Russian": "Обычный пол",
+        "Turkish": "Düz zemin"
+    },
+    "ARC_FloorStairs": {
+        "English": "Stairwell floor",
+        "Russian": "Пол с вырезом под лестницу",
+        "Turkish": "Merdiven açıklığı"
+    },
+    "ARC_FloorQuarter": {
+        "English": "Quarter floor",
+        "Russian": "Четвертинный пол",
+        "Turkish": "Dörtte bir zemin"
+    },
+    "ARC_FloorElevated": {
+        "English": "Elevated floor",
+        "Russian": "Возвышенный пол",
+        "Turkish": "Yükseltilmiş zemin"
+    },
+    "ARC_FoundationElevated": {
+        "English": "Elevated foundation",
+        "Russian": "Возвышенное основание",
+        "Turkish": "Yükseltilmiş temel"
+    },
+    "ARC_RoofRegular": {
+        "English": "Regular roof",
+        "Russian": "Обычная крыша",
+        "Turkish": "Sıradan bir çatı"
+    },
+    "ARC_RoofOverhangLeft": {
+        "English": "Left trim",
+        "Russian": "Левый козырёк",
+        "Turkish": "Sol kozeyrek"
+    },
+    "ARC_RoofOverhangRight": {
+        "English": "Right trim",
+        "Russian": "Правый козырёк",
+        "Turkish": "Sağ kozeyrek"
+    },
+    "ARC_RoofOverhangTrim": {
+        "English": "Trim",
+        "Russian": "Козырёк",
+        "Turkish": "Güneşlik"
+    },
+    "ARC_Pillar": {
+        "English": "Pillar",
+        "Russian": "Колонна",
+        "Turkish": "Kolon"
+    },
+    "ARC_PillarFancy": {
+        "English": "Fancy pillar",
+        "Russian": "Резная колонна",
+        "Turkish": "Süslü kolon"
+    },
+    "ARC_PillarHalf": {
+        "English": "Short pillar",
+        "Russian": "Короткая колонна",
+        "Turkish": "Kısa kolon"
+    },
+    "ARC_Beam": {
+        "English": "Beam",
+        "Russian": "Балка",
+        "Turkish": "Kiriş"
+    },
+    "ARC_BeamHalf": {
+        "English": "Short beam",
+        "Russian": "Короткая балка",
+        "Turkish": "Kısa kiriş"
+    },
+    "ARC_DoorSimple": {
+        "English": "Simple door",
+        "Russian": "Простая дверь",
+        "Turkish": "Basit kapı"
+    },
+    "ARC_DoorFancy": {
+        "English": "Fancy door",
+        "Russian": "Резная дверь",
+        "Turkish": "Oymalı kapı"
+    },
+    "ARC_WindowShutter": {
+        "English": "Shutter",
+        "Russian": "Ставень",
+        "Turkish": "Panjur"
+    },
+    "ARC_WindowShutterInteractOpen": {
+        "English": "Open Shutter",
+        "Russian": "Открыть ставень",
+        "Turkish": "Panjuru aç"
+    },
+    "ARC_WindowShutterInteractClose": {
+        "English": "Close Shutter",
+        "Russian": "Закрыть ставень",
+        "Turkish": "Panjuru kapat"
+    },
+    "ARC_Scaffolding": {
+        "English": "Scaffolding",
+        "Russian": "Строительные леса",
+        "Turkish": "İnşaat merdiveni"
+    },
+    "ARC_Singular": {
+        "English": "Plank",
+        "Russian": "Доска",
+        "Turkish": "Raf"
+    },
+    "ARC_PatchBoard": {
+        "English": "Patch board",
+        "Russian": "Заплатка",
+        "Turkish": "Yama Tahtası"
+    },
+    "ARC_StairsHalf": {
+        "English": "Stairs",
+        "Russian": "Лестница",
+        "Turkish": "Merdiven"
+    },
+    "ARC_Ramp": {
+        "English": "Ramp",
+        "Russian": "Рампа",
+        "Turkish": "Rampa"
+    },
+    "ARC_StairsFull": {
+        "English": "Long stairs",
+        "Russian": "Высокая лестница",
+        "Turkish": "Uzun merdiven"
+    },
+    "ARC_RailingEnd": {
+        "English": "Railing end",
+        "Russian": "Конец ограды",
+        "Turkish": "Korkuluk ucu"
+    },
+    "ARC_RailingShort": {
+        "English": "Short railing",
+        "Russian": "Короткая ограда",
+        "Turkish": "Kısa korkuluk"
+    },
+    "ARC_RailingLong": {
+        "English": "Long railing",
+        "Russian": "Длинная ограда",
+        "Turkish": "Uzun korkuluk"
+    },
+    "ARC_RailingSlanted": {
+        "English": "Slanted railing",
+        "Russian": "Наклонная ограда",
+        "Turkish": "Eğimli çit"
+    },
+    "ARC_Fence": {
+        "English": "Fence",
+        "Russian": "Забор",
+        "Turkish": "Çit"
+    },
+    "ARC_FencePost": {
+        "English": "Fence post",
+        "Russian": "Столбик",
+        "Turkish": "Çit direği"
+    },
+    "ARC_FenceGate": {
+        "English": "Fence gate",
+        "Russian": "Ворота",
+        "Turkish": "Çit kapısı"
+    },
+    "ARC_FenceGateInteractOpen": {
+        "English": "Open Fence gate",
+        "Russian": "Открыть ворота",
+        "Turkish": "Çit kapısını aç"
+    },
+    "ARC_FenceGateInteractClose": {
+        "English": "Close Fence gate",
+        "Russian": "Закрыть ворота",
+        "Turkish": "Çit kapısını kapat"
+    }
 }
