@@ -24,6 +24,9 @@
 
         <!--PDB files are mostly useless for modding since they can't be loaded.-->
         <DebugType>none</DebugType>
+
+        <!--Unsafe code: the snow fix in src/Patch writes directly into the game's particle killer list.-->
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
 
     <!--This tells the compiler where to look for assemblies. Don't change it.-->
