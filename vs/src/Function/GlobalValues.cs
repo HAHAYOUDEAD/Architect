@@ -9,7 +9,7 @@
 
         public static AssetBundle meshBundle;
 
-        public const string dllVersion = "0.7.8";
+        public const string dllVersion = "0.7.9";
         public const string resourcesFolder = "Architect.Resources.";
         public const string modName = "Architect";
 

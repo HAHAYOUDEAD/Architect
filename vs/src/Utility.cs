@@ -203,7 +203,11 @@ namespace Architect
             return oa;
         } 
 
-        public static GameObject GetPrefab(string name) => GearItem.LoadGearItemPrefab(name).gameObject;
+        public static GameObject GetPrefab(string name)
+        {
+            GameObject go = Il2CppTLD.AddressableAssets.AssetHelper.SafeLoadAssetAsync<GameObject>(name).WaitForCompletion();
+            return go != null ? go : Resources.Load<GameObject>(name);
+        }
 
         public static bool PlayerHasEnoughItems(GearItem gi, int num)
         {
