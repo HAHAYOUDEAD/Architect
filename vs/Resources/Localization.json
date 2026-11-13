@@ -471,6 +471,270 @@
 
     "English": "Close Fence gate",
     "Russian": "Закрыть ворота"
-  }
+  },
 
+  "ARC_Indoor_Section": {
+    "English": "Indoor environment",
+    "Russian": "Внутри построек"
+  },
+  "ARC_Indoor_FireFlicker": {
+    "English": "Fire flicker in buildings",
+    "Russian": "Мерцание огня в постройках"
+  },
+  "ARC_Indoor_FireFlicker_Desc": {
+    "English": "How much firelight dances inside Architect buildings.\nOff: fire shadows stay still.\nWeak: 15% of the normal flicker.\nAuto (recommended): weak while you are inside a building, off while you are outside.\nVanilla: the game's original flicker; a little light may pass through the walls.",
+    "Russian": "Насколько «пляшет» свет костра в постройках Architect.\nВыключено: тени от огня неподвижны.\nСлабое: 15% от обычного мерцания.\nАвто (рекомендуется): слабое, пока вы внутри постройки, и выключено, пока вы снаружи.\nВанила: исходное мерцание игры; сквозь стены может немного проходить свет."
+  },
+  "ARC_Indoor_FireFlicker_Off": {
+    "English": "Off",
+    "Russian": "Выключено"
+  },
+  "ARC_Indoor_FireFlicker_Weak": {
+    "English": "Weak (15%)",
+    "Russian": "Слабое (15%)"
+  },
+  "ARC_Indoor_FireFlicker_Auto": {
+    "English": "Auto (recommended)",
+    "Russian": "Авто (рекомендуется)"
+  },
+  "ARC_Indoor_FireFlicker_Vanilla": {
+    "English": "Vanilla",
+    "Russian": "Ванила"
+  },
+  "ARC_Balance_Section": {
+    "English": "Materials and costs",
+    "Russian": "Материалы и стоимость"
+  },
+  "ARC_Balance_Weight": {
+    "English": "Material weight",
+    "Russian": "Вес материалов"
+  },
+  "ARC_Balance_Weight_Desc": {
+    "English": "Weight of Architect building materials: logs, planks and their bundles. Recipes do not change.\nArchitect: the standard weight of building materials from the original Architect.\nRealistic: lower values for realism, with compromises.",
+    "Russian": "Вес строительных материалов Architect: брёвен, досок и их связок. Рецепты не меняются.\nАрхитеч: стандартный вес строительных материалов из оригинального Architect.\nРеалистично: более низкие значения для реализма, с компромиссами."
+  },
+  "ARC_Balance_Weight_Architect": {
+    "English": "Architect",
+    "Russian": "Архитеч"
+  },
+  "ARC_Balance_Weight_Realistic": {
+    "English": "Realistic",
+    "Russian": "Реалистично"
+  },
+  "ARC_Balance_Cost": {
+    "English": "Building cost",
+    "Russian": "Стоимость построек"
+  },
+  "ARC_Balance_Cost_Desc": {
+    "English": "How many logs and planks Architect's building parts cost. Nails do not change. Dismantling returns what the part cost.\nArchitect: the standard costs of the original Architect.\nAdjusted: lower costs for some parts, e.g. door opening 4 logs instead of 6 or 5 planks instead of 8, regular floor 3 logs instead of 6 or 4 planks instead of 8.",
+    "Russian": "Сколько брёвен и досок стоят детали построек Architect. Гвозди не меняются. Разбор возвращает столько, сколько стоила деталь.\nАрхитеч: стандартные цены оригинального Architect.\nИзменённая: сниженные цены на часть деталей, например стена с вырезом под дверь — 4 бревна вместо 6 или 5 досок вместо 8, обычный пол — 3 бревна вместо 6 или 4 доски вместо 8."
+  },
+  "ARC_Balance_Cost_Architect": {
+    "English": "Architect",
+    "Russian": "Архитеч"
+  },
+  "ARC_Balance_Cost_Adjusted": {
+    "English": "Adjusted",
+    "Russian": "Изменённая"
+  },
+  "ARC_Indoor_Sound": {
+    "English": "Sound insulation",
+    "Russian": "Шумоизоляция"
+  },
+  "ARC_Indoor_Sound_Desc": {
+    "English": "How much outdoor sounds are muffled inside Architect buildings. Works only while you are inside one.\nBy material: logs muffle strongly, planks medium.\nWeak / Medium / Strong: the same level for every building.\nAn open door or shutter always makes it one level weaker.",
+    "Russian": "Насколько приглушаются уличные звуки внутри построек Architect. Действует, только пока вы внутри.\nПо материалу: брёвна глушат сильно, доски — средне.\nСлабая / Средняя / Сильная: одинаковый уровень для всех построек.\nОткрытая дверь или ставня всегда ослабляет на одну ступень."
+  },
+  "ARC_Indoor_Sound_ByMaterial": {
+    "English": "By material",
+    "Russian": "По материалу"
+  },
+  "ARC_Indoor_Sound_Weak": {
+    "English": "Weak",
+    "Russian": "Слабая"
+  },
+  "ARC_Indoor_Sound_Medium": {
+    "English": "Medium",
+    "Russian": "Средняя"
+  },
+  "ARC_Indoor_Sound_Strong": {
+    "English": "Strong",
+    "Russian": "Сильная"
+  },
+  "ARC_Indoor_StrongerInBlizzard": {
+    "English": "Stronger in blizzards",
+    "Russian": "Сильнее в метель"
+  },
+  "ARC_Indoor_StrongerInBlizzard_Desc": {
+    "English": "During a blizzard, sound insulation inside Architect buildings is always strong. An open door or shutter makes it one level weaker.",
+    "Russian": "Во время метели шумоизоляция внутри построек Architect всегда сильная. Открытая дверь или ставня ослабляет её на одну ступень."
+  },
+  "ARC_Indoor_WindVolume": {
+    "English": "Wind volume inside",
+    "Russian": "Громкость ветра внутри"
+  },
+  "ARC_Indoor_WindVolume_Desc": {
+    "English": "Extra control of the wind loudness inside Architect buildings, on top of the sound insulation. Works only while you are inside one.\n100%: as set by the sound insulation. 0%: wind is not heard.",
+    "Russian": "Дополнительная настройка громкости ветра внутри построек Architect, поверх шумоизоляции. Действует, только пока вы внутри.\n100% — как задаёт шумоизоляция, 0% — ветра не слышно."
+  },
+  "ARC_Set_Section_Main": {
+    "English": "Main settings",
+    "Russian": "Основные настройки"
+  },
+  "ARC_Set_MenuKey": {
+    "English": "Building menu key",
+    "Russian": "Клавиша меню строительства"
+  },
+  "ARC_Set_MenuKey_Desc": {
+    "English": "Bring up radial menu to choose building parts from",
+    "Russian": "Открывает радиальное меню выбора деталей построек"
+  },
+  "ARC_Set_DropYields": {
+    "English": "Drop yields",
+    "Russian": "Выбрасывать материалы"
+  },
+  "ARC_Set_DropYields_Desc": {
+    "English": "Drop yields from dismantling on the ground instead of straight to inventory",
+    "Russian": "Материалы от разбора падают на землю, а не попадают сразу в инвентарь"
+  },
+  "ARC_Set_Section_Nudge": {
+    "English": "Nudge settings",
+    "Russian": "Точное смещение"
+  },
+  "ARC_Set_NudgeAmount": {
+    "English": "Nudge amount",
+    "Russian": "Шаг смещения"
+  },
+  "ARC_Set_NudgeAmount_Desc": {
+    "English": "Distance in centimeters",
+    "Russian": "Расстояние в сантиметрах"
+  },
+  "ARC_Set_NudgeRight": {
+    "English": "Nudge right",
+    "Russian": "Сдвиг вправо"
+  },
+  "ARC_Set_NudgeRight_Desc": {
+    "English": "\n\nDefault: Right Arrow",
+    "Russian": "\n\nПо умолчанию: стрелка вправо"
+  },
+  "ARC_Set_NudgeLeft": {
+    "English": "Nudge left",
+    "Russian": "Сдвиг влево"
+  },
+  "ARC_Set_NudgeLeft_Desc": {
+    "English": "\n\nDefault: Left Arrow",
+    "Russian": "\n\nПо умолчанию: стрелка влево"
+  },
+  "ARC_Set_NudgeForward": {
+    "English": "Nudge forwards",
+    "Russian": "Сдвиг вперёд"
+  },
+  "ARC_Set_NudgeForward_Desc": {
+    "English": "\n\nDefault: Up Arrow",
+    "Russian": "\n\nПо умолчанию: стрелка вверх"
+  },
+  "ARC_Set_NudgeBackward": {
+    "English": "Nudge backwards",
+    "Russian": "Сдвиг назад"
+  },
+  "ARC_Set_NudgeBackward_Desc": {
+    "English": "\n\nDefault: Down Arrow",
+    "Russian": "\n\nПо умолчанию: стрелка вниз"
+  },
+  "ARC_Set_NudgeUp": {
+    "English": "Nudge up",
+    "Russian": "Сдвиг вверх"
+  },
+  "ARC_Set_NudgeUp_Desc": {
+    "English": "\n\nDefault: Page Up",
+    "Russian": "\n\nПо умолчанию: Page Up"
+  },
+  "ARC_Set_NudgeDown": {
+    "English": "Nudge down",
+    "Russian": "Сдвиг вниз"
+  },
+  "ARC_Set_NudgeDown_Desc": {
+    "English": "\n\nDefault: Page Down",
+    "Russian": "\n\nПо умолчанию: Page Down"
+  },
+  "ARC_Set_Section_Visual": {
+    "English": "Visual settings",
+    "Russian": "Внешний вид"
+  },
+  "ARC_Set_TerrainBlending": {
+    "English": "Terrain blending",
+    "Russian": "Снег на постройках"
+  },
+  "ARC_Set_TerrainBlending_Desc": {
+    "English": "Allow snow texture to propogate onto structures\n\nWill only appear on the 'outside' part of every building piece\n\nWill still appear inside your house on certain occasions",
+    "Russian": "Текстура снега переходит с земли на постройки\n\nПоявляется только на внешней стороне каждой детали\n\nИногда всё же может появиться и внутри дома"
+  },
+  "ARC_Set_Withering": {
+    "English": "Withering",
+    "Russian": "Старение древесины"
+  },
+  "ARC_Set_Withering_Desc": {
+    "English": "Planks will become grey with time",
+    "Russian": "Доски со временем сереют"
+  },
+  "ARC_Set_Section_Performance": {
+    "English": "Performance settings (currently not implemented)",
+    "Russian": "Производительность (пока не работает)"
+  },
+  "ARC_Set_SizeLimit": {
+    "English": "Building size limit",
+    "Russian": "Предел размера постройки"
+  },
+  "ARC_Set_SizeLimit_Desc": {
+    "English": "Limit how far to look when checking building integrity, in unity units",
+    "Russian": "Как далеко искать при проверке целостности постройки, в единицах Unity (метрах)"
+  },
+  "ARC_Set_FinderPrecision": {
+    "English": "Interior finder precision",
+    "Russian": "Точность поиска помещения"
+  },
+  "ARC_Set_FinderPrecision_Desc": {
+    "English": "1 is not very precise\n\n2 is ideal in most cases\n\n3 you should try if detection is not precise enough for your particular case",
+    "Russian": "1 — не очень точно\n\n2 — оптимально в большинстве случаев\n\n3 — попробуйте, если помещение определяется недостаточно точно"
+  },
+  "ARC_Set_Section_Debug": {
+    "English": "Debug settings",
+    "Russian": "Отладка"
+  },
+  "ARC_Set_DebugInfo": {
+    "English": "Show debug info",
+    "Russian": "Отладочная информация"
+  },
+  "ARC_Set_DebugInfo_Desc": {
+    "English": "Highlight tiles when calculating indoor volume, send other debug info to console",
+    "Russian": "Подсвечивает клетки при расчёте объёма помещения и выводит прочую отладочную информацию в консоль"
+  },
+  "ARC_Set_Section_Cheats": {
+    "English": "Cheats for cheaters",
+    "Russian": "Читы для читеров"
+  },
+  "ARC_Set_BuildTime": {
+    "English": "Building time multiplier",
+    "Russian": "Множитель времени строительства"
+  },
+  "ARC_Set_BuildTime_Desc": {
+    "English": "How long building and dismantling takes\n\n0 - instant, 1 - normal, 2 - twice as long",
+    "Russian": "Сколько длится строительство и разбор\n\n0 — мгновенно, 1 — обычно, 2 — вдвое дольше"
+  },
+  "ARC_Set_NoRequirements": {
+    "English": "No requirements",
+    "Russian": "Без требований"
+  },
+  "ARC_Set_NoRequirements_Desc": {
+    "English": "For testing purposes, will be removed when out of beta",
+    "Russian": "Для тестирования, будет убрано после выхода из беты"
+  },
+  "ARC_Set_CampfiresAnywhere": {
+    "English": "Campfires anywhere",
+    "Russian": "Костры где угодно"
+  },
+  "ARC_Set_CampfiresAnywhere_Desc": {
+    "English": "Allow campfires on wooden floors",
+    "Russian": "Разрешает разводить костры на деревянном полу"
+  }
 }

@@ -12,6 +12,9 @@
             LocalizationManager.LoadJsonLocalization(Utility.LoadEmbeddedJSON("Localization.json"));
             meshBundle = Utility.LoadEmbeddedAssetBundle("architect");
 
+            // Indoor environment: temperature, sound, snow, light (src/Indoor)
+            IndoorFeatures.OnInitialize(HarmonyInstance);
+
             //Materials.vanillaSkinnedShader = Shader.Find("Shader Forge/TLD_StandardSkinned");
             //Materials.vanillaDefaultShader = Shader.Find("Shader Forge/TLD_StandardDiffuse");
             //Materials.SetupGhostMaterials();
@@ -28,6 +31,9 @@
 
         public override void OnSceneWasInitialized(int buildIndex, string sceneName)
         {
+            IndoorFeatures.OnSceneWasInitialized();
+            MaterialWeights.Apply();
+
             if (Utility.IsScenePlayable(sceneName))
             {
                 gameStarted = true;
@@ -40,6 +46,8 @@
 
         public override void OnUpdate()
         {
+            IndoorFeatures.OnUpdate();
+
             // MMB interacion
             if (Utility.GetKeyDown(KeyCode.Mouse2) && gameStarted)
             {

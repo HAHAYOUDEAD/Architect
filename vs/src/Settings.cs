@@ -4,19 +4,21 @@ using System.ComponentModel;
 
 namespace Architect
 {
+    // All texts are localization keys (Resources/Localization.json). ModSettings' description holder has its
+    // Localize flag inverted, so descriptions are given without it to be translated.
     internal class ArcModSettings : JsonModSettings
     {
-        [Section("Main settings")]
+        [Section("ARC_Set_Section_Main", Localize = true)]
 
-        [Name("Building menu key")]
-        [Description("Bring up radial menu to choose building parts from")]
+        [Name("ARC_Set_MenuKey", Localize = true)]
+        [Description("ARC_Set_MenuKey_Desc")]
         public KeyCode menuKey = KeyCode.B;
 
-        [Name("Drop yields")]
-        [Description("Drop yields from dismantling on the ground instead of straight to inventory")]
+        [Name("ARC_Set_DropYields", Localize = true)]
+        [Description("ARC_Set_DropYields_Desc")]
         public bool dropYields = false;
 
-        [Section("Nudge settings")]
+        [Section("ARC_Set_Section_Nudge", Localize = true)]
 
         /*
         [Name("Nudge direction")]
@@ -29,83 +31,118 @@ namespace Architect
         public int nudgeDirection = 0;
         */
 
-        [Name("Nudge amount")]
-        [Description("Distance in centimeters")]
+        [Name("ARC_Set_NudgeAmount", Localize = true)]
+        [Description("ARC_Set_NudgeAmount_Desc")]
         [Slider(1, 20)]
         public int nudgeAmount = 4;
 
-        [Name("Nudge right")]
-        [Description("\n\nDefault: Right Arrow")]
+        [Name("ARC_Set_NudgeRight", Localize = true)]
+        [Description("ARC_Set_NudgeRight_Desc")]
         public KeyCode nudgeXpKey = KeyCode.None;
 
-        [Name("Nudge left")]
-        [Description("\n\nDefault: Left Arrow")]
+        [Name("ARC_Set_NudgeLeft", Localize = true)]
+        [Description("ARC_Set_NudgeLeft_Desc")]
         public KeyCode nudgeXnKey = KeyCode.None;
 
-        [Name("Nudge forwards")]
-        [Description("\n\nDefault: Up Arrow")]
+        [Name("ARC_Set_NudgeForward", Localize = true)]
+        [Description("ARC_Set_NudgeForward_Desc")]
         public KeyCode nudgeZpKey = KeyCode.None;
 
-        [Name("Nudge backwards")]
-        [Description("\n\nDefault: Down Arrow")]
+        [Name("ARC_Set_NudgeBackward", Localize = true)]
+        [Description("ARC_Set_NudgeBackward_Desc")]
         public KeyCode nudgeZnKey = KeyCode.None;
 
-        [Name("Nudge up")]
-        [Description("\n\nDefault: Page Up")]
+        [Name("ARC_Set_NudgeUp", Localize = true)]
+        [Description("ARC_Set_NudgeUp_Desc")]
         public KeyCode nudgeYpKey = KeyCode.None;
 
-        [Name("Nudge down")]
-        [Description("\n\nDefault: Page Down")]
+        [Name("ARC_Set_NudgeDown", Localize = true)]
+        [Description("ARC_Set_NudgeDown_Desc")]
         public KeyCode nudgeYnKey = KeyCode.None;
 
-        [Section("Visual settings")]
+        [Section("ARC_Set_Section_Visual", Localize = true)]
 
-        [Name("Terrain blending")]
-        [Description("Allow snow texture to propogate onto structures\n\nWill only appear on the 'outside' part of every building piece\n\nWill still appear inside your house on certain occasions")]
+        [Name("ARC_Set_TerrainBlending", Localize = true)]
+        [Description("ARC_Set_TerrainBlending_Desc")]
         public bool terrainBlending = true;
 
-        [Name("Withering")]
-        [Description("Planks will become grey with time")]
+        [Name("ARC_Set_Withering", Localize = true)]
+        [Description("ARC_Set_Withering_Desc")]
         public bool woodWithering = true;
 
-        [Section("Performance settings (currently not implemented)")]
+        [Section("ARC_Indoor_Section", Localize = true)]
 
-        [Name("Building size limit")]
-        [Description("Limit how far to look when checking building integrity, in unity units")]
+        [Name("ARC_Indoor_FireFlicker", Localize = true)]
+        [Description("ARC_Indoor_FireFlicker_Desc")]
+        [Choice(new string[] { "ARC_Indoor_FireFlicker_Off", "ARC_Indoor_FireFlicker_Weak", "ARC_Indoor_FireFlicker_Auto", "ARC_Indoor_FireFlicker_Vanilla" }, Localize = true)]
+        public int indoorFireFlicker = 2;           // FireFlickerPatch.Mode
+
+        [Name("ARC_Indoor_Sound", Localize = true)]
+        [Description("ARC_Indoor_Sound_Desc")]
+        [Choice(new string[] { "ARC_Indoor_Sound_ByMaterial", "ARC_Indoor_Sound_Weak", "ARC_Indoor_Sound_Medium", "ARC_Indoor_Sound_Strong" }, Localize = true)]
+        public int indoorSoundLevel = 0;            // SoundInsulation.Level
+
+        [Name("ARC_Indoor_StrongerInBlizzard", Localize = true)]
+        [Description("ARC_Indoor_StrongerInBlizzard_Desc")]
+        public bool indoorStrongerInBlizzard = true;
+
+        [Name("ARC_Indoor_WindVolume", Localize = true)]
+        [Description("ARC_Indoor_WindVolume_Desc")]
+        [Slider(0, 100)]
+        public int indoorWindVolume = 100;          // percent
+
+        [Section("ARC_Balance_Section", Localize = true)]
+
+        [Name("ARC_Balance_Weight", Localize = true)]
+        [Description("ARC_Balance_Weight_Desc")]
+        [Choice(new string[] { "ARC_Balance_Weight_Architect", "ARC_Balance_Weight_Realistic" }, Localize = true)]
+        public int balanceMaterialWeight = 1;       // MaterialWeights.Mode
+
+        [Name("ARC_Balance_Cost", Localize = true)]
+        [Description("ARC_Balance_Cost_Desc")]
+        [Choice(new string[] { "ARC_Balance_Cost_Architect", "ARC_Balance_Cost_Adjusted" }, Localize = true)]
+        public int balanceBuildingCost = 1;         // BuildingCosts.Mode
+
+        [Section("ARC_Set_Section_Performance", Localize = true)]
+
+        [Name("ARC_Set_SizeLimit", Localize = true)]
+        [Description("ARC_Set_SizeLimit_Desc")]
         [Slider(10, 200)]
         public int interiorSearchLimit = 30;
 
-        [Name("Interior finder precision")]
-        [Description("1 is not very precise\n\n2 is ideal in most cases\n\n3 you should try if detection is not precise enough for your particular case")]
+        [Name("ARC_Set_FinderPrecision", Localize = true)]
+        [Description("ARC_Set_FinderPrecision_Desc")]
         [Slider(1, 3)]
         public int interiorFinderPrecision = 2;
 
 
-        [Section("Debug settings")]
+        [Section("ARC_Set_Section_Debug", Localize = true)]
 
-        [Name("Show debug info")]
-        [Description("Highlight tiles when calculating indoor volume, send other debug info to console")]
+        [Name("ARC_Set_DebugInfo", Localize = true)]
+        [Description("ARC_Set_DebugInfo_Desc")]
         public bool showDebugInfo = false;
 
 
-        [Section("Cheats for cheaters")]
+        [Section("ARC_Set_Section_Cheats", Localize = true)]
 
-        [Name("Building time multiplier")]
-        [Description("...")]
+        [Name("ARC_Set_BuildTime", Localize = true)]
+        [Description("ARC_Set_BuildTime_Desc")]
         [Slider(0, 2, 21)]
         public float buildingTimeMult = 1f;
 
-        [Name("No requirements")]
-        [Description("For testing purposes, will be removed when out of beta")]
+        [Name("ARC_Set_NoRequirements", Localize = true)]
+        [Description("ARC_Set_NoRequirements_Desc")]
         public bool noRequirements = false;
 
-        [Name("Campfires anywhere")]
-        [Description("Allow campfires on wooden floors")]
+        [Name("ARC_Set_CampfiresAnywhere", Localize = true)]
+        [Description("ARC_Set_CampfiresAnywhere_Desc")]
         public bool campfiresOnWood = false;
 
         protected override void OnConfirm()
         {
             base.OnConfirm();
+            MaterialWeights.Apply();
+            BuildingCosts.RefreshPlaced();
         }
     }
 
